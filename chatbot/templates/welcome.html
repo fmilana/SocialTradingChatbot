@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block head_title %}
+    <h2>Welcome!</h2>
+{% endblock %}
+
+{% block content %}
+    <br>
+    <p>Thank you for your interest in our study!</p>
+
+    <p>When you are ready, press &quot;start&quot;.</p>
+
+    <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="consentCheck">
+        <label class="form-check-label" for="consentCheck">I agree to the terms above</label>
+    </div>
+
+    <button class="btn btn-primary" id="startButton" disabled>Start</button>
+{% endblock %}
