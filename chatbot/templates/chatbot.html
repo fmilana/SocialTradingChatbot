@@ -1,15 +1,19 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
+
 {% block head_title %}
-  {{title}}
 {% endblock %}
 
 {% block content %}
-  <p>This is more {{title}} stuff</p>
 
-  {% if user.is_authenticated %}
-    {% for a in my_list %}
-      <li>{{a}}</li>
-    {% endfor %}
-  {% endif %}
+  <div class="row">
+    <div class="col-sm-4" id="portfolios">
+      <div class="row" id="followed"><p>followed</p></div>
+      <div class="row" id="not_followed"><p>not followed</p></div>
+    </div>
+    <div class="col-sm-4" id="chatbot"><p>chatbot</p></div>
+    <div class="col-sm-4" id="newsfeed"><p>newsfeed</p></div>
+  </div>
+
 {% endblock %}

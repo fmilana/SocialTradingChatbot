@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 
+<!-- {% load static %} -->
+{% load staticfiles %}
+{% block js_imports %}
+    <script src="{% static 'chatbot/js/welcome.js' %}"></script>
+{% endblock %}
+
 {% block head_title %}
     <h2>Welcome!</h2>
 {% endblock %}
