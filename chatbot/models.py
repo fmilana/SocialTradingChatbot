@@ -3,14 +3,14 @@ from django.contrib.auth.models import User
 
 
 class Profile(models.Model):
-    image = models.ImageField()
-    name = models.TextField()
+    name = models.TextField(null=False)
     gender = models.TextField()
 
 
 class Portfolio(models.Model):
     profile = models.ForeignKey('Profile', null=True, on_delete=models.CASCADE)
     followed = models.BooleanField(default=False)
+    risk = models.IntegerField(null=False)
     invested = models.DecimalField(max_digits=6, decimal_places=2)
     lastChange = models.DecimalField(max_digits=5, decimal_places=2)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

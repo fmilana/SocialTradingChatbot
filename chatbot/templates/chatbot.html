@@ -1,15 +1,33 @@
 {% extends "base.html" %}
 
-{% load staticfiles %}
+{% load static from staticfiles %}
 
-{% block head_title %}
-{% endblock %}
+<link rel="stylesheet" href="{% static '/chatbot/css/style.css' %}">
 
 {% block content %}
 
   <div class="row">
     <div class="col-sm-4" id="portfolios">
-      <div class="row" id="followed"><p>followed</p></div>
+      <div class="row" id="followed">
+        <p>followed</p>
+        {% for followed_portfolio in followed_portfolios %}
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src= "{% static 'chatbot/images/profiles/'%}{{ followed_portfolio.profile.name }}.jpg" alt="{{ followed_portfolio.profile.name }} image">
+            <div class="card-body">
+              <h5 class="card-title"> {{ followed_portfolio.profile.name }} </h5>
+              <h6 class="card-subtitle mb-2 text-muted"> £{{ followed_portfolio.invested}} </h6>
+
+              {% if followed_portfolio.lastChange >= 0 %}
+                <p class="card-text"><span style="color: #41CE00"><b>+{{ followed_portfolio.lastChange }}%</b></span> last 12 months.</p>
+              {% else %}
+                <p class="card-text"><span style="color: #FF0000"><b>{{ followed_portfolio.lastChange }}%</b></span> last 12 months.</p>
+              {% endif %}
+              <a href="#" class="card-link">Unfollow</a>
+            </div>
+          </div>
+            <!-- <p> {{ followed_portfolio.profile.name }} </p> -->
+        {% endfor %}
+      </div>
       <div class="row" id="not_followed"><p>not followed</p></div>
     </div>
     <div class="col-sm-4" id="chatbot"><p>chatbot</p></div>
