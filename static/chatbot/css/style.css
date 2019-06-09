@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600');
+
+
+body {
+  background: #dedfe1;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.content-container {
+  margin: 15px;
+}
+
+h5 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.followed-portfolio-wrapper {
+  padding: 5px;
+}
+
+.not-followed-portfolio-wrapper {
+  padding: 5px;
+}
+
+.container-portfolio {
+  width: 300px;
+  height: 112px;
+  background: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.img-container {
+  width: 33%;
+  height: 100%;
+  float: left;
+  padding: 5px;
+}
+
+.img-container img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.content-portfolio {
+  width: 60%;
+  height: 100%;
+  float: left;
+  box-sizing: border-box;
+  margin-left: 5px;
+}
+
+.head {
+  /* padding-bottom: 30px; */
+  text-align: left;
+  margin-left: 10px;
+}
+
+.head p {
+  font-size: 16px;
+  /* color: #444444; */
+  font-weight: 600;
+  margin-bottom: 0px;
+}
+
+.data {
+  width: 90%;
+  overflow: hidden;
+}
+
+.inner-data {
+  width: 100%;
+  text-align: left;
+  margin-left: 10px;
+  font-size: 15px;
+}
+
+.inner-data p {
+  margin-bottom: 0rem;
+}

@@ -2,36 +2,86 @@
 
 {% load static from staticfiles %}
 
-<link rel="stylesheet" href="{% static '/chatbot/css/style.css' %}">
-
 {% block content %}
 
-  <div class="row">
-    <div class="col-sm-4" id="portfolios">
-      <div class="row" id="followed">
-        <p>followed</p>
-        {% for followed_portfolio in followed_portfolios %}
-          <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src= "{% static 'chatbot/images/profiles/'%}{{ followed_portfolio.profile.name }}.jpg" alt="{{ followed_portfolio.profile.name }} image">
-            <div class="card-body">
-              <h5 class="card-title"> {{ followed_portfolio.profile.name }} </h5>
-              <h6 class="card-subtitle mb-2 text-muted"> £{{ followed_portfolio.invested}} </h6>
+<link rel="stylesheet" href="{% static 'chatbot/css/style.css' %}">
 
-              {% if followed_portfolio.lastChange >= 0 %}
-                <p class="card-text"><span style="color: #41CE00"><b>+{{ followed_portfolio.lastChange }}%</b></span> last 12 months.</p>
-              {% else %}
-                <p class="card-text"><span style="color: #FF0000"><b>{{ followed_portfolio.lastChange }}%</b></span> last 12 months.</p>
-              {% endif %}
-              <a href="#" class="card-link">Unfollow</a>
+  <div class="content-container">
+    <div class="row">
+      <div class="col-4" id="portfolios">
+        <h2>Portfolios</h2>
+        <h5>Followed</h5>
+
+        <div class="row">
+          {% for followed_portfolio in followed_portfolios %}
+            <div class="followed-portfolio-wrapper">
+              <div class="container-portfolio">
+                <div class="img-container">
+                  <img class="card-img"
+                  src= "{% static 'chatbot/images/profiles/'%}{{ followed_portfolio.profile.name }}.jpg"
+                  alt="{{ followed_portfolio.profile.name }} image">
+                </div>
+
+                <div class="content-portfolio">
+                  <div class="head">
+                      <p>{{ followed_portfolio.profile.name }}</p>
+                  </div>
+                  <div class="data">
+                    <div class="inner-data">
+                      {% if followed_portfolio.lastChange >= 0 %}
+                        <p class="last-change"><span class="last-change" style="color: #41CE00"><b>+{{ followed_portfolio.lastChange }}%</b></span> last month.</p>
+                      {% else %}
+                        <p class="last-change"><span class="last-change" style="color: #FF0000"><b>{{ followed_portfolio.lastChange }}%</b></span> last month.</p>
+                      {% endif %}
+                      <p class="risk">Risk: {{ followed_portfolio.risk }}</p>
+                      <p class="amount">Amount: £{{ followed_portfolio.invested}} </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+          {% endfor %}
+        </div>
+
+        <h5>Not followed</h5>
+          <div class="row">
+            {% for not_followed_portfolio in not_followed_portfolios %}
+              <div class="not-followed-portfolio-wrapper">
+                <div class="container-portfolio">
+                  <div class="img-container">
+                    <img class="card-img"
+                    src= "{% static 'chatbot/images/profiles/'%}{{ not_followed_portfolio.profile.name }}.jpg"
+                    alt="{{ not_followed_portfolio.profile.name }} image">
+                  </div>
+
+                  <div class="content-portfolio">
+                    <div class="head">
+                        <p>{{ not_followed_portfolio.profile.name }}</p>
+                    </div>
+                    <div class="data">
+                      <div class="inner-data">
+                        {% if not_followed_portfolio.lastChange >= 0 %}
+                          <p class="last-change"><span class="last-change" style="color: #41CE00"><b>+{{ not_followed_portfolio.lastChange }}%</b></span> last month.</p>
+                        {% else %}
+                          <p class="last-change"><span class="last-change" style="color: #FF0000"><b>{{ not_followed_portfolio.lastChange }}%</b></span> last month.</p>
+                        {% endif %}
+                        <p class="risk">Risk: {{ not_followed_portfolio.risk }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
           </div>
-            <!-- <p> {{ followed_portfolio.profile.name }} </p> -->
-        {% endfor %}
       </div>
-      <div class="row" id="not_followed"><p>not followed</p></div>
+
+      <div class="col-4" id="chatbot">
+        <h2>Chatbot</h2>
+      </div>
+      <div class="col-4" id="newsfeed">
+        <h2>Newsfeed</h2>
+      </div>
     </div>
-    <div class="col-sm-4" id="chatbot"><p>chatbot</p></div>
-    <div class="col-sm-4" id="newsfeed"><p>newsfeed</p></div>
   </div>
 
 {% endblock %}

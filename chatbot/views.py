@@ -11,7 +11,10 @@ def welcome_page(request):
 
 
 def chatbot_page(request):
-    context = {'followed_portfolios': Portfolio.objects.filter(followed=True)}
+    context = {
+        'followed_portfolios': Portfolio.objects.filter(followed=True),
+        'not_followed_portfolios': Portfolio.objects.filter(followed=False)
+    }
 
     print("view called")
 
@@ -23,10 +26,3 @@ def chatbot_page(request):
 
 def imagetagging_page(request):
     return render(request, 'imagetagging.html')
-
-# def example_page(request):
-#     # context = {"title":"Example"}
-#     template_name = "home.html"
-#     template_obj = get_template(template_name)
-#
-#     return HttpResponse(template_obj.render(context))
