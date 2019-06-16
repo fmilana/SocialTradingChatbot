@@ -16,10 +16,16 @@ class Portfolio(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
-class NewsPost(models.Model):
+class Newspost(models.Model):
     profile = models.ForeignKey('Profile', null=True, on_delete=models.PROTECT)
     text = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def asJson(self):
+        return dict(
+            profile=self.profile,
+            text=self.text,
+            user=self.user)
 
 
 class Balance(models.Model):

@@ -1,6 +1,18 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
 {% load static from staticfiles %}
+{% load static %}
+
+{% load chatbot_filters %}
+
+{% block js_imports %}
+    <script>
+      var staticUrl = '{% static "" %}';
+      console.log(staticUrl);
+    </script>
+    <script src="{% static 'chatbot/js/chatbot.js' %}"></script>
+{% endblock %}
 
 {% block content %}
 
@@ -14,12 +26,17 @@
 
         <div class="row">
           {% for followed_portfolio in followed_portfolios %}
-            <div class="followed-portfolio-wrapper">
+            <div class="wrapper-followed-portfolio">
               <div class="container-portfolio">
-                <div class="img-container">
+                <div class="img-container-portfolio">
+
+                  {% with index=followed_portfolio.profile.id|subtract %}
+
                   <img class="card-img"
-                  src= "{% static 'chatbot/images/profiles/'%}{{ followed_portfolio.profile.name }}.jpg"
+                  src= "{% static 'chatbot/images/profiles/'%}{{ image_names|get_at_index:index }}"
                   alt="{{ followed_portfolio.profile.name }} image">
+
+                  {% endwith %}
                 </div>
 
                 <div class="content-portfolio">
@@ -46,12 +63,17 @@
         <h5>Not followed</h5>
           <div class="row">
             {% for not_followed_portfolio in not_followed_portfolios %}
-              <div class="not-followed-portfolio-wrapper">
+              <div class="wrapper-not-followed-portfolio">
                 <div class="container-portfolio">
-                  <div class="img-container">
+                  <div class="img-container-portfolio">
+
+                    {% with index=not_followed_portfolio.profile.id|subtract %}
+
                     <img class="card-img"
-                    src= "{% static 'chatbot/images/profiles/'%}{{ not_followed_portfolio.profile.name }}.jpg"
+                    src= "{% static 'chatbot/images/profiles/'%}{{ image_names|get_at_index:index }}"
                     alt="{{ not_followed_portfolio.profile.name }} image">
+
+                    {% endwith %}
                   </div>
 
                   <div class="content-portfolio">
@@ -78,8 +100,18 @@
       <div class="col-4" id="chatbot">
         <h2>Chatbot</h2>
       </div>
+
       <div class="col-4" id="newsfeed">
         <h2>Newsfeed</h2>
+        <h5>Predictions not always accurate</h5>
+        <div class="scrollable-newsposts">
+
+          <script>
+            var profiles_list = '{{ profiles }}';
+            var newsposts_list = '{{ newsposts }}';
+
+          </script>
+        </div>
       </div>
     </div>
   </div>
