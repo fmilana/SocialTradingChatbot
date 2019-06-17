@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.conf.urls import url
 
 from .views import (
     welcome_page,
@@ -23,8 +23,8 @@ from .views import (
     )
 
 urlpatterns = [
-    path('', welcome_page),
-    path('chatbot/', chatbot_page),
-    path('image-tagging/', imagetagging_page),
-    path('admin/', admin.site.urls),
+    url(r'^$', welcome_page, name='welcome'),
+    url(r'^chatbot/$', chatbot_page, name='chatbot'),
+    url(r'^imagetagging/$', imagetagging_page, name='imagetagging'),
+    url(r'^admin/', admin.site.urls),
 ]
