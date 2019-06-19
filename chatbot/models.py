@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Sum
 
 
 class Profile(models.Model):
@@ -29,13 +30,21 @@ class Newspost(models.Model):
 
 
 class Balance(models.Model):
-    amount = models.DecimalField(max_digits=6, decimal_places=2)
+    # amount = models.DecimalField(max_digits=6, decimal_places=2)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    @property
+    def amount(self):
+        return 1000 - InvestedBalance.objects.first().amount
 
 
 class InvestedBalance(models.Model):
     amount = models.DecimalField(max_digits=6, decimal_places=2)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    # @property
+    # def amount(self):
+    #     return Portfolio.objects.filter(followed=True).aggregate(Sum(invested))
 
 
 class Month(models.Model):

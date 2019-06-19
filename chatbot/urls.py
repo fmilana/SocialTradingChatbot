@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url
+from django.urls import include
+
 
 from .views import (
     welcome_page,
@@ -26,5 +28,6 @@ urlpatterns = [
     url(r'^$', welcome_page, name='welcome'),
     url(r'^chatbot/$', chatbot_page, name='chatbot'),
     url(r'^imagetagging/$', imagetagging_page, name='imagetagging'),
+    url(r'^imagetagging/', include('imagetagging.urls'), name='imagetagging'),
     url(r'^admin/', admin.site.urls),
 ]

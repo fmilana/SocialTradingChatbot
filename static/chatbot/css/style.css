@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600');
 
+
 body {
   background: #dedfe1;
   font-family: 'Open Sans', sans-serif;
@@ -129,4 +130,25 @@ h5 {
   box-sizing: border-box;
   padding-top: 32px;
   margin-left: 5px;
+}
+
+
+
+/* image tagging */
+#image-tagging-area {
+  display: inline-block;
+  position: relative;
+  width: 50%;
+}
+
+.img-fluid {
+  width: 100%;
+}
+
+.btn-next-image {
+  margin-top: 20px;
+  margin-right: 15px;
+  position:absolute;
+  bottom: 0;
+  right: 0;
 }

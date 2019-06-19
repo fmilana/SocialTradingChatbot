@@ -1,8 +1,49 @@
-{% extends "base.html" %}
-
+{% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
+
+{% block js_imports %}
+    <script>
+      window.IMG_URL = "{% static 'imagetagging/images/' %}";
+      server_url = 'http://{{ request.get_host }}';
+    </script>
+    <script src="{% static 'imagetagging/js/imagetagging.js' %}"></script>
+{% endblock %}
 
 {% block content %}
   <link rel="stylesheet" href="{% static 'chatbot/css/style.css' %}">
-  <p>This is more stuff</p>
+  <div id="image-tagging-area" class="col-9">
+    <div class="card tagging">
+      <div class="card-header">
+        <h5>Please provide 3 unique tags for the image below.</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <div class="row">
+              <div class="col-6">
+                <img class="img-fluid" src="">
+              </div>
+              <div class="col-6">
+                <div class="card-text">
+                  <p>Tags found so far:
+                  <span class="found-tags-list">
+                    <span class="found-tag">example tag.</span>
+                  </span></p>
+                </div>
+                <div class="input-group">
+                  <input type="text" class="form-control input-tag" placeholder="please enter a tag" data-container="body" data-toggle="popover"
+                    data-placement="left" data-content="incorrect tag" data-trigger="focus">
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-warning btn-check-tag">Check Tag</button>
+                  </span>
+                </div>
+                <button type="button" class="btn btn-primary btn-next-image">Go to the next image</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
