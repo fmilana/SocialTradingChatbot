@@ -4,7 +4,7 @@ from django.template.loader import get_template
 
 # from.django.core import serializers
 from django.contrib.auth.models import User
-from .models import Profile, Portfolio, Newspost, Balance, InvestedBalance
+from .models import Profile, Portfolio, Newspost, Balance, InvestedBalance, Month
 
 from django.core import serializers
 
@@ -21,6 +21,7 @@ def chatbot_page(request):
         image_names.append(profile.name.replace(' ', '-') + ".jpg")
 
     context = {
+        'month_number': Month.objects.first().number,
         'available_balance_amount': Balance.objects.first().amount,
         'invested_balance_amount': InvestedBalance.objects.first().amount,
         'image_names': image_names,
