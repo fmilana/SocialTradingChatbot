@@ -29,7 +29,7 @@
 ## give general advice
 * ask_general_advice
   - utter_general_advice
-  
+
 ## give follow advice
 * ask_follow_advice
   - action_give_following_advice
@@ -37,3 +37,11 @@
 ## give unfollow advice
 * ask_unfollow_advice
   - action_give_unfollowing_advice
+
+## follow
+* follow
+  - action_follow
+
+## unfollow
+* unfollow
+  - action_unfollow

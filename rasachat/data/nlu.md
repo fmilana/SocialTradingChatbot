@@ -62,4 +62,18 @@
 - who should I stop following?
 
 ## intent:follow
-- follow
+- follow [Kanya Bunnag](name)
+- start following [Andrzej Kraviec](name)
+- I want to follow [Florianne Paget](name)
+- I would like to follow [Paulinho Simoes](name)
+- I want to start following [Alois Reiter](name)
+
+## intent:unfollow
+- unfollow [Aricka Lewis](name)
+- stop following [Masami Nishimura](name)
+- I want to unfollow [Benjamin Parker](name)
+- I would like to unfollow [William Shore](name)
+- I want to stop following [Andrzej Kraviec](name)
+
+## lookup:name
+data\\names\\names.txt

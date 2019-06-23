@@ -1,5 +1,5 @@
 entities:
-  - profile_name
+  - name
 
 intents:
   - greet
@@ -21,6 +21,8 @@ actions:
 - utter_general_advice
 - action_give_following_advice
 - action_give_unfollowing_advice
+- action_follow
+- action_unfollow
 
 templates:
   utter_greet:

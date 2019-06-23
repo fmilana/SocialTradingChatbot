@@ -18,8 +18,9 @@ sys.path.insert(0, 'C:\\Users\\feder\\chatbot')
 import os, django
 os.environ["DJANGO_SETTINGS_MODULE"] = 'chatbot.settings'
 django.setup()
-from chatbot.models import Portfolio
+from chatbot.models import Portfolio, Profile
 
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.aggregates import Count
 from random import randint
 
@@ -86,3 +87,63 @@ class ActionGiveUnfollowingAdvice(Action):
         dispatcher.utter_message(message)
 
         return []
+
+
+class Follow(Action):
+
+    def name(self) -> Text:
+        return "action_follow"
+
+    def run(self, dispatcher, tracker, domain):
+        try:
+            profile_name = tracker.latest_message['entities'][0]['value']
+
+            print("NAME=================> " + profile_name)
+
+
+            profile_object = Profile.objects.get(name__icontains=profile_name)
+            portfolio = Portfolio.objects.get(profile=profile_object.id)
+
+            if portfolio.followed:
+                message = "You are already following " + profile_name + "."
+            else:
+                portfolio.followed = True
+                portfolio.save()
+                message = "You are now following " + profile_name + "."
+
+        except IndexError:
+            message = ("Sorry, I can't find that portfolio. Have you spelt the name correctly?")
+
+        dispatcher.utter_message(message)
+
+        return[]
+
+
+class Unfollow(Action):
+
+    def name(self) -> Text:
+        return "action_unfollow"
+
+    def run(self, dispatcher, tracker, domain):
+        try:
+            profile_name = tracker.latest_message['entities'][0]['value']
+
+            print("NAME1=================> " + profile_name)
+
+
+            profile_object = Profile.objects.get(name__icontains=profile_name)
+            portfolio = Portfolio.objects.get(profile=profile_object.id)
+
+            if not portfolio.followed:
+                message = "You are not following " + profile_name + " at the moment."
+            else:
+                portfolio.followed = False
+                portfolio.save()
+                message = "You have stopped following " + profile_name + "."
+
+        except IndexError:
+            message = ("Sorry, I can't find that portfolio. Have you spelt the name correctly?")
+
+        dispatcher.utter_message(message)
+
+        return[]
