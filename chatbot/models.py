@@ -39,7 +39,7 @@ class InvestedBalance(models.Model):
 
     @property
     def amount(self):
-        return Portfolio.objects.filter(followed=True).aggregate(Sum('invested')).get('invested__sum')
+        return round(Portfolio.objects.filter(followed=True).aggregate(Sum('invested')).get('invested__sum'), 2)
 
 
 class Month(models.Model):

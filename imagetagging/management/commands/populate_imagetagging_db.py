@@ -24,10 +24,10 @@ class Command(BaseCommand):
         Tag.objects.all().delete()
         ImageTask.objects.all().delete()
 
-        # if User.objects.filter(is_superuser=True).exists():
-        #     superuser = User.objects.filter(is_superuser=True)[0]
-        # else:
-        superuser = User.objects.create_superuser('groundtruth', email='', password='password')
+        if User.objects.filter(is_superuser=True).exists():
+            superuser = User.objects.filter(is_superuser=True)[0]
+        else:
+            superuser = User.objects.create_superuser('groundtruth', email='', password='password')
 
         for filename in options['csv_file']:
             print('filename:', filename)
