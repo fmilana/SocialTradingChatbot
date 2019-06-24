@@ -157,3 +157,21 @@ h5 {
   bottom: 0;
   right: 0;
 }
+
+
+
+
+/* chat */
+#chat-div {
+  width: 70%;
+  display: inline-block;
+}
+
+/* #chat-input {
+  display: inline-block;
+  width: 85%;
+}
+
+#send {
+  float: right;
+} */

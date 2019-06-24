@@ -1,8 +1,8 @@
-# from rasa_core.agent import Agent
-# from rasa_core.channels.socketio import SocketIOInput
+# from rasa.core.agent import Agent
+# from rasa.core.channels.socketio import SocketIOInput
 #
 # # load your trained agent
-# agent = Agent.load('models/dialogue', interpreter='models/current/nlu')
+# agent = Agent.load('models')
 #
 # input_channel = SocketIOInput(
 #     # event name for messages sent from the user
@@ -14,4 +14,4 @@
 # )
 #
 # # set serve_forever=False if you want to keep the server running
-# s = agent.handle_channels([input_channel], 5500, serve_forever=True)
+# s = agent.handle_channels([input_channel], 5500)

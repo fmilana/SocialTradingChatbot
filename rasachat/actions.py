@@ -18,12 +18,12 @@ sys.path.insert(0, 'C:\\Users\\feder\\chatbot')
 import os, django
 os.environ["DJANGO_SETTINGS_MODULE"] = 'chatbot.settings'
 django.setup()
-from chatbot.models import Portfolio, Profile
+from chatbot.models import Portfolio, Profile, Balance, InvestedBalance
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.aggregates import Count
 from random import randint
-
+from django.db.models import Sum
 
 # class ActionHelloWorld(Action):
 #
@@ -98,17 +98,20 @@ class Follow(Action):
         try:
             profile_name = tracker.latest_message['entities'][0]['value']
 
-            print("NAME=================> " + profile_name)
-
-
             profile_object = Profile.objects.get(name__icontains=profile_name)
             portfolio = Portfolio.objects.get(profile=profile_object.id)
 
             if portfolio.followed:
                 message = "You are already following " + profile_name + "."
             else:
+                balance = Balance.objects.first()
+                balance.amount -= 50
+                balance.save()
+
                 portfolio.followed = True
+                portfolio.invested = 50
                 portfolio.save()
+                print(Portfolio.objects.filter(followed=True).aggregate(Sum('invested')).get('invested__sum'))
                 message = "You are now following " + profile_name + "."
 
         except IndexError:
@@ -128,17 +131,20 @@ class Unfollow(Action):
         try:
             profile_name = tracker.latest_message['entities'][0]['value']
 
-            print("NAME1=================> " + profile_name)
-
-
             profile_object = Profile.objects.get(name__icontains=profile_name)
             portfolio = Portfolio.objects.get(profile=profile_object.id)
 
             if not portfolio.followed:
                 message = "You are not following " + profile_name + " at the moment."
             else:
+                balance = Balance.objects.first()
+                balance.amount += portfolio.invested
+                balance.save()
+
                 portfolio.followed = False
+                portfolio.invested = 0.00
                 portfolio.save()
+
                 message = "You have stopped following " + profile_name + "."
 
         except IndexError:

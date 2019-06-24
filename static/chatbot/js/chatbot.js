@@ -33,3 +33,37 @@ var updateNewsposts = setInterval(function() {
 
   newspostCounter++;
 }, 1000);
+
+
+
+
+// chat
+$(document).ready(function() {
+
+	var mybot = '<div class="chatCont" id="chatCont">'+
+								'<div id="result_div" class="resultDiv"></div>'+
+								'<div class="chatForm" id="chat-div">'+
+									'<input type="text" class="col-10" id="chat-input" autocomplete="off" placeholder="Type something..."'+ 'class="form-control bot-txt"/>'+
+									'<button id="send" class="col-2">send</button>' +
+								'</div>'+
+							'</div>';
+
+	$("mybot").html(mybot);
+
+	// ------------------------------------------ Toggle chatbot -----------------------------------------------
+	// $('.profile_div').click(function() {
+	// 	$('.profile_div').toggle();
+	// 	$('.chatCont').toggle();
+	// 	$('.bot_profile').toggle();
+	// 	$('.chatForm').toggle();
+	// 	document.getElementById('chat-input').focus();
+	// });
+  //
+	// $('.close').click(function() {
+	// 	$('.profile_div').toggle();
+	// 	$('.chatCont').toggle();
+	// 	$('.bot_profile').toggle();
+	// 	$('.chatForm').toggle();
+	// });
+
+});

@@ -76,4 +76,12 @@
 - I want to stop following [Andrzej Kraviec](name)
 
 ## lookup:name
-data\\names\\names.txt
+- Andrzej Kraviec
+- Aricka Lewis
+- Benjamin Parker
+- Florianne Paget
+- Kanya Bunnag
+- Masami Nishimura
+- Paulinho Simoes
+- Ralph Axelsen
+- William Shore
