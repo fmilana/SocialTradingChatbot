@@ -10,6 +10,9 @@ from .djutils import to_dict, log_request
 from .forms import TagForm
 from .models import Tag, ImageTask
 # from study.models import Participant
+
+from chatbot.models import Balance
+
 import json
 
 
@@ -73,6 +76,11 @@ def tags(request):
     correct_count = Tag.objects.filter(image_task=tag.image_task, user=request.user, correct=True).count()
     if correct_count == 3:
         response['complete'] = True
+
+        # reward_amount = 5.00
+        # balance = Balance.objects.first()
+        # balance.amount += reward_amount
+        # balance.save()
 
         # increment the participant's earned
         # participant = Participant.objects.get(user=request.user)

@@ -8450,7 +8450,7 @@ $(document).ready(function() {
 
 	function appendBotMessage(data) {
 		var message = data['text'];
-		$("#result_div").append("<strong>BOTMESSAGE: </strong>" + message + "<br>");
+		$("#result_div").append("<strong>BOT: </strong>" + message + "<br>");
 	}
 
 	// console log when socket connects to port 5500
@@ -8464,9 +8464,9 @@ $(document).ready(function() {
 		const chatInput = $("#chat-input").val();
 		console.log(chatInput);
 		if (chatInput) {
-			socket.emit('user_uttered', {'message': chatInput, 'sender': 'rasa'})
-			$("#result_div").append("<strong>USERMESSAGE:</strong> " + chatInput + "<br>")
-			$("#chat-input").val('')
+			socket.emit('user_uttered', {'message': chatInput, 'sender': 'rasa'});
+			$("#result_div").append("<strong>USER:</strong> " + chatInput + "<br>");
+			$("#chat-input").val('');
 		}
 	};
 

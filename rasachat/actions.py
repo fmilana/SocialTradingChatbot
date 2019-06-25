@@ -25,19 +25,6 @@ from django.db.models.aggregates import Count
 from random import randint
 from django.db.models import Sum
 
-# class ActionHelloWorld(Action):
-#
-#     def name(self) -> Text:
-#         return "action_hello_world"
-#
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-#
-#         dispatcher.utter_message("Hello World!")
-#
-#         return []
-
 
 class ActionGiveFollowingAdvice(Action):
 
@@ -153,3 +140,14 @@ class Unfollow(Action):
         dispatcher.utter_message(message)
 
         return[]
+# 
+#
+# class UpdatePortfolios(Action):
+#
+#     def name(self) -> Text:
+#         return "update_portfolios"
+#
+#     def run(self, dispatcher, tracker, domain):
+#
+#
+#         return[]

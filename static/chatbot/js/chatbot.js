@@ -1,7 +1,32 @@
-var newspostCounter = 0;
+// timer
+$(document).ready(function() {
+  var _seconds_left = 600;
+
+  var update_timer = function () {
+      var seconds,
+          minutes,
+          html;
+      _seconds_left -= 1;
+      if (_seconds_left < 1) {
+          _seconds_left = 600;
+      }
+      minutes = Math.floor(_seconds_left / 60);
+      minutes = minutes.toLocaleString('en', {'minimumIntegerDigits': 2});
+      seconds = _seconds_left % 60;
+      seconds = seconds.toLocaleString('en', {'minimumIntegerDigits': 2});
+      text = minutes + ':' + seconds;
+      $('#timer').text(text);
+  };
+
+  window.setInterval(update_timer, 1000);
+  update_timer();
+});
+
 
 var newsposts = JSON.parse(newsposts_list.replace(/&quot;/g, '"'));
 var profiles = JSON.parse(profiles_list.replace(/&quot;/g, '"'));
+
+var newspostCounter = 0;
 
 var updateNewsposts = setInterval(function() {
 
@@ -32,7 +57,7 @@ var updateNewsposts = setInterval(function() {
   $('.scrollable-newsposts').scrollTop($('.scrollable-newsposts')[0].scrollHeight);
 
   newspostCounter++;
-}, 1000);
+}, 5000);
 
 
 

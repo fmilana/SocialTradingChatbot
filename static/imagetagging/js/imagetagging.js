@@ -1,7 +1,6 @@
 $(function () {
 
-    var _task,
-        _seconds_left;
+    var _task
 
     var render_tagging_task = function () {
         // var image_url = server_url + '/imagetagging/static/' + _task.image_url;
@@ -112,8 +111,5 @@ $(function () {
         return cookieValue;
     };
 
-
-
-    console.log('ABOUT TO CALL LOAD_TAGGING_TASK');
     load_tagging_task();
 });
