@@ -27,9 +27,9 @@
         <h2>Portfolios</h2>
         <h5>Followed</h5>
 
-        <div class="row">
+        <div class="row row-portfolio">
           {% for followed_portfolio in followed_portfolios %}
-            <div class="wrapper-followed-portfolio">
+            <div class="wrapper-portfolio">
               <div class="container-portfolio">
                 <div class="img-container-portfolio">
 
@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="content-portfolio">
-                  <div class="head">
+                  <div class="head-portfolio">
                       <p>{{ followed_portfolio.profile.name }}</p>
                   </div>
                   <div class="data">
@@ -64,9 +64,9 @@
         </div>
 
         <h5>Not followed</h5>
-          <div class="row">
+          <div class="row row-portfolio">
             {% for not_followed_portfolio in not_followed_portfolios %}
-              <div class="wrapper-not-followed-portfolio">
+              <div class="wrapper-portfolio">
                 <div class="container-portfolio">
                   <div class="img-container-portfolio">
 
@@ -80,7 +80,7 @@
                   </div>
 
                   <div class="content-portfolio">
-                    <div class="head">
+                    <div class="head-portfolio">
                         <p>{{ not_followed_portfolio.profile.name }}</p>
                     </div>
                     <div class="data">

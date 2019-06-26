@@ -45,8 +45,8 @@ var updateNewsposts = setInterval(function() {
         <img class="card-img" src= "' + staticUrl + 'chatbot/images/profiles/' +  name.replace(' ', '-') + '.jpg" alt="' + name + ' image"> \
       </div> \
       <div class="content-newspost"> \
-        <div class="head"> \
-            <p>' + text + '</p> \
+        <div> \
+            <p id="text-newspost"><strong>' + text + '</strong></p> \
         </div> \
       </div> \
     </div> \
