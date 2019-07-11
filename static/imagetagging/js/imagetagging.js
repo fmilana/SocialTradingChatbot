@@ -77,6 +77,7 @@ $(function () {
                 }
                 if (response.complete) {
                     // load_results();
+                    $('#available-balance-amount').html(response.balance);
                 }
             }
         });

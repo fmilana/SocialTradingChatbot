@@ -21,14 +21,16 @@ from django.urls import include
 from .views import (
     welcome_page,
     chatbot_page,
+    update_month,
+    # update_followed,
     # imagetagging_page,
     )
 
 urlpatterns = [
     url(r'^$', welcome_page, name='welcome'),
     url(r'^chatbot/$', chatbot_page, name='chatbot'),
-    # url(r'^imagetagging/$', imagetagging_page, name='imagetagging'),
-    # url(r'^imagetagging/', include('imagetagging.urls'), name='imagetagging'),
     url(r'^imagetagging/', include('imagetagging.urls'), name='imagetagging'),
+    url(r'^updatemonth/', update_month, name='updatemonth'),
+    # url(r'^updatefollowed/', update_followed, name='updatefollowed'),
     url(r'^admin/', admin.site.urls),
 ]

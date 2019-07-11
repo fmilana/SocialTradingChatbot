@@ -8,6 +8,8 @@ from .models import Profile, Portfolio, Newspost, Balance, InvestedBalance, Mont
 
 from django.core import serializers
 
+import json
+
 
 def welcome_page(request):
     return render(request, 'welcome.html')
@@ -41,3 +43,28 @@ def imagetagging_page(request):
         }
 
     return render(request, 'imagetagging.html', context)
+
+
+def update_month(request):
+    month = Month.objects.first()
+
+    if month.number < 5:
+        month.number += 1
+        month.save()
+
+        response = {'increased': True, 'month': str(month.number)}
+    else:
+        response = {'increased': False}
+
+    return HttpResponse(json.dumps(response), content_type="application/json")
+
+
+# def update_followed(request):
+#     print('update_followed called')
+#
+#     followed_portfolios = Portfolio.objects.filter(followed=True)
+#     not_followed_portfolios = Portfolio.objects.filter(followed=False)
+#
+#     response = {'followed': followed_portfolios, 'not_followed': not_followed_portfolios}
+#
+#     return HttpResponse(json.dumps(response), content_type="application/json")

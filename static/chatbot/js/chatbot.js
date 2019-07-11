@@ -1,14 +1,42 @@
-// timer
 $(document).ready(function() {
-  var _seconds_left = 600;
+  var isPaused = false;
+
+  var _seconds_left = 5;
 
   var update_timer = function () {
+    if (!isPaused) {
       var seconds,
           minutes,
           html;
       _seconds_left -= 1;
       if (_seconds_left < 1) {
-          _seconds_left = 600;
+          _seconds_left = 300;
+
+          isPaused = true;
+
+          $('#myModal').modal({
+            backdrop: 'static',
+            keyboard: false
+          });
+
+          $.ajax({
+              type: "GET",
+              url: server_url + '/updatemonth/',
+              success: function (response) {
+                  console.log(response);
+                  if (response.increased) {
+
+                    $('#month-number').html(response.month);
+
+                  } else {
+
+                  }
+              }
+          });
+
+          $('#ok-button').on('click', function() {
+            isPaused = false;
+          });
       }
       minutes = Math.floor(_seconds_left / 60);
       minutes = minutes.toLocaleString('en', {'minimumIntegerDigits': 2});
@@ -16,49 +44,54 @@ $(document).ready(function() {
       seconds = seconds.toLocaleString('en', {'minimumIntegerDigits': 2});
       text = minutes + ':' + seconds;
       $('#timer').text(text);
+    } else {
+      console.log("IS PAUSED");
+    }
   };
 
   window.setInterval(update_timer, 1000);
   update_timer();
-});
 
 
-var newsposts = JSON.parse(newsposts_list.replace(/&quot;/g, '"'));
-var profiles = JSON.parse(profiles_list.replace(/&quot;/g, '"'));
 
-var newspostCounter = 0;
+  var newsposts = JSON.parse(newsposts_list.replace(/&quot;/g, '"'));
+  var profiles = JSON.parse(profiles_list.replace(/&quot;/g, '"'));
 
-var updateNewsposts = setInterval(function() {
+  var newspostCounter = 0;
 
-  if (newspostCounter > 8) {
-    clearInterval(updateNewsposts);
-  }
+  var updateNewsposts = setInterval(function() {
 
-  var newspost = newsposts[newspostCounter];
-  var profile = profiles[newspost.fields.profile - 1];
-  var name = profile.fields.name;
-  var text = newspost.fields.text;
+    if (!isPaused) {
+      if (newspostCounter > 8) {
+        clearInterval(updateNewsposts);
+      }
 
-  var div = '<div class="wrapper-newspost"> \
-    <div class="container-newspost"> \
-      <div class="img-container-newspost"> \
-        <img class="card-img" src= "' + staticUrl + 'chatbot/images/profiles/' +  name.replace(' ', '-') + '.jpg" alt="' + name + ' image"> \
-      </div> \
-      <div class="content-newspost"> \
-        <div> \
-            <p id="text-newspost"><strong>' + text + '</strong></p> \
+      var newspost = newsposts[newspostCounter];
+      var profile = profiles[newspost.fields.profile - 1];
+      var name = profile.fields.name;
+      var text = newspost.fields.text;
+
+      var div = '<div class="wrapper-newspost"> \
+        <div class="container-newspost"> \
+          <div class="img-container-newspost"> \
+            <img class="card-img" src= "' + staticUrl + 'chatbot/images/profiles/' +  name.replace(' ', '-') + '.jpg" alt="' + name + ' image"> \
+          </div> \
+          <div class="content-newspost"> \
+            <div> \
+                <p id="text-newspost"><strong>' + text + '</strong></p> \
+            </div> \
+          </div> \
         </div> \
-      </div> \
-    </div> \
-  </div>';
+      </div>';
 
-  $('.scrollable-newsposts').append(div);
+      $('.scrollable-newsposts').append(div);
 
-  $('.scrollable-newsposts').scrollTop($('.scrollable-newsposts')[0].scrollHeight);
+      $('.scrollable-newsposts').scrollTop($('.scrollable-newsposts')[0].scrollHeight);
 
-  newspostCounter++;
-}, 5000);
-
+      newspostCounter++;
+    }
+  }, 5000);
+});
 
 
 
@@ -74,21 +107,5 @@ $(document).ready(function() {
 							'</div>';
 
 	$("mybot").html(mybot);
-
-	// ------------------------------------------ Toggle chatbot -----------------------------------------------
-	// $('.profile_div').click(function() {
-	// 	$('.profile_div').toggle();
-	// 	$('.chatCont').toggle();
-	// 	$('.bot_profile').toggle();
-	// 	$('.chatForm').toggle();
-	// 	document.getElementById('chat-input').focus();
-	// });
-  //
-	// $('.close').click(function() {
-	// 	$('.profile_div').toggle();
-	// 	$('.chatCont').toggle();
-	// 	$('.bot_profile').toggle();
-	// 	$('.chatForm').toggle();
-	// });
 
 });

@@ -21,40 +21,79 @@
 
 <link rel="stylesheet" href="{% static 'chatbot/css/style.css' %}">
 
-  <div class="content-container">
-    <div class="row">
-      <div class="col-4" id="portfolios">
-        <h2>Portfolios</h2>
-        <h5>Followed</h5>
+<div class="content-container">
+  <div class="row">
+    <div class="col-4" id="portfolios">
 
+      <link rel="stylesheet" href="{% static 'chatbot/css/style.css' %}">
+
+      <h2>Portfolios</h2>
+      <h5>Followed</h5>
+
+      <div class="row row-portfolio">
+        {% for followed_portfolio in followed_portfolios %}
+          <div class="wrapper-portfolio">
+            <div class="container-portfolio">
+              <div class="img-container-portfolio">
+
+                {% with index=followed_portfolio.profile.id|subtract %}
+
+                <img class="card-img"
+                src= "{% static 'chatbot/images/profiles/'%}{{ image_names|get_at_index:index }}"
+                alt="{{ followed_portfolio.profile.name }} image">
+
+                {% endwith %}
+              </div>
+
+              <div class="content-portfolio">
+                <div class="head-portfolio">
+                    <p>{{ followed_portfolio.profile.name }}</p>
+                </div>
+                <div class="data">
+                  <div class="inner-data">
+                    {% if followed_portfolio.lastChange >= 0 %}
+                      <p class="last-change"><span class="last-change" style="color: #41CE00"><b>+{{ followed_portfolio.lastChange }}%</b></span> last month.</p>
+                    {% else %}
+                      <p class="last-change"><span class="last-change" style="color: #FF0000"><b>{{ followed_portfolio.lastChange }}%</b></span> last month.</p>
+                    {% endif %}
+                    <p class="risk">Risk: {{ followed_portfolio.risk }}</p>
+                    <p class="amount">Amount: £{{ followed_portfolio.invested}} </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <h5>Not followed</h5>
         <div class="row row-portfolio">
-          {% for followed_portfolio in followed_portfolios %}
+          {% for not_followed_portfolio in not_followed_portfolios %}
             <div class="wrapper-portfolio">
               <div class="container-portfolio">
                 <div class="img-container-portfolio">
 
-                  {% with index=followed_portfolio.profile.id|subtract %}
+                  {% with index=not_followed_portfolio.profile.id|subtract %}
 
                   <img class="card-img"
                   src= "{% static 'chatbot/images/profiles/'%}{{ image_names|get_at_index:index }}"
-                  alt="{{ followed_portfolio.profile.name }} image">
+                  alt="{{ not_followed_portfolio.profile.name }} image">
 
                   {% endwith %}
                 </div>
 
                 <div class="content-portfolio">
                   <div class="head-portfolio">
-                      <p>{{ followed_portfolio.profile.name }}</p>
+                      <p>{{ not_followed_portfolio.profile.name }}</p>
                   </div>
                   <div class="data">
                     <div class="inner-data">
-                      {% if followed_portfolio.lastChange >= 0 %}
-                        <p class="last-change"><span class="last-change" style="color: #41CE00"><b>+{{ followed_portfolio.lastChange }}%</b></span> last month.</p>
+                      {% if not_followed_portfolio.lastChange >= 0 %}
+                        <p class="last-change"><span class="last-change" style="color: #41CE00"><b>+{{ not_followed_portfolio.lastChange }}%</b></span> last month.</p>
                       {% else %}
-                        <p class="last-change"><span class="last-change" style="color: #FF0000"><b>{{ followed_portfolio.lastChange }}%</b></span> last month.</p>
+                        <p class="last-change"><span class="last-change" style="color: #FF0000"><b>{{ not_followed_portfolio.lastChange }}%</b></span> last month.</p>
                       {% endif %}
-                      <p class="risk">Risk: {{ followed_portfolio.risk }}</p>
-                      <p class="amount">Amount: £{{ followed_portfolio.invested}} </p>
+                      <p class="risk">Risk: {{ not_followed_portfolio.risk }}</p>
                     </div>
                   </div>
                 </div>
@@ -62,101 +101,83 @@
             </div>
           {% endfor %}
         </div>
+    </div>
 
-        <h5>Not followed</h5>
-          <div class="row row-portfolio">
-            {% for not_followed_portfolio in not_followed_portfolios %}
-              <div class="wrapper-portfolio">
-                <div class="container-portfolio">
-                  <div class="img-container-portfolio">
-
-                    {% with index=not_followed_portfolio.profile.id|subtract %}
-
-                    <img class="card-img"
-                    src= "{% static 'chatbot/images/profiles/'%}{{ image_names|get_at_index:index }}"
-                    alt="{{ not_followed_portfolio.profile.name }} image">
-
-                    {% endwith %}
-                  </div>
-
-                  <div class="content-portfolio">
-                    <div class="head-portfolio">
-                        <p>{{ not_followed_portfolio.profile.name }}</p>
-                    </div>
-                    <div class="data">
-                      <div class="inner-data">
-                        {% if not_followed_portfolio.lastChange >= 0 %}
-                          <p class="last-change"><span class="last-change" style="color: #41CE00"><b>+{{ not_followed_portfolio.lastChange }}%</b></span> last month.</p>
-                        {% else %}
-                          <p class="last-change"><span class="last-change" style="color: #FF0000"><b>{{ not_followed_portfolio.lastChange }}%</b></span> last month.</p>
-                        {% endif %}
-                        <p class="risk">Risk: {{ not_followed_portfolio.risk }}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            {% endfor %}
-          </div>
+    <div class="col-4" id="chatbot">
+      <h2>Chatbot</h2>
+      <div class="container">
+        <mybot></mybot>
       </div>
+    </div>
 
-      <div class="col-4" id="chatbot">
-        <h2>Chatbot</h2>
-        <div class="container">
-          <mybot></mybot>
-        </div>
-      </div>
+    <div class="col-4" id="newsfeed">
+      <h2>Newsfeed</h2>
+      <h5>Predictions not always accurate</h5>
+      <div class="scrollable-newsposts">
 
-      <div class="col-4" id="newsfeed">
-        <h2>Newsfeed</h2>
-        <h5>Predictions not always accurate</h5>
-        <div class="scrollable-newsposts">
+        <script>
+          var profiles_list = '{{ profiles }}';
+          var newsposts_list = '{{ newsposts }}';
 
-          <script>
-            var profiles_list = '{{ profiles }}';
-            var newsposts_list = '{{ newsposts }}';
-
-          </script>
-        </div>
+        </script>
       </div>
     </div>
   </div>
+</div>
 
 
 
-  <div id="image-tagging-area" class="col-9">
-    <div class="card tagging">
-      <div class="card-header">
-        <h5>Please provide 3 unique tags for the image below.</h5>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-12">
-            <div class="row">
-              <div class="col-6">
-                <img class="img-fluid" src="">
+<div id="image-tagging-area" class="col-9">
+  <div class="card tagging">
+    <div class="card-header">
+      <h5>Please provide 3 unique tags for the image below.</h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-6">
+              <img class="img-fluid" src="">
+            </div>
+            <div class="col-6">
+              <div class="card-text">
+                <p>Tags found so far:
+                <span class="found-tags-list">
+                  <span class="found-tag">example tag.</span>
+                </span></p>
               </div>
-              <div class="col-6">
-                <div class="card-text">
-                  <p>Tags found so far:
-                  <span class="found-tags-list">
-                    <span class="found-tag">example tag.</span>
-                  </span></p>
-                </div>
-                <div class="input-group">
-                  <input type="text" class="form-control input-tag" placeholder="please enter a tag" data-container="body" data-toggle="popover"
-                    data-placement="left" data-content="incorrect tag" data-trigger="focus">
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn-warning btn-check-tag">Check Tag</button>
-                  </span>
-                </div>
-                <button type="button" class="btn btn-primary btn-next-image">Go to the next image</button>
+              <div class="input-group">
+                <input type="text" class="form-control input-tag" placeholder="please enter a tag" data-container="body" data-toggle="popover"
+                  data-placement="left" data-content="incorrect tag" data-trigger="focus">
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-warning btn-check-tag">Check Tag</button>
+                </span>
               </div>
+              <button type="button" class="btn btn-primary btn-next-image">Go to the next image</button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Month</h5>
+      </div>
+      <div class="modal-body">
+        A new month has come by and portfolios have changed.
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="ok-button" class="btn btn-primary" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

@@ -13,6 +13,8 @@ from .models import Tag, ImageTask
 
 from chatbot.models import Balance
 
+from decimal import Decimal
+
 import json
 
 
@@ -75,12 +77,16 @@ def tags(request):
     # check whether now the user has 3 correct tags for this image
     correct_count = Tag.objects.filter(image_task=tag.image_task, user=request.user, correct=True).count()
     if correct_count == 3:
-        response['complete'] = True
+        reward_amount = Decimal('5.00')
+        balance = Balance.objects.first()
 
-        # reward_amount = 5.00
-        # balance = Balance.objects.first()
-        # balance.amount += reward_amount
-        # balance.save()
+        print(balance.amount)
+
+        balance.amount += reward_amount
+        balance.save()
+
+        response['complete'] = True
+        response['balance'] = str(balance.amount)
 
         # increment the participant's earned
         # participant = Participant.objects.get(user=request.user)

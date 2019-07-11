@@ -39,6 +39,10 @@ $(document).ready(function() {
 	socket.on('bot_uttered', function(data){
 		console.log(data);
 		appendBotMessage(data);
+
+		console.log('updating portfolios followed');
+
+		$("#portfolios").load(location.href+" #portfolios>*","");
 	});
 
 	// do something when connection closes
