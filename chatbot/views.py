@@ -10,6 +10,9 @@ from django.core import serializers
 
 import json
 
+from random import gauss
+import decimal
+
 
 def welcome_page(request):
     return render(request, 'welcome.html')
@@ -57,6 +60,33 @@ def update_month(request):
         response = {'increased': False}
 
     return HttpResponse(json.dumps(response), content_type="application/json")
+
+
+def update_portfolios(request):
+
+    response = {}
+
+    for portfolio in Portfolio.objects.all():
+        change_value = gauss(0.0, portfolio.risk*5)
+
+        portfolio.lastChange = round(change_value, 2)
+
+        change_value /= 100
+        change_value += 1
+
+        if portfolio.followed:
+            new_invested_amount = round(portfolio.invested * decimal.Decimal(change_value), 2)
+
+            portfolio.invested = new_invested_amount
+
+        portfolio.save()
+
+        response[portfolio.profile.name] = change_value
+
+    response['invested_balance_amount'] = str(InvestedBalance.objects.first().amount)
+
+    return HttpResponse(json.dumps(response), content_type="application/json")
+
 
 
 # def update_followed(request):

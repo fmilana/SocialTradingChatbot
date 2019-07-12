@@ -1,7 +1,7 @@
 $(document).ready(function() {
   var isPaused = false;
 
-  var _seconds_left = 5;
+  var _seconds_left = 180;
 
   var update_timer = function () {
     if (!isPaused) {
@@ -10,9 +10,10 @@ $(document).ready(function() {
           html;
       _seconds_left -= 1;
       if (_seconds_left < 1) {
-          _seconds_left = 300;
+          _seconds_left = 180;
 
           isPaused = true;
+          clearTimeout(newspostTimeout);
 
           $('#myModal').modal({
             backdrop: 'static',
@@ -34,8 +35,27 @@ $(document).ready(function() {
               }
           });
 
+          $.ajax({
+              type: "GET",
+              url: server_url + '/updateportfolios/',
+              success: function (response) {
+                  console.log(response);
+
+                  if (!$('#loading-gif').length) {
+                    $('.scrollable-newsposts').append('<img id="loading-gif" src="' + staticUrl + 'chatbot/images/loading.gif">');
+                  }
+
+                  $("#portfolios").load(location.href+" #portfolios>*","");
+                  $('#invested-balance-amount').html(response.invested_balance_amount);
+              }
+          });
+
+          $('.scrollable-newsposts').empty();
+          newspostCounter = 0;
+
           $('#ok-button').on('click', function() {
             isPaused = false;
+            setTimeout(updateNewsposts, 10000);
           });
       }
       minutes = Math.floor(_seconds_left / 60);
@@ -53,18 +73,41 @@ $(document).ready(function() {
   update_timer();
 
 
+  function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
 
-  var newsposts = JSON.parse(newsposts_list.replace(/&quot;/g, '"'));
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  }
+
+  $('.scrollable-newsposts').append('<img id="loading-gif" src="' + staticUrl + 'chatbot/images/loading.gif">');
+
+  var newsposts = shuffle(JSON.parse(newsposts_list.replace(/&quot;/g, '"')));
   var profiles = JSON.parse(profiles_list.replace(/&quot;/g, '"'));
 
+  var newspostTimeout;
   var newspostCounter = 0;
 
-  var updateNewsposts = setInterval(function() {
+  function updateNewsposts() {
 
     if (!isPaused) {
       if (newspostCounter > 8) {
         clearInterval(updateNewsposts);
       }
+
+      $('#loading-gif').remove();
 
       var newspost = newsposts[newspostCounter];
       var profile = profiles[newspost.fields.profile - 1];
@@ -86,11 +129,24 @@ $(document).ready(function() {
 
       $('.scrollable-newsposts').append(div);
 
+      if (newspostCounter < 9) {
+        $('.scrollable-newsposts').append('<img id="loading-gif" src="' + staticUrl + 'chatbot/images/loading.gif">');
+      }
+
       $('.scrollable-newsposts').scrollTop($('.scrollable-newsposts')[0].scrollHeight);
 
       newspostCounter++;
     }
-  }, 5000);
+
+    var min = 10;
+    var max = 20;
+
+    var rand = Math.floor(Math.random() * (max - min + 1) + min);
+
+    newspostTimeout = setTimeout(updateNewsposts, rand * 1000);
+  };
+
+  setTimeout(updateNewsposts, 10000);
 });
 
 

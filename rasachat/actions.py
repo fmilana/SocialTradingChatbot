@@ -140,14 +140,4 @@ class Unfollow(Action):
         dispatcher.utter_message(message)
 
         return[]
-# 
-#
-# class UpdatePortfolios(Action):
-#
-#     def name(self) -> Text:
-#         return "update_portfolios"
-#
-#     def run(self, dispatcher, tracker, domain):
-#
-#
-#         return[]
+        
