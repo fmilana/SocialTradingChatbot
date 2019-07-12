@@ -62,14 +62,28 @@
 - who should I stop following?
 
 ## intent:follow
-- follow [Kanya Bunnag](name)
+- follow [Andrzej Kraviec](name)
+- follow [Aricka Lewis](name)
+- follow [Benjamin Parker](name)
+- follow [Florianne Paget](name)
+- follow [Masami Nishimura](name)
+- follow [Paulinho Simoes](name)
+- follow [Ralph Axelsen](name)
+- follow [William Shore](name)
 - start following [Andrzej Kraviec](name)
 - I want to follow [Florianne Paget](name)
 - I would like to follow [Paulinho Simoes](name)
 - I want to start following [Alois Reiter](name)
 
 ## intent:unfollow
+- unfollow [Andrzej Kraviec](name)
 - unfollow [Aricka Lewis](name)
+- unfollow [Benjamin Parker](name)
+- unfollow [Florianne Paget](name)
+- unfollow [Masami Nishimura](name)
+- unfollow [Paulinho Simoes](name)
+- unfollow [Ralph Axelsen](name)
+- unfollow [William Shore](name)
 - stop following [Masami Nishimura](name)
 - I want to unfollow [Benjamin Parker](name)
 - I would like to unfollow [William Shore](name)

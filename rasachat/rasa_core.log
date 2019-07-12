@@ -4801,3 +4801,923 @@ Traceback (most recent call last):
   File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
     if resp.headers is None:
 AttributeError: 'list' object has no attribute 'headers'
+2019-07-11 20:42:49,801 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-11 20:43:55,895 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-11 21:05:45,077 [ERROR]  Experienced exception while trying to serve
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 1096, in run
+    serve(**server_settings)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\server.py", line 770, in serve
+    loop.run_forever()
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\asyncio\base_events.py", line 421, in run_forever
+    self._run_once()
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\asyncio\base_events.py", line 1389, in _run_once
+    event_list = self._selector.select(timeout)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\selectors.py", line 323, in select
+    r, w, _ = self._select(self._readers, self._writers, [], timeout)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\selectors.py", line 314, in _select
+    r, w, x = select.select(r, w, w, timeout)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\engineio\client.py", line 41, in signal_handler
+    return original_signal_handler(sig, frame)
+KeyboardInterrupt
+2019-07-11 21:07:03,074 [ERROR]  Experienced exception while trying to serve
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 1096, in run
+    serve(**server_settings)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\server.py", line 770, in serve
+    loop.run_forever()
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\asyncio\base_events.py", line 421, in run_forever
+    self._run_once()
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\asyncio\base_events.py", line 1389, in _run_once
+    event_list = self._selector.select(timeout)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\selectors.py", line 323, in select
+    r, w, _ = self._select(self._readers, self._writers, [], timeout)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\selectors.py", line 314, in _select
+    r, w, x = select.select(r, w, w, timeout)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\engineio\client.py", line 41, in signal_handler
+    return original_signal_handler(sig, frame)
+KeyboardInterrupt
+2019-07-11 21:08:05,286 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-11 21:12:46,076 [ERROR]  Experienced exception while trying to serve
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 1096, in run
+    serve(**server_settings)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\server.py", line 770, in serve
+    loop.run_forever()
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\asyncio\base_events.py", line 421, in run_forever
+    self._run_once()
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\asyncio\base_events.py", line 1389, in _run_once
+    event_list = self._selector.select(timeout)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\selectors.py", line 323, in select
+    r, w, _ = self._select(self._readers, self._writers, [], timeout)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\selectors.py", line 314, in _select
+    r, w, x = select.select(r, w, w, timeout)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\engineio\client.py", line 41, in signal_handler
+    return original_signal_handler(sig, frame)
+KeyboardInterrupt
+2019-07-12 16:25:42,639 [ERROR]  Exception occurred while handling uri: unknown
+NoneType: None
+2019-07-12 16:25:42,688 [ERROR]  Exception occurred while handling uri: unknown
+NoneType: None
+2019-07-12 16:50:44,323 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 16:51:28,780 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 16:51:58,937 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 16:52:38,781 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 16:53:01,227 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 16:53:35,237 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 16:54:32,907 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 16:54:51,601 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 16:55:33,162 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 16:55:48,613 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 16:56:07,335 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 16:56:26,059 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 16:56:40,539 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 16:56:53,684 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 16:57:54,509 [ERROR]  Exception occurred while handling uri: unknown
+NoneType: None
+2019-07-12 17:03:28,808 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 17:05:16,506 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 17:05:34,576 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 17:06:46,649 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 17:07:05,895 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 17:08:06,497 [ERROR]  Exception occurred while handling uri: unknown
+NoneType: None
+2019-07-12 17:17:35,582 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 17:19:43,777 [ERROR]  Exception occurred while handling uri: unknown
+NoneType: None
+2019-07-12 17:21:48,001 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 17:23:43,497 [ERROR]  Exception occurred while handling uri: unknown
+NoneType: None
+2019-07-12 17:24:06,768 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 17:25:52,150 [ERROR]  Exception occurred while handling uri: unknown
+NoneType: None
+2019-07-12 17:36:11,915 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 17:36:40,288 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 17:38:18,698 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 17:43:28,844 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 17:43:50,473 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 17:44:29,283 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 17:45:30,079 [ERROR]  Exception occurred while handling uri: unknown
+NoneType: None
+2019-07-12 17:46:35,536 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 17:47:03,451 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 17:48:04,273 [ERROR]  Exception occurred while handling uri: unknown
+NoneType: None
+2019-07-12 17:50:49,164 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 17:51:24,942 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 17:51:47,310 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 17:52:46,529 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 17:53:47,341 [ERROR]  Exception occurred while handling uri: unknown
+NoneType: None
+2019-07-12 17:56:29,947 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 17:57:44,641 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:00:02,704 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:01:03,570 [ERROR]  Exception occurred while handling uri: unknown
+NoneType: None
+2019-07-12 18:04:03,843 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:05:04,654 [ERROR]  Exception occurred while handling uri: unknown
+NoneType: None
+2019-07-12 18:08:03,797 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:09:04,619 [ERROR]  Exception occurred while handling uri: unknown
+NoneType: None
+2019-07-12 18:13:00,343 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:14:01,133 [ERROR]  Exception occurred while handling uri: unknown
+NoneType: None
+2019-07-12 18:16:00,779 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:17:01,569 [ERROR]  Exception occurred while handling uri: unknown
+NoneType: None
+2019-07-12 18:23:19,623 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:24:20,436 [ERROR]  Exception occurred while handling uri: unknown
+NoneType: None
+2019-07-12 18:24:55,705 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:25:55,264 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:26:25,178 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:26:50,238 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:33:42,201 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:35:07,890 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:35:58,925 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:36:23,164 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:36:53,142 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:37:23,015 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:37:58,218 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:40:55,634 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:43:07,764 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:44:13,953 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:44:50,698 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:45:51,498 [ERROR]  Exception occurred while handling uri: unknown
+NoneType: None
+2019-07-12 18:45:53,360 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:46:54,153 [ERROR]  Exception occurred while handling uri: unknown
+NoneType: None
+2019-07-12 18:47:01,773 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:47:40,252 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:48:40,749 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:49:04,643 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:49:23,846 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:49:44,822 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:50:37,113 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:50:50,902 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:51:10,001 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:53:25,501 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:58:23,295 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 18:59:24,292 [ERROR]  Exception occurred while handling uri: unknown
+NoneType: None
+2019-07-12 19:06:25,808 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 19:07:26,823 [ERROR]  Exception occurred while handling uri: unknown
+NoneType: None
+2019-07-12 19:09:25,076 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 19:10:26,072 [ERROR]  Exception occurred while handling uri: unknown
+NoneType: None
+2019-07-12 19:13:50,660 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-12 19:14:51,474 [ERROR]  Exception occurred while handling uri: unknown
+NoneType: None
