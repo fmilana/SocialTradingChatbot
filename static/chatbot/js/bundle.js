@@ -8450,7 +8450,9 @@ $(document).ready(function() {
 
 	function appendBotMessage(data) {
 		var message = data['text'];
-		$("#result_div").append("<strong>BOT: </strong>" + message + "<br>");
+
+		$("#result_div").append("<p id='bot-message'>" + message + "</p><br>");
+		$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
 	}
 
 	// console log when socket connects to port 5500
@@ -8465,7 +8467,8 @@ $(document).ready(function() {
 		console.log(chatInput);
 		if (chatInput) {
 			socket.emit('user_uttered', {'message': chatInput, 'sender': 'rasa'});
-			$("#result_div").append("<strong>USER:</strong> " + chatInput + "<br>");
+			$("#result_div").append("<p id='user-message'> " + chatInput + "</p><br>");
+			$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
 			$("#chat-input").val('');
 		}
 	};
@@ -8484,9 +8487,8 @@ $(document).ready(function() {
 	// event when bot utters message
 	socket.on('bot_uttered', function(data){
 		console.log(data);
-		appendBotMessage(data);
 
-		console.log('updating portfolios followed');
+		setTimeout(function() {appendBotMessage(data);}, 500);
 
 		$("#portfolios").load(location.href+" #portfolios>*","");
 	});

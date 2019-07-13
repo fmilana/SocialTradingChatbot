@@ -55,7 +55,6 @@ $(document).ready(function() {
 
           $('#ok-button').on('click', function() {
             isPaused = false;
-            setTimeout(updateNewsposts, 10000);
           });
       }
       minutes = Math.floor(_seconds_left / 60);
@@ -136,14 +135,14 @@ $(document).ready(function() {
       $('.scrollable-newsposts').scrollTop($('.scrollable-newsposts')[0].scrollHeight);
 
       newspostCounter++;
+
+      var min = 10;
+      var max = 20;
+
+      var rand = Math.floor(Math.random() * (max - min + 1) + min);
+
+      newspostTimeout = setTimeout(updateNewsposts, rand * 1000);
     }
-
-    var min = 10;
-    var max = 20;
-
-    var rand = Math.floor(Math.random() * (max - min + 1) + min);
-
-    newspostTimeout = setTimeout(updateNewsposts, rand * 1000);
   };
 
   setTimeout(updateNewsposts, 10000);

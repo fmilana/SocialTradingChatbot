@@ -195,10 +195,27 @@ h5 {
 
 
 /* chat */
+#chatbot {
+  position: relative;
+}
+
+#result_div {
+  overflow: auto;
+  height: 760px;
+  padding-left: 90px;
+  padding-right: 90px;
+}
 
 #chat-div {
   width: 70%;
-  display: inline-block;
+  /* display: inline-block; */
+  /* margin-top: 15px; */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 15px;
 }
 
@@ -206,6 +223,52 @@ h5 {
   font-size: 1.14vw;
   padding: 0px;
 }
+
+/* bubbles */
+#bot-message {
+  display: inline-block;
+  clear: both;
+  padding: 20px;
+  border-radius: 30px;
+  margin-bottom: 10px;
+  background: #343A40;
+  color: #fff;
+  float: left;
+  text-align: left;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom-left-radius: 5px;
+}
+
+#user-message {
+  display: inline-block;
+  clear: both;
+  padding: 20px;
+  border-radius: 30px;
+  margin-bottom: 10px;
+  float: right;
+  background: #fff;
+  text-align: left;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom-right-radius: 5px;
+}
+
+/* #bot-message + #user-message {
+  text-align: left;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom-right-radius: 5px;
+} */
+
+#user-message + #user-message {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+/* #user-message:last-of-type {
+  border-bottom-right-radius: 30px;
+} */
 
 /* #chat-input {
   display: inline-block;
