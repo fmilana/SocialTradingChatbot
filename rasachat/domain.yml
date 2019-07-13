@@ -11,6 +11,8 @@ intents:
   - ask_general_advice
   - ask_follow_advice
   - ask_unfollow_advice
+  - follow
+  - unfollow
 
 actions:
 - utter_greet

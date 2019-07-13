@@ -7127,3 +7127,131 @@ Traceback (most recent call last):
   File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
     if resp.headers is None:
 AttributeError: 'list' object has no attribute 'headers'
+2019-07-13 21:47:55,861 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-13 21:48:16,879 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-13 22:16:29,808 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
+2019-07-13 22:19:43,984 [ERROR]  Experienced exception while trying to serve
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 1096, in run
+    serve(**server_settings)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\server.py", line 770, in serve
+    loop.run_forever()
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\asyncio\base_events.py", line 421, in run_forever
+    self._run_once()
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\asyncio\base_events.py", line 1389, in _run_once
+    event_list = self._selector.select(timeout)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\selectors.py", line 323, in select
+    r, w, _ = self._select(self._readers, self._writers, [], timeout)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\selectors.py", line 314, in _select
+    r, w, x = select.select(r, w, w, timeout)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\engineio\client.py", line 41, in signal_handler
+    return original_signal_handler(sig, frame)
+KeyboardInterrupt
+2019-07-13 22:25:28,272 [ERROR]  Experienced exception while trying to serve
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 1096, in run
+    serve(**server_settings)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\server.py", line 742, in serve
+    trigger_events(before_start, loop)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\server.py", line 604, in trigger_events
+    loop.run_until_complete(result)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\asyncio\base_events.py", line 454, in run_until_complete
+    self.run_forever()
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\asyncio\base_events.py", line 421, in run_forever
+    self._run_once()
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\asyncio\base_events.py", line 1425, in _run_once
+    handle._run()
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\asyncio\events.py", line 127, in _run
+    self._callback(*self._args)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\rasa\core\run.py", line 184, in load_agent_on_start
+    _interpreter = NaturalLanguageInterpreter.create(nlu_model, endpoints.nlu)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\rasa\core\interpreter.py", line 53, in create
+    return RasaNLUInterpreter(model_directory=obj)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\rasa\core\interpreter.py", line 245, in __init__
+    self._load_interpreter()
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\rasa\core\interpreter.py", line 265, in _load_interpreter
+    self.interpreter = Interpreter.load(self.model_directory)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\rasa\nlu\model.py", line 301, in load
+    return Interpreter.create(model_metadata, component_builder, skip_validation)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\rasa\nlu\model.py", line 328, in create
+    component_meta, model_metadata.model_dir, model_metadata, **context
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\rasa\nlu\components.py", line 433, in load_component
+    component_meta, model_dir, model_metadata, cached_component, **context
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\rasa\nlu\registry.py", line 181, in load_component_by_meta
+    component_meta, model_dir, metadata, cached_component, **kwargs
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\rasa\nlu\utils\spacy_utils.py", line 130, in load
+    nlp = cls.load_model(model_name)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\rasa\nlu\utils\spacy_utils.py", line 47, in load_model
+    return spacy.load(spacy_model_name, disable=["parser"])
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spacy\__init__.py", line 27, in load
+    return util.load_model(name, **overrides)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spacy\util.py", line 129, in load_model
+    return load_model_from_link(name, **overrides)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spacy\util.py", line 146, in load_model_from_link
+    return cls.load(**overrides)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spacy\data\en\__init__.py", line 12, in load
+    return load_model_from_init_py(__file__, **overrides)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spacy\util.py", line 190, in load_model_from_init_py
+    return load_model_from_path(data_path, meta, **overrides)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spacy\util.py", line 173, in load_model_from_path
+    return nlp.from_disk(model_path)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spacy\language.py", line 791, in from_disk
+    util.from_disk(path, deserializers, exclude)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spacy\util.py", line 630, in from_disk
+    reader(path / key)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spacy\language.py", line 780, in <lambda>
+    deserializers["vocab"] = lambda p: self.vocab.from_disk(p) and _fix_pretrained_vectors_name(self)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spacy\language.py", line 859, in _fix_pretrained_vectors_name
+    link_vectors_to_models(nlp.vocab)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spacy\_ml.py", line 296, in link_vectors_to_models
+    word.rank = vectors.key2row[word.orth]
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\engineio\client.py", line 41, in signal_handler
+    return original_signal_handler(sig, frame)
+KeyboardInterrupt
+2019-07-13 22:26:33,272 [DEBUG]  Available web server routes: 
+/webhooks/rest                                     GET                            custom_webhook_CmdlineInput.health
+/webhooks/rest/webhook                             POST                           custom_webhook_CmdlineInput.receive
+2019-07-13 22:28:04,218 [DEBUG]  Available web server routes: 
+/webhooks/rest                                     GET                            custom_webhook_CmdlineInput.health
+/webhooks/rest/webhook                             POST                           custom_webhook_CmdlineInput.receive
+2019-07-13 22:39:51,687 [ERROR]  Exception occurred in one of response middleware handlers
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 958, in handle_request
+    request, response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\spf\framework.py", line 543, in _run_response_middleware
+    _response = await _response
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\extension.py", line 266, in unapplied_cors_response_middleware
+    set_cors_headers(req, resp, context, res_options)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic_cors\core.py", line 248, in set_cors_headers
+    if resp.headers is None:
+AttributeError: 'list' object has no attribute 'headers'
