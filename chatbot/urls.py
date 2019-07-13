@@ -23,6 +23,7 @@ from .views import (
     chatbot_page,
     update_month,
     update_portfolios,
+    update_balances,
     # update_followed,
     # imagetagging_page,
     )
@@ -33,6 +34,7 @@ urlpatterns = [
     url(r'^imagetagging/', include('imagetagging.urls'), name='imagetagging'),
     url(r'^updatemonth/', update_month, name='updatemonth'),
     url(r'^updateportfolios/', update_portfolios, name='updateportfolios'),
+    url(r'^updatebalances/', update_balances, name='updatebalances'),
     # url(r'^updatefollowed/', update_followed, name='updatefollowed'),
     url(r'^admin/', admin.site.urls),
 ]

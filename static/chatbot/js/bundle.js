@@ -8476,7 +8476,6 @@ $(document).ready(function() {
 	$("#send").click(sendMessage);
 
 	$('#chat-input').keyup(function (e) {
-		console.log(e.keyCode);
     if (e.keyCode === 13) {
 			sendMessage();
     }
@@ -8491,6 +8490,16 @@ $(document).ready(function() {
 		setTimeout(function() {appendBotMessage(data);}, 500);
 
 		$("#portfolios").load(location.href+" #portfolios>*","");
+
+		$.ajax({
+				type: "GET",
+				url: server_url + '/updatebalances/',
+				success: function (response) {
+						console.log(response);
+						$('#available-balance-amount').html(response.available_balance_amount);
+						$('#invested-balance-amount').html(response.invested_balance_amount);
+				}
+		});
 	});
 
 	// do something when connection closes

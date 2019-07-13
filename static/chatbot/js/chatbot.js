@@ -3,6 +3,8 @@ $(document).ready(function() {
 
   var _seconds_left = 180;
 
+  var newspostTimeout;
+
   var update_timer = function () {
     if (!isPaused) {
       var seconds,
@@ -14,6 +16,7 @@ $(document).ready(function() {
 
           isPaused = true;
           clearTimeout(newspostTimeout);
+
 
           $('#myModal').modal({
             backdrop: 'static',
@@ -53,8 +56,10 @@ $(document).ready(function() {
           $('.scrollable-newsposts').empty();
           newspostCounter = 0;
 
-          $('#ok-button').on('click', function() {
+          $('#ok-button').unbind().on('click', function() {
             isPaused = false;
+
+            setNewspostTimer();
           });
       }
       minutes = Math.floor(_seconds_left / 60);
@@ -96,14 +101,13 @@ $(document).ready(function() {
   var newsposts = shuffle(JSON.parse(newsposts_list.replace(/&quot;/g, '"')));
   var profiles = JSON.parse(profiles_list.replace(/&quot;/g, '"'));
 
-  var newspostTimeout;
   var newspostCounter = 0;
 
   function updateNewsposts() {
 
-    if (!isPaused) {
+    if (newspostCounter < 10) {
       if (newspostCounter > 8) {
-        clearInterval(updateNewsposts);
+        clearTimeout(newspostTimeout);
       }
 
       $('#loading-gif').remove();
@@ -134,26 +138,29 @@ $(document).ready(function() {
 
       $('.scrollable-newsposts').scrollTop($('.scrollable-newsposts')[0].scrollHeight);
 
+
+
+      if (newspostCounter < 9) {
+        setNewspostTimer();
+      }
+
       newspostCounter++;
-
-      var min = 10;
-      var max = 20;
-
-      var rand = Math.floor(Math.random() * (max - min + 1) + min);
-
-      newspostTimeout = setTimeout(updateNewsposts, rand * 1000);
     }
   };
 
-  setTimeout(updateNewsposts, 10000);
-});
 
 
+  function setNewspostTimer() {
+    var min = 10;
+    var max = 20;
 
-// chat
-$(document).ready(function() {
+    var rand = Math.floor(Math.random() * (max - min + 1) + min);
 
-	var mybot = '<div class="chatCont" id="chatCont">'+
+    clearTimeout(newspostTimeout);
+    newspostTimeout = setTimeout(updateNewsposts, rand * 1000);
+  }
+
+  var mybot = '<div class="chatCont" id="chatCont">'+
 								'<div id="result_div" class="resultDiv"></div>'+
 								'<div class="chatForm" id="chat-div">'+
 									'<input type="text" class="col-10" id="chat-input" autocomplete="off" placeholder="Type something..."'+ 'class="form-control bot-txt"/>'+
@@ -162,5 +169,9 @@ $(document).ready(function() {
 							'</div>';
 
 	$("mybot").html(mybot);
+
+
+  setNewspostTimer();
+  console.log('timout SET!');
 
 });

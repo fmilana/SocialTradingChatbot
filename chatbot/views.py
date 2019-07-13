@@ -84,6 +84,18 @@ def update_portfolios(request):
         response[portfolio.profile.name] = change_value
 
     response['invested_balance_amount'] = str(InvestedBalance.objects.first().amount)
+    response['available_balance_amount'] = str(Balance.objects.first().amount)
+
+    return HttpResponse(json.dumps(response), content_type="application/json")
+
+
+def update_balances(request):
+
+    response = {}
+    response['available_balance_amount'] = str(Balance.objects.first().amount)
+    response['invested_balance_amount'] = str(InvestedBalance.objects.first().amount)
+
+    print(response)
 
     return HttpResponse(json.dumps(response), content_type="application/json")
 
