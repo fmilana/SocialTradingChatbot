@@ -11,6 +11,7 @@ from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk.events import SlotSet
 
 import sys
 sys.path.insert(0, 'C:\\Users\\feder\\chatbot')
@@ -24,10 +25,10 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.aggregates import Count
 from random import randint
 from django.db.models import Sum
+from decimal import Decimal
 
 
-class ActionGiveFollowingAdvice(Action):
-
+class GiveFollowingAdvice(Action):
     def name(self) -> Text:
         return "action_give_following_advice"
 
@@ -51,8 +52,7 @@ class ActionGiveFollowingAdvice(Action):
         return []
 
 
-class ActionGiveUnfollowingAdvice(Action):
-
+class GiveUnfollowingAdvice(Action):
     def name(self) -> Text:
         return "action_give_unfollowing_advice"
 
@@ -76,33 +76,62 @@ class ActionGiveUnfollowingAdvice(Action):
         return []
 
 
-class Follow(Action):
-
+class FetchPortfolio(Action):
     def name(self) -> Text:
-        return "action_follow"
+        return "action_fetch_portfolio"
 
     def run(self, dispatcher, tracker, domain):
-        try:
-            profile_name = tracker.latest_message['entities'][0]['value']
+        profile_name = tracker.latest_message['entities'][0]['value']
 
+        print('NAMEEEEEEEEEEEEEEEEEEEEEEEEEE')
+        print(profile_name)
+
+        try:
             profile_object = Profile.objects.get(name__icontains=profile_name)
             portfolio = Portfolio.objects.get(profile=profile_object.id)
 
             if portfolio.followed:
-                message = "You are already following " + profile_name + "."
+                return [SlotSet("portfolio_query", "followed"), SlotSet("name", profile_name)]
             else:
+                return [SlotSet("portfolio_query", "not_followed"), SlotSet("name", profile_name)]
+
+        except IndexError:
+            return [SlotSet("portfolio_query", "invalid")]
+
+
+class Follow(Action):
+    def name(self) -> Text:
+        return "action_follow"
+
+    def run(self, dispatcher, tracker, domain):
+        profile_name = tracker.get_slot('name')
+
+        print('NAME vvvvvvvvvvvvv')
+        print(profile_name)
+
+        profile_object = Profile.objects.get(name__icontains=profile_name)
+        portfolio = Portfolio.objects.get(profile=profile_object.id)
+
+        try:
+            print('AMOUNT vvvvvvvvvvvvv')
+            print(tracker.latest_message['entities'][0]['value'])
+
+            amount = round(Decimal(tracker.latest_message['entities'][0]['value']), 2)
+
+            if amount > 0:
                 balance = Balance.objects.first()
-                balance.amount -= 50
+                balance.amount -= amount
                 balance.save()
 
                 portfolio.followed = True
-                portfolio.invested = 50
+                portfolio.invested = amount
                 portfolio.save()
                 print(Portfolio.objects.filter(followed=True).aggregate(Sum('invested')).get('invested__sum'))
                 message = "You are now following " + profile_name + "."
-
+            else:
+                message = "That's not a valid amount."
         except IndexError:
-            message = ("Sorry, I can't find that portfolio. Have you spelt the name correctly?")
+            message = "That's not a valid amount."
 
         dispatcher.utter_message(message)
 
@@ -110,32 +139,24 @@ class Follow(Action):
 
 
 class Unfollow(Action):
-
     def name(self) -> Text:
         return "action_unfollow"
 
     def run(self, dispatcher, tracker, domain):
-        try:
-            profile_name = tracker.latest_message['entities'][0]['value']
+        profile_name = tracker.get_slot('name')
 
-            profile_object = Profile.objects.get(name__icontains=profile_name)
-            portfolio = Portfolio.objects.get(profile=profile_object.id)
+        profile_object = Profile.objects.get(name__icontains=profile_name)
+        portfolio = Portfolio.objects.get(profile=profile_object.id)
 
-            if not portfolio.followed:
-                message = "You are not following " + profile_name + " at the moment."
-            else:
-                balance = Balance.objects.first()
-                balance.amount += portfolio.invested
-                balance.save()
+        balance = Balance.objects.first()
+        balance.amount += portfolio.invested
+        balance.save()
 
-                portfolio.followed = False
-                portfolio.invested = 0.00
-                portfolio.save()
+        portfolio.followed = False
+        portfolio.invested = 0.00
+        portfolio.save()
 
-                message = "You have stopped following " + profile_name + "."
-
-        except IndexError:
-            message = ("Sorry, I can't find that portfolio. Have you spelt the name correctly?")
+        message = "You have stopped following " + profile_name + "."
 
         dispatcher.utter_message(message)
 

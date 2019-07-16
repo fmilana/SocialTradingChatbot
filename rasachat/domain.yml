@@ -1,5 +1,6 @@
 entities:
   - name
+  - CARDINAL
 
 intents:
   - greet
@@ -13,6 +14,7 @@ intents:
   - ask_unfollow_advice
   - follow
   - unfollow
+  - amount
 
 actions:
 - utter_greet
@@ -21,9 +23,14 @@ actions:
 - utter_happy
 - utter_goodbye
 - utter_general_advice
+- utter_ask_follow_amount
+- utter_invalid_portfolio
+- utter_already_followed_portfolio
+- utter_already_not_followed_portfolio
 - action_give_following_advice
 - action_give_unfollowing_advice
 - action_follow
+- action_fetch_portfolio
 - action_unfollow
 
 templates:
@@ -45,3 +52,26 @@ templates:
 
   utter_general_advice:
   - text: "I think you're doing a great job. I'll get back to you later when things change"
+
+  utter_ask_follow_amount:
+  - text: "How much would you like to invest?"
+
+  utter_invalid_portfolio:
+  - text: "Sorry, I can't find that portfolio. Have you spelt the name correctly?"
+
+  utter_already_followed_portfolio:
+  - text: "You are already following that portfolio."
+
+  utter_already_not_followed_portfolio:
+  - text: "You are not following that portfolio."
+
+slots:
+  portfolio_query:
+    type: categorical
+    values:
+      - invalid
+      - followed
+      - not_followed
+
+  name:
+    type: text

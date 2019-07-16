@@ -40,8 +40,38 @@
 
 ## follow
 * follow
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"not_followed"}
+  - utter_ask_follow_amount
+* amount
   - action_follow
+
+## follow
+* follow
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"invalid"}
+  - utter_invalid_portfolio
+
+## follow
+* follow
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"followed"}
+  - utter_already_followed_portfolio
 
 ## unfollow
 * unfollow
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"followed"}
   - action_unfollow
+
+## unfollow
+* unfollow
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"not_followed"}
+  - utter_already_not_followed_portfolio
+
+## unfollow
+* unfollow
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"invalid"}
+  - utter_invalid_portfolio
