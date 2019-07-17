@@ -15,6 +15,7 @@ intents:
   - follow
   - unfollow
   - amount
+  - add_amount
 
 actions:
 - utter_greet
@@ -27,11 +28,14 @@ actions:
 - utter_invalid_portfolio
 - utter_already_followed_portfolio
 - utter_already_not_followed_portfolio
+- utter_invalid_amount
 - action_give_following_advice
 - action_give_unfollowing_advice
 - action_follow
 - action_fetch_portfolio
 - action_unfollow
+- action_add_amount
+- action_reset_slots
 
 templates:
   utter_greet:
@@ -65,6 +69,9 @@ templates:
   utter_already_not_followed_portfolio:
   - text: "You are not following that portfolio."
 
+  utter_invalid_amount:
+  - text: "That's not a valid amount."
+
 slots:
   portfolio_query:
     type: categorical
@@ -75,3 +82,12 @@ slots:
 
   name:
     type: text
+
+  amount:
+    type: text
+
+  amount_query:
+    type: categorical
+    values:
+      - valid
+      - invalid

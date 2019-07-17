@@ -81,22 +81,44 @@ class FetchPortfolio(Action):
         return "action_fetch_portfolio"
 
     def run(self, dispatcher, tracker, domain):
-        profile_name = tracker.latest_message['entities'][0]['value']
+        # profile_name = tracker.latest_message['entities'][0]['value']
+        profile_name = tracker.get_slot('name')
+        amount = None
+        portfolio_query = None
+        amount_query = None
 
-        print('NAMEEEEEEEEEEEEEEEEEEEEEEEEEE')
-        print(profile_name)
+        for e in tracker.latest_message['entities']:
+            print('E vvvvvvvvvvvvvvvvvvvvv')
+            print(e)
+
+            if e['entity'] == 'CARDINAL':
+                try:
+                    amount = round(Decimal(e['value']), 2)
+                    print('AMOUNT vvvvvvvvvv')
+                    print(amount)
+                except IndexError:
+                    amount_query = 'invalid'
+                    print('INVALID AMOUNT')
 
         try:
             profile_object = Profile.objects.get(name__icontains=profile_name)
             portfolio = Portfolio.objects.get(profile=profile_object.id)
 
             if portfolio.followed:
-                return [SlotSet("portfolio_query", "followed"), SlotSet("name", profile_name)]
+                portfolio_query = "followed"
             else:
-                return [SlotSet("portfolio_query", "not_followed"), SlotSet("name", profile_name)]
+                portfolio_query = "not_followed"
+
+            if amount is not None and amount > 0:
+                amount_query = "valid"
 
         except IndexError:
-            return [SlotSet("portfolio_query", "invalid")]
+            print("PORTFOLIO INDEX ERROR")
+            portfolio_query = "invalid"
+
+        print("returning slots")
+
+        return [SlotSet("portfolio_query", portfolio_query), SlotSet("name", profile_name), SlotSet("amount_query", amount_query), SlotSet("amount", amount)]
 
 
 class Follow(Action):
@@ -112,25 +134,35 @@ class Follow(Action):
         profile_object = Profile.objects.get(name__icontains=profile_name)
         portfolio = Portfolio.objects.get(profile=profile_object.id)
 
-        try:
-            print('AMOUNT vvvvvvvvvvvvv')
-            print(tracker.latest_message['entities'][0]['value'])
 
-            amount = round(Decimal(tracker.latest_message['entities'][0]['value']), 2)
+        # print(tracker.latest_message['entities'][0]['value'])
 
-            if amount > 0:
-                balance = Balance.objects.first()
-                balance.amount -= amount
-                balance.save()
+        # amount = round(Decimal(tracker.latest_message['entities'][0]['value']), 2)
+        amount_query = tracker.get_slot('amount_query')
+        amount = tracker.get_slot('amount')
 
-                portfolio.followed = True
-                portfolio.invested = amount
-                portfolio.save()
-                print(Portfolio.objects.filter(followed=True).aggregate(Sum('invested')).get('invested__sum'))
-                message = "You are now following " + profile_name + "."
-            else:
-                message = "That's not a valid amount."
-        except IndexError:
+        if amount is None:
+            try:
+                amount = round(Decimal(tracker.latest_message['entities'][0]['value']), 2)
+                amount_query = 'valid'
+            except IndexError:
+                print('INVALID AMOUNT')
+        else:
+            amount_query = 'valid'
+
+        print('AMOUNT vvvvvvvvvvvvv')
+
+        if amount_query == 'valid':
+            balance = Balance.objects.first()
+            balance.amount -= round(Decimal(amount), 2)
+            balance.save()
+
+            portfolio.followed = True
+            portfolio.invested = round(Decimal(amount), 2)
+            portfolio.save()
+            print(Portfolio.objects.filter(followed=True).aggregate(Sum('invested')).get('invested__sum'))
+            message = "You are now following " + profile_name + "."
+        else:
             message = "That's not a valid amount."
 
         dispatcher.utter_message(message)
@@ -161,3 +193,37 @@ class Unfollow(Action):
         dispatcher.utter_message(message)
 
         return[]
+
+
+class AddAmount(Action):
+    def name(self) -> Text:
+        return "action_add_amount"
+
+    def run(self, dispatcher, tracker, domain):
+        profile_name = tracker.get_slot('name')
+
+        profile_object = Profile.objects.get(name__icontains=profile_name)
+        portfolio = Portfolio.objects.get(profile=profile_object.id)
+
+        amount = round(Decimal(tracker.get_slot('amount')), 2)
+
+        balance = Balance.objects.first()
+        balance.amount -= amount
+        balance.save()
+
+        portfolio.invested += amount
+        portfolio.save()
+
+        message = "You have invested another " + str(amount) + " in " + profile_name + "."
+
+        dispatcher.utter_message(message)
+
+        return []
+
+
+class ResetSlots(Action):
+    def name(self):
+        return "action_reset_slots"
+
+    def run(self, dispatcher, tracker, domain):
+        return [SlotSet("portfolio_query", None), SlotSet("name", None), SlotSet("amount_query", None), SlotSet("amount", None)]
