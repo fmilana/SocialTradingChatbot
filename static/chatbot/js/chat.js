@@ -43,15 +43,35 @@ $(document).ready(function() {
 
 		setTimeout(function() {appendBotMessage(data);}, 500);
 
-		$("#portfolios").load(location.href+" #portfolios>*","");
+		$("#portfolios").load(location.href+" #portfolios>*","", function() {
+			if ($('#followed-portfolio-wrapper').length) {
+				$('#empty-followed-tag').hide();
+			} else {
+				$('#empty-followed-tag').show();
+			}
+
+			if ($('#not-followed-portfolio-wrapper').length) {
+				$('#empty-not-followed-tag').hide();
+			} else {
+				$('#empty-not-followed-tag').show();
+			}
+		});
+		// $("#row-followed").load(location.href+" #row-followed>*","");
+		// $("#row-not-followed").load(location.href+" #row-not-followed>*","");
+
+		// $("empty-followed-tag").hide();
+
+		console.log('portfolios html refreshed');
 
 		$.ajax({
 				type: "GET",
 				url: server_url + '/updatebalances/',
 				success: function (response) {
 						console.log(response);
+
 						$('#available-balance-amount').html(response.available_balance_amount);
 						$('#invested-balance-amount').html(response.invested_balance_amount);
+
 				}
 		});
 	});

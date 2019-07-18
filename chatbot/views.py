@@ -95,6 +95,9 @@ def update_balances(request):
     response['available_balance_amount'] = str(Balance.objects.first().amount)
     response['invested_balance_amount'] = str(InvestedBalance.objects.first().amount)
 
+    if response['invested_balance_amount'] == '0.0':
+        response['invested_balance_amount'] = '0.00'
+
     print(response)
 
     return HttpResponse(json.dumps(response), content_type="application/json")

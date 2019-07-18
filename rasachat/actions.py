@@ -141,10 +141,6 @@ class Follow(Action):
             profile_object = Profile.objects.get(name__icontains=profile_name)
             portfolio = Portfolio.objects.get(profile=profile_object.id)
 
-
-            # print(tracker.latest_message['entities'][0]['value'])
-
-            # amount = round(Decimal(tracker.latest_message['entities'][0]['value']), 2)
             amount_query = tracker.get_slot('amount_query')
             amount = tracker.get_slot('amount')
 

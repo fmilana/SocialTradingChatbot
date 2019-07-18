@@ -174,4 +174,17 @@ $(document).ready(function() {
   setNewspostTimer();
   console.log('timout SET!');
 
+
+  if ($('#followed-portfolio-wrapper').length) {
+    $('#empty-followed-tag').hide();
+  } else {
+    $('#empty-followed-tag').show();
+  }
+
+  if ($('#not-followed-portfolio-wrapper').length) {
+    $('#empty-not-followed-tag').hide();
+  } else {
+    $('#empty-not-followed-tag').show();
+  }
+
 });

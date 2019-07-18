@@ -25,14 +25,16 @@
   <div class="row">
     <div class="col-4" id="portfolios">
 
-      <link rel="stylesheet" href="{% static 'chatbot/css/style.css' %}">
+      <!-- <link rel="stylesheet" href="{% static 'chatbot/css/style.css' %}"> -->
 
       <h2>Portfolios</h2>
       <h5>Followed</h5>
 
-      <div class="row row-portfolio">
+      <b id="empty-followed-tag">You are not following any portfolios.</b>
+
+      <div class="row row-portfolio" id='row-followed'>
         {% for followed_portfolio in followed_portfolios %}
-          <div class="wrapper-portfolio">
+          <div class="wrapper-portfolio" id="followed-portfolio-wrapper">
             <div class="container-portfolio">
               <div class="img-container-portfolio">
 
@@ -67,9 +69,12 @@
       </div>
 
       <h5>Not followed</h5>
-        <div class="row row-portfolio">
+
+      <b id="empty-not-followed-tag">There are no more portfolios to follow.</b>
+
+        <div class="row row-portfolio" id="row-not-followed">
           {% for not_followed_portfolio in not_followed_portfolios %}
-            <div class="wrapper-portfolio">
+            <div class="wrapper-portfolio" id="not-followed-portfolio-wrapper">
               <div class="container-portfolio">
                 <div class="img-container-portfolio">
 
