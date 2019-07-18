@@ -8473,7 +8473,7 @@ $(document).ready(function() {
 		}
 	};
 
-	$("#send").click(sendMessage);
+	$("#send-button").click(sendMessage);
 
 	$('#chat-input').keyup(function (e) {
     if (e.keyCode === 13) {

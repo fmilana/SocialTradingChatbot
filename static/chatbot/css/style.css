@@ -4,6 +4,15 @@
    outline: 1px solid red;
 } */
 
+.positive-change {
+  color: #7CFC00 !important;
+  /* color: #41CE00 !important; */
+}
+
+.negative-change {
+  color: #FF0000 !important;
+}
+
 #investment-button, #imagetagging-button {
  cursor: pointer;
 }
@@ -236,9 +245,25 @@ h5 {
   margin-top: 15px;
 }
 
-#send {
+/* #send {
   font-size: 1.14vw;
   padding: 0px;
+} */
+
+/* .form-control:focus {
+  border-color: #343A40;
+  box-shadow: 0 1px 1px rgba(52, 58, 64, 1) inset, 0 0 8px rgba(52, 58, 64, 1);
+  outline: 0 none;
+} */
+
+#chat-input {
+  display: inline-block;
+  width: 75%;
+}
+
+#send-icon {
+  max-width: 200%;
+  height: auto;
 }
 
 /* bubbles */
@@ -285,13 +310,4 @@ h5 {
 
 /* #user-message:last-of-type {
   border-bottom-right-radius: 30px;
-} */
-
-/* #chat-input {
-  display: inline-block;
-  width: 85%;
-}
-
-#send {
-  float: right;
 } */

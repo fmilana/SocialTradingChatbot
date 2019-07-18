@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  $('#parentheses').hide()
+
   var isPaused = false;
 
   var _seconds_left = 180;
@@ -14,9 +16,10 @@ $(document).ready(function() {
       if (_seconds_left < 1) {
           _seconds_left = 180;
 
+          old_invested_amount = parseFloat($('#invested-balance-amount').text());
+
           isPaused = true;
           clearTimeout(newspostTimeout);
-
 
           $('#myModal').modal({
             backdrop: 'static',
@@ -48,8 +51,46 @@ $(document).ready(function() {
                     $('.scrollable-newsposts').append('<img id="loading-gif" src="' + staticUrl + 'chatbot/images/loading.gif">');
                   }
 
-                  $("#portfolios").load(location.href+" #portfolios>*","");
+                  $("#portfolios").load(location.href+" #portfolios>*","", function() {
+                    if ($('#followed-portfolio-wrapper').length) {
+                      $('#empty-followed-tag').hide();
+                    } else {
+                      $('#empty-followed-tag').show();
+                    }
+
+                    if ($('#not-followed-portfolio-wrapper').length) {
+                      $('#empty-not-followed-tag').hide();
+                    } else {
+                      $('#empty-not-followed-tag').show();
+                    }
+                  });
+
                   $('#invested-balance-amount').html(response.invested_balance_amount);
+
+                  new_invested_amount = parseFloat($('#invested-balance-amount').text());
+                  new_invested_amount = parseFloat(Math.round(new_invested_amount * 100) / 100).toFixed(2);
+
+                  invested_balance_change = 100 * (new_invested_amount - old_invested_amount) / old_invested_amount;
+                  invested_balance_change = Math.round(invested_balance_change * 100) / 100
+
+                  invested_balance_string = '';
+
+                  console.log('invested balance change = ' + invested_balance_change);
+
+                  if (invested_balance_change >= 0) {
+                    invested_balance_string = '+' + invested_balance_change + '%';
+                    $('#invested-balance-change').removeClass('negative-change');
+                    $('#invested-balance-change').addClass('positive-change');
+                  } else {
+                    invested_balance_string = invested_balance_change + '%';
+                    $('#invested-balance-change').removeClass('positive-change');
+                    $('#invested-balance-change').addClass('negative-change');
+                  }
+
+                  console.log('invested balance change string = ' + invested_balance_string);
+
+                  $('#invested-balance-change').text(invested_balance_string);
+                  $('#parentheses').show();
               }
           });
 
@@ -162,9 +203,9 @@ $(document).ready(function() {
 
   var mybot = '<div class="chatCont" id="chatCont">'+
 								'<div id="result_div" class="resultDiv"></div>'+
-								'<div class="chatForm" id="chat-div">'+
-									'<input type="text" class="col-10" id="chat-input" autocomplete="off" placeholder="Type something..."'+ 'class="form-control bot-txt"/>'+
-									'<button id="send" class="col-2">send</button>' +
+								'<div class="chatForm input-group" id="chat-div">'+
+									'<input type="text" class="col-10 form-control input-sm" id="chat-input" autocomplete="off" placeholder="Type something..."'+ 'class="form-control bot-txt"/>'+
+									'<button id="send-button" class="col-2 btn btn-dark btn-sm">Send</button>' +
 								'</div>'+
 							'</div>';
 
