@@ -96,6 +96,29 @@
 - put another [25](CARDINAL) on [Kanya Bunnag](name)
 - put another [178.39](CARDINAL) on [Aricka Lewis](name)
 
+## intent:withdraw_amount
+- withdraw [57.00](CARDINAL) from [Andrzej Kraviec](name)
+- withdraw [486](CARDINAL) from [Florianne Paget](name)
+- get [100](CARDINAL) from [Masami Nishimura](name)
+- get [63.34](CARDINAL) from [Aricka Lewis](name)
+- I want to withdraw [80](CARDINAL) from [Alois Reiter](name)
+- I'd like to withdraw [283.58](CARDINAL) from [Paulinho Simoes](name)
+- remove [47.30](CARDINAL) from [Benjamin Parker](name)
+- decrease by [85](CARDINAL) [Ralph Axelsen](name)'s portfolio
+- remove [5](CARDINAL) from [William Shore](name)'s portfolio
+- subtract [13.50](CARDINAL) from [Kanya Bunnag](name)'s portfolio
+- decrease [70](CARDINAL) [Andrzej Kraviec](name)
+- get [2.39](CARDINAL) from [Masami Nishimura](name)
+- withdraw another [59](CARDINAL) from [Alois Reiter](name)
+- I'd like to get [120](CARDINAL) from [William Shore](name)
+- I'd like to withdraw [98.00](CARDINAL) from [Benjamin Parker](name)
+- I want to withdraw [200](CARDINAL) from [Aricka Lewis](name)
+- I want to remove another [25.32](CARDINAL) from [Ralph Axelsen](name)
+- I'd like to decrease by [160.50](CARDINAL) [Florianne Paget](name)'s portfolio
+- I'd like to remove [55](CARDINAL) from [Alois Reiter](name)
+- get another [25](CARDINAL) on [Andrzej Kraviec](name)
+- remove another [178.39](CARDINAL) on [Florianne Paget](name)
+
 ## intent:unfollow
 - unfollow [Aricka Lewis](name)
 - unfollow [Paulinho Simoes](name)

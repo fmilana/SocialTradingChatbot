@@ -119,3 +119,31 @@
   - utter_invalid_amount
   - action_reset_slots
   - slot{"portfolio_query":null,"name":null,"amount_query":null,"amount":null}
+
+## withdraw_amount
+* withdraw_amount
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"followed","name":"Alois Reiter","amount_query":"valid","amount":"50"}
+  - action_withdraw_amount
+  - action_reset_slots
+
+## withdraw_amount
+* withdraw_amount
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"invalid","name":"Mark Ritz","amount_query":"valid","amount":"10.00"}
+  - utter_invalid_portfolio
+  - action_reset_slots
+
+## withdraw_amount
+* withdraw_amount
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"not_followed","name":"William Shore","amount_query":"valid","amount":"65.50"}
+  - utter_already_followed_portfolio
+  - action_reset_slots
+
+## withdraw_amount
+* withdraw_amount
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"followed","name":"Kanya Bunnag","amount_query":"invalid","amount":"-80"}
+  - utter_invalid_amount
+  - action_reset_slots

@@ -16,6 +16,7 @@ intents:
   - unfollow
   - amount
   - add_amount
+  - withdraw_amount
 
 actions:
 - utter_greet
@@ -35,6 +36,7 @@ actions:
 - action_fetch_portfolio
 - action_unfollow
 - action_add_amount
+- action_withdraw_amount
 - action_reset_slots
 
 templates:

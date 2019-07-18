@@ -81,40 +81,44 @@ class FetchPortfolio(Action):
         return "action_fetch_portfolio"
 
     def run(self, dispatcher, tracker, domain):
-        # profile_name = tracker.latest_message['entities'][0]['value']
         profile_name = tracker.get_slot('name')
+
         amount = None
-        portfolio_query = None
         amount_query = None
 
-        for e in tracker.latest_message['entities']:
-            print('E vvvvvvvvvvvvvvvvvvvvv')
-            print(e)
-
-            if e['entity'] == 'CARDINAL':
-                try:
-                    amount = round(Decimal(e['value']), 2)
-                    print('AMOUNT vvvvvvvvvv')
-                    print(amount)
-                except IndexError:
-                    amount_query = 'invalid'
-                    print('INVALID AMOUNT')
-
-        try:
-            profile_object = Profile.objects.get(name__icontains=profile_name)
-            portfolio = Portfolio.objects.get(profile=profile_object.id)
-
-            if portfolio.followed:
-                portfolio_query = "followed"
-            else:
-                portfolio_query = "not_followed"
-
-            if amount is not None and amount > 0:
-                amount_query = "valid"
-
-        except IndexError:
-            print("PORTFOLIO INDEX ERROR")
+        if profile_name is None:
             portfolio_query = "invalid"
+        else:
+            portfolio_query = None
+
+            for e in tracker.latest_message['entities']:
+                print('E vvvvvvvvvvvvvvvvvvvvv')
+                print(e)
+
+                if e['entity'] == 'CARDINAL':
+                    try:
+                        amount = round(Decimal(e['value']), 2)
+                        print('AMOUNT vvvvvvvvvv')
+                        print(amount)
+                    except IndexError:
+                        amount_query = 'invalid'
+                        print('INVALID AMOUNT')
+
+            try:
+                profile_object = Profile.objects.get(name__icontains=profile_name)
+                portfolio = Portfolio.objects.get(profile=profile_object.id)
+
+                if portfolio.followed:
+                    portfolio_query = "followed"
+                else:
+                    portfolio_query = "not_followed"
+
+                if amount is not None and amount > 0:
+                    amount_query = "valid"
+
+            except IndexError:
+                print("PORTFOLIO INDEX ERROR")
+                portfolio_query = "invalid"
 
         print("returning slots")
 
@@ -128,42 +132,49 @@ class Follow(Action):
     def run(self, dispatcher, tracker, domain):
         profile_name = tracker.get_slot('name')
 
-        print('NAME vvvvvvvvvvvvv')
-        print(profile_name)
+        if profile_name is None:
+            message = "Sorry, I can't find that portfolio. Have you spelt the name correctly?"
+        else:
+            print('NAME vvvvvvvvvvvvv')
+            print(profile_name)
 
-        profile_object = Profile.objects.get(name__icontains=profile_name)
-        portfolio = Portfolio.objects.get(profile=profile_object.id)
+            profile_object = Profile.objects.get(name__icontains=profile_name)
+            portfolio = Portfolio.objects.get(profile=profile_object.id)
 
 
-        # print(tracker.latest_message['entities'][0]['value'])
+            # print(tracker.latest_message['entities'][0]['value'])
 
-        # amount = round(Decimal(tracker.latest_message['entities'][0]['value']), 2)
-        amount_query = tracker.get_slot('amount_query')
-        amount = tracker.get_slot('amount')
+            # amount = round(Decimal(tracker.latest_message['entities'][0]['value']), 2)
+            amount_query = tracker.get_slot('amount_query')
+            amount = tracker.get_slot('amount')
 
-        if amount is None:
-            try:
-                amount = round(Decimal(tracker.latest_message['entities'][0]['value']), 2)
+            if amount is None:
+                try:
+                    amount = round(Decimal(tracker.latest_message['entities'][0]['value']), 2)
+                    amount_query = 'valid'
+                except IndexError:
+                    print('INVALID AMOUNT')
+            else:
                 amount_query = 'valid'
-            except IndexError:
-                print('INVALID AMOUNT')
-        else:
-            amount_query = 'valid'
 
-        print('AMOUNT vvvvvvvvvvvvv')
+            print('AMOUNT vvvvvvvvvvvvv')
 
-        if amount_query == 'valid':
-            balance = Balance.objects.first()
-            balance.amount -= round(Decimal(amount), 2)
-            balance.save()
+            if amount_query == 'valid':
+                balance = Balance.objects.first()
+                balance.amount -= round(Decimal(amount), 2)
 
-            portfolio.followed = True
-            portfolio.invested = round(Decimal(amount), 2)
-            portfolio.save()
-            print(Portfolio.objects.filter(followed=True).aggregate(Sum('invested')).get('invested__sum'))
-            message = "You are now following " + profile_name + "."
-        else:
-            message = "That's not a valid amount."
+                if balance.amount < 0:
+                    message = "I'm afraid your current balance is not sufficient."
+                else:
+                    balance.save()
+
+                    portfolio.followed = True
+                    portfolio.invested = round(Decimal(amount), 2)
+                    portfolio.save()
+                    print(Portfolio.objects.filter(followed=True).aggregate(Sum('invested')).get('invested__sum'))
+                    message = "You are now following " + profile_name.title() + "."
+            else:
+                message = "That's not a valid amount."
 
         dispatcher.utter_message(message)
 
@@ -188,7 +199,7 @@ class Unfollow(Action):
         portfolio.invested = 0.00
         portfolio.save()
 
-        message = "You have stopped following " + profile_name + "."
+        message = "You have stopped following " + profile_name.title() + "."
 
         dispatcher.utter_message(message)
 
@@ -209,12 +220,49 @@ class AddAmount(Action):
 
         balance = Balance.objects.first()
         balance.amount -= amount
-        balance.save()
 
-        portfolio.invested += amount
-        portfolio.save()
+        if balance.amount < 0:
+            message = "I'm afraid your current balance is not sufficient."
+        else:
+            balance.save()
 
-        message = "You have invested another " + str(amount) + " in " + profile_name + "."
+            portfolio.invested += amount
+            portfolio.save()
+
+            message = "You have invested another £" + str(amount) + " in " + profile_name.title() + "."
+
+        dispatcher.utter_message(message)
+
+        return []
+
+
+class WithdrawAmount(Action):
+    def name(self):
+        return "action_withdraw_amount"
+
+    def run(self, dispatcher, tracker, domain):
+        profile_name = tracker.get_slot('name')
+
+        profile_object = Profile.objects.get(name__icontains=profile_name)
+        portfolio = Portfolio.objects.get(profile=profile_object.id)
+
+        amount = round(Decimal(tracker.get_slot('amount')), 2)
+
+        portfolio.invested -= amount
+
+        if portfolio.invested < 0:
+            message = "That's not a valid amount to withdraw."#
+        else:
+            if portfolio.invested == 0:
+                portfolio.followed = False
+
+            portfolio.save()
+
+            balance = Balance.objects.first()
+            balance.amount += amount
+            balance.save()
+
+            message = "You have withdrawn £" + str(amount) + " from " + profile_name.title() + "."
 
         dispatcher.utter_message(message)
 
