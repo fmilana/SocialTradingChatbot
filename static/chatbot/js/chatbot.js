@@ -70,26 +70,43 @@ $(document).ready(function() {
                   new_invested_amount = parseFloat($('#invested-balance-amount').text());
                   new_invested_amount = parseFloat(Math.round(new_invested_amount * 100) / 100).toFixed(2);
 
-                  invested_balance_change = 100 * (new_invested_amount - old_invested_amount) / old_invested_amount;
-                  invested_balance_change = Math.round(invested_balance_change * 100) / 100
+                  span = $('#invested-balance-change');
 
-                  invested_balance_string = '';
+                  string = '';
 
-                  console.log('invested balance change = ' + invested_balance_change);
+                  if (old_invested_amount == 0) {
+                    string = '+0.00%';
+                    span.removeClass('positive-change');
+                    span.removeClass('negative-change');
+                    span.addClass('no-change');
 
-                  if (invested_balance_change >= 0) {
-                    invested_balance_string = '+' + invested_balance_change + '%';
-                    $('#invested-balance-change').removeClass('negative-change');
-                    $('#invested-balance-change').addClass('positive-change');
                   } else {
-                    invested_balance_string = invested_balance_change + '%';
-                    $('#invested-balance-change').removeClass('positive-change');
-                    $('#invested-balance-change').addClass('negative-change');
+                    invested_balance_change = 100 * (new_invested_amount - old_invested_amount) / old_invested_amount;
+                    invested_balance_change = Math.round(invested_balance_change * 100) / 100
+
+                    console.log('invested balance change = ' + invested_balance_change);
+
+                    if (invested_balance_change > 0) {
+                      string = '+' + invested_balance_change + '%';
+                      span.removeClass('negative-change');
+                      span.removeClass('no-change');
+                      span.addClass('positive-change');
+                    } else if (invested_balance_change == 0) {
+                      string = '+0.00%';
+                      span.removeClass('positive-change');
+                      span.removeClass('negative-change');
+                      span.addClass('no-change');
+                    } else {
+                      string = invested_balance_change + '%';
+                      span.removeClass('positive-change');
+                      span.removeClass('no-change');
+                      span.addClass('negative-change');
+                    }
                   }
 
-                  console.log('invested balance change string = ' + invested_balance_string);
+                  console.log('invested balance change string = ' + string);
 
-                  $('#invested-balance-change').text(invested_balance_string);
+                  span.text(string);
                   $('#parentheses').show();
               }
           });

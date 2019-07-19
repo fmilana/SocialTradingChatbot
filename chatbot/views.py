@@ -27,8 +27,8 @@ def chatbot_page(request):
 
     context = {
         'month_number': Month.objects.first().number,
-        'available_balance_amount': Balance.objects.first().amount,
-        'invested_balance_amount': InvestedBalance.objects.first().amount,
+        'available_balance_amount': format(Balance.objects.first().amount, '.2f'),
+        'invested_balance_amount': format(InvestedBalance.objects.first().amount, '.2f'),
         'image_names': image_names,
         'profiles': serializers.serialize('json', Profile.objects.all()),
         'followed_portfolios': Portfolio.objects.filter(followed=True),
@@ -94,6 +94,9 @@ def update_balances(request):
     response = {}
     response['available_balance_amount'] = str(Balance.objects.first().amount)
     response['invested_balance_amount'] = str(InvestedBalance.objects.first().amount)
+
+    if response['available_balance_amount'] == '0.0':
+        response['available_balance_amount'] = '0.00'
 
     if response['invested_balance_amount'] == '0.0':
         response['invested_balance_amount'] = '0.00'

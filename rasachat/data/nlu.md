@@ -14,6 +14,8 @@
 
 ## intent:affirm
 - yes
+- yeah
+- ye
 - indeed
 - of course
 - that sounds good
@@ -21,6 +23,7 @@
 
 ## intent:deny
 - no
+- nah
 - never
 - I don't think so
 - don't like that
@@ -130,6 +133,28 @@
 - I would like to unfollow [Paulinho Simoes](name)
 - I want to stop following [Andrzej Kraviec](name)
 - I want to stop following [Alois Reiter](name)
+
+## intent:unfollow_everyone
+- unfollow everyone
+- unfollow all
+- unfollow every portfolio
+- unfollow all profiles
+- unfollow everyone I follow
+- stop following everyone
+- stop following every portfolio
+- stop following all profiles
+- withdraw from every portfolio
+- I want to unfollow everyone
+- I want to unfollow every portfolio
+- I want to unfollow all portfolios
+- I want to unfollow all
+- I want to unfollow everyone I follow
+- I want to stop following everyone
+- I want to stop following every profile
+- I want to withdraw from all
+- I would like to unfollow everyone
+- I would like to stop following all portfolios
+- I'd like to unfollow everyone
 
 ## intent:amount
 - [50](CARDINAL)

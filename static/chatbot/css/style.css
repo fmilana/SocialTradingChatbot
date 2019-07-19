@@ -4,6 +4,10 @@
    outline: 1px solid red;
 } */
 
+.no-change {
+  color: #fff;
+}
+
 .positive-change {
   color: #7CFC00 !important;
   /* color: #41CE00 !important; */

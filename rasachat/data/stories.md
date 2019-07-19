@@ -147,3 +147,15 @@
   - slot{"portfolio_query":"followed","name":"Kanya Bunnag","amount_query":"invalid","amount":"-80"}
   - utter_invalid_amount
   - action_reset_slots
+
+## unfollow_everyone
+* unfollow_everyone
+  - utter_are_you_sure_unfollow_everyone
+* affirm
+  - action_unfollow_everyone
+
+## unfollow_everyone
+* unfollow_everyone
+  - utter_are_you_sure_unfollow_everyone
+* deny
+  - utter_okay

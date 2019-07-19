@@ -17,6 +17,7 @@ intents:
   - amount
   - add_amount
   - withdraw_amount
+  - unfollow_everyone
 
 actions:
 - utter_greet
@@ -30,6 +31,8 @@ actions:
 - utter_already_followed_portfolio
 - utter_already_not_followed_portfolio
 - utter_invalid_amount
+- utter_are_you_sure_unfollow_everyone
+- utter_okay
 - action_give_following_advice
 - action_give_unfollowing_advice
 - action_follow
@@ -37,6 +40,7 @@ actions:
 - action_unfollow
 - action_add_amount
 - action_withdraw_amount
+- action_unfollow_everyone
 - action_reset_slots
 
 templates:
@@ -73,6 +77,12 @@ templates:
 
   utter_invalid_amount:
   - text: "That's not a valid amount."
+
+  utter_are_you_sure_unfollow_everyone:
+  - text: "Are you sure you want to unfollow everyone?"
+
+  utter_okay:
+  - text: "Okay."
 
 slots:
   portfolio_query:

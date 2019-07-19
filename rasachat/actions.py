@@ -247,7 +247,7 @@ class WithdrawAmount(Action):
         portfolio.invested -= amount
 
         if portfolio.invested < 0:
-            message = "That's not a valid amount to withdraw."#
+            message = "That's not a valid amount to withdraw."
         else:
             if portfolio.invested == 0:
                 portfolio.followed = False
@@ -259,6 +259,36 @@ class WithdrawAmount(Action):
             balance.save()
 
             message = "You have withdrawn £" + str(amount) + " from " + profile_name.title() + "."
+
+        dispatcher.utter_message(message)
+
+        return []
+
+
+class UnfollowEveryone(Action):
+    def name(self):
+        return "action_unfollow_everyone"
+
+    def run(self, dispatcher, tracker, domain):
+
+        followed_portfolios = Portfolio.objects.filter(followed=True)
+
+        if not followed_portfolios:
+            message = "You are not following anyone."
+        else:
+            balance = Balance.objects.first()
+
+            for portfolio in followed_portfolios:
+                balance.amount += portfolio.invested
+
+                portfolio.followed = False
+                portfolio.invested = 0.00
+
+                portfolio.save()
+
+            balance.save()
+
+            message = "You have unfollowed everyone."
 
         dispatcher.utter_message(message)
 
