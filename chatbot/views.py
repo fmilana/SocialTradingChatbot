@@ -10,6 +10,7 @@ from django.core import serializers
 
 import json
 
+import random
 from random import gauss
 import decimal
 
@@ -35,6 +36,8 @@ def chatbot_page(request):
         'not_followed_portfolios': Portfolio.objects.filter(followed=False),
         'newsposts': serializers.serialize('json', Newspost.objects.all()),
         }
+
+    generate_next_portfolio_changes()
 
     return render(request, 'chatbot.html', context)
 
@@ -67,7 +70,7 @@ def update_portfolios(request):
     response = {}
 
     for portfolio in Portfolio.objects.all():
-        change_value = gauss(0.0, portfolio.risk*5)
+        change_value = portfolio.nextChange
 
         portfolio.lastChange = round(change_value, 2)
 
@@ -76,15 +79,14 @@ def update_portfolios(request):
 
         if portfolio.followed:
             new_invested_amount = round(portfolio.invested * decimal.Decimal(change_value), 2)
-
             portfolio.invested = new_invested_amount
 
         portfolio.save()
 
-        response[portfolio.profile.name] = change_value
-
     response['invested_balance_amount'] = str(InvestedBalance.objects.first().amount)
     response['available_balance_amount'] = str(Balance.objects.first().amount)
+
+    generate_next_portfolio_changes()
 
     return HttpResponse(json.dumps(response), content_type="application/json")
 
@@ -106,13 +108,24 @@ def update_balances(request):
     return HttpResponse(json.dumps(response), content_type="application/json")
 
 
+def get_next_changes(request):
+    response = {}
 
-# def update_followed(request):
-#     print('update_followed called')
-#
-#     followed_portfolios = Portfolio.objects.filter(followed=True)
-#     not_followed_portfolios = Portfolio.objects.filter(followed=False)
-#
-#     response = {'followed': followed_portfolios, 'not_followed': not_followed_portfolios}
-#
-#     return HttpResponse(json.dumps(response), content_type="application/json")
+    for portfolio in Portfolio.objects.all():
+        response[portfolio.profile.name] = float(portfolio.nextChange)
+
+    return HttpResponse(json.dumps(response), content_type="application/json")
+
+
+def generate_next_portfolio_changes():
+    for portfolio in Portfolio.objects.all():
+        change_value = gauss(0.0, portfolio.risk*5)
+
+        if change_value >= 100:
+            change_value = 99
+        elif change_value <= -100:
+            change_value = -99
+
+        portfolio.nextChange = change_value
+
+        portfolio.save()

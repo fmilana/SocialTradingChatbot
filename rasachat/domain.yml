@@ -61,7 +61,7 @@ templates:
   - text: "Bye"
 
   utter_general_advice:
-  - text: "I think you're doing a great job. I'll get back to you later when things change"
+  - text: "I think you're doing a great job. I'll get back to you when things change"
 
   utter_ask_follow_amount:
   - text: "How much would you like to invest?"

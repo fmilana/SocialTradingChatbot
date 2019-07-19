@@ -288,6 +288,7 @@ h5 {
 
 #user-message {
   display: inline-block;
+  word-wrap: break-word;
   clear: both;
   padding: 20px;
   border-radius: 30px;

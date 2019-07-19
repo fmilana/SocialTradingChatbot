@@ -7,7 +7,7 @@ $(document).ready(function() {
 
   var newspostTimeout;
 
-  var update_timer = function () {
+  var update_timer = function() {
     if (!isPaused) {
       var seconds,
           minutes,
@@ -65,7 +65,7 @@ $(document).ready(function() {
                     }
                   });
 
-                  $('#invested-balance-amount').html(response.invested_balance_amount);
+                  $('#invested-balance-amount').html((Math.round(response.invested_balance_amount * 100) / 100).toFixed(2));
 
                   new_invested_amount = parseFloat($('#invested-balance-amount').text());
                   new_invested_amount = parseFloat(Math.round(new_invested_amount * 100) / 100).toFixed(2);
@@ -82,7 +82,7 @@ $(document).ready(function() {
 
                   } else {
                     invested_balance_change = 100 * (new_invested_amount - old_invested_amount) / old_invested_amount;
-                    invested_balance_change = Math.round(invested_balance_change * 100) / 100
+                    invested_balance_change = parseFloat(Math.round(invested_balance_change * 100) / 100).toFixed(2);
 
                     console.log('invested balance change = ' + invested_balance_change);
 
@@ -156,10 +156,10 @@ $(document).ready(function() {
 
   $('.scrollable-newsposts').append('<img id="loading-gif" src="' + staticUrl + 'chatbot/images/loading.gif">');
 
-  var newsposts = shuffle(JSON.parse(newsposts_list.replace(/&quot;/g, '"')));
-  var profiles = JSON.parse(profiles_list.replace(/&quot;/g, '"'));
+  newsposts = shuffle(JSON.parse(newsposts_list.replace(/&quot;/g, '"')));
+  profiles = JSON.parse(profiles_list.replace(/&quot;/g, '"'));
 
-  var newspostCounter = 0;
+  newspostCounter = 0;
 
   function updateNewsposts() {
 
@@ -170,42 +170,63 @@ $(document).ready(function() {
 
       $('#loading-gif').remove();
 
-      var newspost = newsposts[newspostCounter];
-      var profile = profiles[newspost.fields.profile - 1];
-      var name = profile.fields.name;
-      var text = newspost.fields.text;
+      newspost = newsposts[newspostCounter];
+      profile = profiles[newspost.fields.profile - 1];
+      name = profile.fields.name;
 
-      var div = '<div class="wrapper-newspost"> \
-        <div class="container-newspost"> \
-          <div class="img-container-newspost"> \
-            <img class="card-img" src= "' + staticUrl + 'chatbot/images/profiles/' +  name.replace(' ', '-') + '.jpg" alt="' + name + ' image"> \
-          </div> \
-          <div class="content-newspost"> \
-            <div> \
-                <p id="text-newspost"><strong>' + text + '</strong></p> \
-            </div> \
-          </div> \
-        </div> \
-      </div>';
+      $.ajax({
+          type: "GET",
+          url: server_url + '/getnextchanges/',
+          success: function (response) {
 
-      $('.scrollable-newsposts').append(div);
+            next_change = (Math.round(response[profile.fields.name] * 100) / 100).toFixed(2)
 
-      if (newspostCounter < 9) {
-        $('.scrollable-newsposts').append('<img id="loading-gif" src="' + staticUrl + 'chatbot/images/loading.gif">');
-      }
+            text = '';
 
-      $('.scrollable-newsposts').scrollTop($('.scrollable-newsposts')[0].scrollHeight);
+            if (next_change >= 0) {
+              text = name + '\'s portfolio to increase.'
+            } else {
+              text = name + '\'s portfolio to decrease.'
+            }
+
+            var div = '<div class="wrapper-newspost"> \
+              <div class="container-newspost"> \
+                <div class="img-container-newspost"> \
+                  <img class="card-img" src= "' + staticUrl + 'chatbot/images/profiles/' +  name.replace(' ', '-') + '.jpg" alt="' + name + ' image"> \
+                </div> \
+                <div class="content-newspost"> \
+                  <div> \
+                      <p id="text-newspost"><strong>' + text + '</strong></p> \
+                  </div> \
+                </div> \
+              </div> \
+            </div>';
+
+            $('.scrollable-newsposts').append(div);
+
+            if (newspostCounter < 9) {
+              $('.scrollable-newsposts').append('<img id="loading-gif" src="' + staticUrl + 'chatbot/images/loading.gif">');
+            }
+
+            $('.scrollable-newsposts').scrollTop($('.scrollable-newsposts')[0].scrollHeight);
 
 
 
-      if (newspostCounter < 9) {
-        setNewspostTimer();
-      }
+            if (newspostCounter < 9) {
+              setNewspostTimer();
+            }
 
-      newspostCounter++;
+            newspostCounter++;
+
+            if (next_change >= 0) {
+              text = profile.name + '\'s portfolio to increase.'
+            } else {
+              text = profile.name + '\'s portfolio to decrease.'
+            }
+          }
+      });
     }
   };
-
 
 
   function setNewspostTimer() {

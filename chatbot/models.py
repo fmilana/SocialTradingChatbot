@@ -7,6 +7,13 @@ class Profile(models.Model):
     name = models.TextField(null=False)
     gender = models.TextField()
 
+    class Meta:
+        verbose_name = 'Profile'
+        verbose_name_plural = 'Profiles'
+
+    def __str__(self):
+        return self.name
+
 
 class Portfolio(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -15,23 +22,44 @@ class Portfolio(models.Model):
     risk = models.IntegerField(null=False)
     invested = models.DecimalField(max_digits=6, decimal_places=2)
     lastChange = models.DecimalField(max_digits=5, decimal_places=2)
+    nextChange = models.DecimalField(max_digits=5, decimal_places=2)
+
+    class Meta:
+        verbose_name = 'Portfolio'
+        verbose_name_plural = 'Portfolios'
+
+    def __str__(self):
+        return self.profile.name
 
 
 class Newspost(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     profile = models.ForeignKey('Profile', null=True, on_delete=models.PROTECT)
-    text = models.TextField()
 
     def asJson(self):
         return dict(
             profile=self.profile,
-            text=self.text,
+            # text=self.text,
             user=self.user)
+
+    class Meta:
+        verbose_name = 'Newspost'
+        verbose_name_plural = 'Newsposts'
+
+    def __str__(self):
+        return self.profile.name
 
 
 class Balance(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=6, decimal_places=2, default=1000.00)
+
+    class Meta:
+        verbose_name = 'Balance'
+        verbose_name_plural = 'Balances'
+
+    def __str__(self):
+        return str(self.amount)
 
 
 class InvestedBalance(models.Model):
@@ -44,7 +72,21 @@ class InvestedBalance(models.Model):
         else:
             return round(Portfolio.objects.filter(followed=True).aggregate(Sum('invested')).get('invested__sum'), 2)
 
+    class Meta:
+        verbose_name = 'Invested Balance'
+        verbose_name_plural = 'Invested Balances'
+
+    def __str__(self):
+        return str(self.amount)
+
 
 class Month(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     number = models.IntegerField(default=1)
+
+    class Meta:
+        verbose_name = 'Month'
+        verbose_name_plural = 'Months'
+
+    def __str__(self):
+        return str(self.number)

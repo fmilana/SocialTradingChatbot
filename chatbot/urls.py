@@ -24,6 +24,7 @@ from .views import (
     update_month,
     update_portfolios,
     update_balances,
+    get_next_changes,
     # update_followed,
     # imagetagging_page,
     )
@@ -35,6 +36,7 @@ urlpatterns = [
     url(r'^updatemonth/', update_month, name='updatemonth'),
     url(r'^updateportfolios/', update_portfolios, name='updateportfolios'),
     url(r'^updatebalances/', update_balances, name='updatebalances'),
+    url(r'^getnextchanges/', get_next_changes, name='getnextchanges'),
     # url(r'^updatefollowed/', update_followed, name='updatefollowed'),
     url(r'^admin/', admin.site.urls),
 ]

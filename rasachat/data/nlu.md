@@ -55,14 +55,40 @@
 ## intent:ask_general_advice
 - give me some advice
 - what should I do?
+- what do you think I should do
+- tell me what to do
+- advice
+- i don't know what to do
+- I'm not sure about what to do
+- what next?
+- can you tell me what to do?
+- what should i do next
+- what would you do?
 
 ## intent:ask_follow_advice
 - who should I follow?
 - who should I start following?
+- which profile should I follow?
+- which portfolio should I follow
+- which profile should i start following
+- which portfolio should i start following
+- should i follow someone?
+- do you think I should follow anyone
+- should I follow some portfolios?
+- should I start following anyone
 
 ## intent:ask_unfollow_advice
 - who should I unfollow?
 - who should I stop following?
+- which profile should I unfollow
+- which portfolio should i unfollow?
+- which profile should I stop following
+- which portfolio should i stop following?
+- should I unfollow anyone?
+- do you think I should unfollow someone
+- do you think I should stop following anyone?
+- should I unfollow someone
+- should i stop following someone?
 
 ## intent:follow
 - follow [Andrzej Kraviec](name)

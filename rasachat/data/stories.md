@@ -26,15 +26,15 @@
 * goodbye
   - utter_goodbye
 
-## give general advice
+## give_general_advice
 * ask_general_advice
   - utter_general_advice
 
-## give follow advice
+## give_follow_advice
 * ask_follow_advice
   - action_give_following_advice
 
-## give unfollow advice
+## give_unfollow_advice
 * ask_unfollow_advice
   - action_give_unfollowing_advice
 
