@@ -171,6 +171,7 @@ $(document).ready(function() {
       $('#loading-gif').remove();
 
       newspost = newsposts[newspostCounter];
+      newspost_accurate = newspost.fields.accurate;
       profile = profiles[newspost.fields.profile - 1];
       name = profile.fields.name;
 
@@ -179,15 +180,28 @@ $(document).ready(function() {
           url: server_url + '/getnextchanges/',
           success: function (response) {
 
-            next_change = (Math.round(response[profile.fields.name] * 100) / 100).toFixed(2)
+            next_change = (Math.round(response[profile.fields.name + '-name'] * 100) / 100).toFixed(2)
+            risk = response[profile.fields.name + '-risk'];
 
             text = '';
 
-            if (next_change >= 0) {
-              text = name + '\'s portfolio to increase.'
+            // newspost text based on change value and accuracy
+            if (newspost_accurate) {
+              if (next_change >= 0) {
+                text = name + '\'s portfolio to increase by ~' + Math.abs(Math.round(next_change)) + '%.';
+              } else {
+                text = name + '\'s portfolio to decrease by ~' + Math.abs(Math.round(next_change)) + '%.';
+              }
             } else {
-              text = name + '\'s portfolio to decrease.'
+              if (Math.random() >= 0.5) {
+                text = name + '\'s portfolio to increase by ~' + Math.abs(Math.round(gauss(risk*5))) + '%.';
+              } else {
+                text = name + '\'s portfolio to decrease by ~' + Math.abs(Math.round(gauss(risk*5))) + '%.';
+              }
             }
+
+            console.log(profile.fields.name + ' next_change = ' + next_change + ', newspost_accurate = ' + newspost_accurate);
+            console.log('so text = ' + text);
 
             var div = '<div class="wrapper-newspost"> \
               <div class="container-newspost"> \
@@ -217,12 +231,6 @@ $(document).ready(function() {
             }
 
             newspostCounter++;
-
-            if (next_change >= 0) {
-              text = profile.name + '\'s portfolio to increase.'
-            } else {
-              text = profile.name + '\'s portfolio to decrease.'
-            }
           }
       });
     }
@@ -237,6 +245,8 @@ $(document).ready(function() {
 
     clearTimeout(newspostTimeout);
     newspostTimeout = setTimeout(updateNewsposts, rand * 1000);
+
+    console.log('NEXT NEWSPOST TIMEOUT SET AS ' + rand);
   }
 
   var mybot = '<div class="chatCont" id="chatCont">'+
@@ -267,3 +277,20 @@ $(document).ready(function() {
   }
 
 });
+
+function gauss(stdev) {
+  var r = 0;
+  for(var i = 10; i > 0; i --){
+      r += Math.random();
+  }
+
+  var value = (r / 10) * stdev;
+
+  if (value <= -100) {
+    value = -99;
+  } else if (value >= 100) {
+    value = 99;
+  }
+
+  return value;
+}

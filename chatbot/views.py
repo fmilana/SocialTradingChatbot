@@ -112,7 +112,8 @@ def get_next_changes(request):
     response = {}
 
     for portfolio in Portfolio.objects.all():
-        response[portfolio.profile.name] = float(portfolio.nextChange)
+        response[portfolio.profile.name + '-name'] = float(portfolio.nextChange)
+        response[portfolio.profile.name + '-risk'] = portfolio.risk
 
     return HttpResponse(json.dumps(response), content_type="application/json")
 
@@ -129,3 +130,9 @@ def generate_next_portfolio_changes():
         portfolio.nextChange = change_value
 
         portfolio.save()
+
+        newspost = Newspost.objects.get(profile=portfolio.profile)
+
+        newspost.accurate = random.choice([True, False])
+
+        newspost.save()

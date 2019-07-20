@@ -182,6 +182,28 @@
 - I would like to stop following all portfolios
 - I'd like to unfollow everyone
 
+## intent:follow_everyone
+- follow everyone
+- follow all
+- follow every portfolio
+- follow all profiles
+- follow everyone I don't follow
+- start following everyone
+- start following every portfolio
+- start following all profiles
+- invest in every portfolio
+- I want to follow everyone
+- I want to follow every portfolio
+- I want to follow all portfolios
+- I want to follow all
+- I want to follow everyone I follow
+- I want to start following everyone
+- I want to start following every profile
+- I want to invest on all
+- I would like to follow everyone
+- I would like to start following all portfolios
+- I'd like to follow everyone
+
 ## intent:amount
 - [50](CARDINAL)
 - [4.00](CARDINAL)

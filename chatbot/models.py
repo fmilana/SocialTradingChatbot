@@ -35,11 +35,12 @@ class Portfolio(models.Model):
 class Newspost(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     profile = models.ForeignKey('Profile', null=True, on_delete=models.PROTECT)
+    accurate = models.BooleanField(null=False)
 
     def asJson(self):
         return dict(
             profile=self.profile,
-            # text=self.text,
+            accurate=self.accurate,
             user=self.user)
 
     class Meta:

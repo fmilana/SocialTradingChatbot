@@ -18,6 +18,7 @@ intents:
   - add_amount
   - withdraw_amount
   - unfollow_everyone
+  - follow_everyone
 
 actions:
 - utter_greet
@@ -32,6 +33,7 @@ actions:
 - utter_already_not_followed_portfolio
 - utter_invalid_amount
 - utter_are_you_sure_unfollow_everyone
+- utter_please_follow_one_portfolio_at_a_time
 - utter_okay
 - action_give_following_advice
 - action_give_unfollowing_advice
@@ -80,6 +82,9 @@ templates:
 
   utter_are_you_sure_unfollow_everyone:
   - text: "Are you sure you want to unfollow everyone?"
+
+  utter_please_follow_one_portfolio_at_a_time:
+  - text: "Please follow one portfolio at a time so that you can set the amount to invest."
 
   utter_okay:
   - text: "Okay."

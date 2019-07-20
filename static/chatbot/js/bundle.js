@@ -8482,7 +8482,6 @@ $(document).ready(function() {
 	});
 
 
-
 	// event when bot utters message
 	socket.on('bot_uttered', function(data){
 		console.log(data);
@@ -8502,10 +8501,6 @@ $(document).ready(function() {
 				$('#empty-not-followed-tag').show();
 			}
 		});
-		// $("#row-followed").load(location.href+" #row-followed>*","");
-		// $("#row-not-followed").load(location.href+" #row-not-followed>*","");
-
-		// $("empty-followed-tag").hide();
 
 		console.log('portfolios html refreshed');
 

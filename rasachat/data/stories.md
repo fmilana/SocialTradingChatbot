@@ -159,3 +159,7 @@
   - utter_are_you_sure_unfollow_everyone
 * deny
   - utter_okay
+
+## follow_everyone
+* follow_everyone
+  - utter_please_follow_one_portfolio_at_a_time
