@@ -180,8 +180,8 @@ $(document).ready(function() {
           url: server_url + '/getnextchanges/',
           success: function (response) {
 
-            next_change = (Math.round(response[profile.fields.name + '-name'] * 100) / 100).toFixed(2)
-            risk = response[profile.fields.name + '-risk'];
+            next_change = (Math.round(response[profile.fields.name + '-next-change'] * 100) / 100).toFixed(2)
+            fake_change = (Math.round(response[profile.fields.name + '-fake-change'] * 100) / 100).toFixed(2)
 
             text = '';
 
@@ -193,10 +193,10 @@ $(document).ready(function() {
                 text = name + '\'s portfolio to decrease by ~' + Math.abs(Math.round(next_change)) + '%.';
               }
             } else {
-              if (Math.random() >= 0.5) {
-                text = name + '\'s portfolio to increase by ~' + Math.abs(Math.round(gauss(risk*5))) + '%.';
+              if (fake_change >= 0) {
+                text = name + '\'s portfolio to increase by ~' + Math.abs(Math.round(fake_change)) + '%.';
               } else {
-                text = name + '\'s portfolio to decrease by ~' + Math.abs(Math.round(gauss(risk*5))) + '%.';
+                text = name + '\'s portfolio to decrease by ~' + Math.abs(Math.round(fake_change)) + '%.';
               }
             }
 
@@ -280,7 +280,7 @@ $(document).ready(function() {
 
 function gauss(stdev) {
   var r = 0;
-  for(var i = 10; i > 0; i --){
+  for (var i = 10; i > 0; i --){
       r += Math.random();
   }
 

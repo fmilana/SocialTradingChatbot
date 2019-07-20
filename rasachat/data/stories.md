@@ -163,3 +163,24 @@
 ## follow_everyone
 * follow_everyone
   - utter_please_follow_one_portfolio_at_a_time
+
+## should_i_follow
+* should_i_follow
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"followed","name":"Florianne Paget"}
+  - action_should_i_follow_advice
+  - action_reset_slots
+
+## should_i_follow
+* should_i_follow
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"not_followed","name":"Benjamin Parker"}
+  - action_should_i_follow_advice
+  - action_reset_slots
+
+## should_i_follow
+* should_i_follow
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"invalid","name":"Daniel"}
+  - utter_invalid_portfolio
+  - action_reset_slots

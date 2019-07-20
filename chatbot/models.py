@@ -23,6 +23,7 @@ class Portfolio(models.Model):
     invested = models.DecimalField(max_digits=6, decimal_places=2)
     lastChange = models.DecimalField(max_digits=5, decimal_places=2)
     nextChange = models.DecimalField(max_digits=5, decimal_places=2)
+    fakeChange = models.DecimalField(max_digits=5, decimal_places=2)
 
     class Meta:
         verbose_name = 'Portfolio'

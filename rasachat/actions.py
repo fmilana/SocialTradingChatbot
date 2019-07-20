@@ -19,13 +19,14 @@ sys.path.insert(0, 'C:\\Users\\feder\\chatbot')
 import os, django
 os.environ["DJANGO_SETTINGS_MODULE"] = 'chatbot.settings'
 django.setup()
-from chatbot.models import Portfolio, Profile, Balance, InvestedBalance
+from chatbot.models import Portfolio, Profile, Newspost, Balance, InvestedBalance
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.aggregates import Count
 from random import randint
 from django.db.models import Sum
 from decimal import Decimal
+import random
 
 
 class GiveFollowingAdvice(Action):
@@ -293,6 +294,64 @@ class UnfollowEveryone(Action):
         dispatcher.utter_message(message)
 
         return []
+
+
+class ShouldIFollowAdvice(Action):
+    def name(self):
+        return 'action_should_i_follow_advice'
+
+    def run(self, dispatcher, tracker, domain):
+        message = ''
+
+        profile_name = tracker.get_slot('name')
+
+        profile_object = Profile.objects.get(name__icontains=profile_name)
+        portfolio = Portfolio.objects.get(profile=profile_object.id)
+        newspost = Newspost.objects.get(profile=profile_object.id)
+
+        next_change = portfolio.nextChange
+        fake_change = portfolio.fakeChange
+
+        print('--------> ' + str(profile_name) + '\'s fakeChange = ' + str(fake_change))
+        print('----edit----> ' + str(profile_name) + '\'s fakeChange = ' + str(abs(round(fake_change))))
+
+        change_to_consider = None
+
+        if not newspost.accurate:
+            change_to_consider = round(next_change)
+        else:
+            change_to_consider = round(fake_change)
+
+        answer = ''
+        increase_or_decrease = ''
+
+        if change_to_consider > 30:
+            answer = 'Definitely!'
+            increase_or_decrease = 'increase by ' + str(change_to_consider) + '%'
+        elif change_to_consider > 10:
+            answer = 'Yes.'
+            increase_or_decrease = 'increase by ' + str(change_to_consider) + '%'
+        elif change_to_consider > 0:
+            answer = 'Not really.'
+            increase_or_decrease = 'increase by ' + str(change_to_consider) + '%'
+        elif change_to_consider == 0:
+            answer = 'Not really.'
+            increase_or_decrease = 'not change'
+        elif change_to_consider > -10:
+            answer = 'Not really.'
+            increase_or_decrease = 'decrease by ' + str(change_to_consider) + '%'
+        elif change_to_consider > -30:
+            answer = 'No.'
+            increase_or_decrease = 'decrease by ' + str(change_to_consider) + '%'
+        else:
+            answer = 'Definitely not!'
+            increase_or_decrease = 'decrease by ' + str(change_to_consider) + '%'
+
+        message = answer + ' I believe ' + profile_name.title() + '\'s portfolio will ' + increase_or_decrease + ' next month.'
+
+        dispatcher.utter_message(message)
+
+        return[]
 
 
 class ResetSlots(Action):

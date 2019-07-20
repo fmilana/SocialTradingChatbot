@@ -90,6 +90,25 @@
 - should I unfollow someone
 - should i stop following someone?
 
+## intent:should_i_follow
+- should i follow [Aricka Lewis](name)?
+- should I follow [Ralph Axelsen](name)
+- should i start following [William Shore](name)?
+- should I start following [Andrzej Kraviec](name)
+- should I keep following [Masami Nishimura](name)?
+- should i keep following [Alois Reiter](name)
+- would you follow [Florianne Paget](name)?
+- do you think I should follow [Paulinho Simoes](name)
+- do you think I should keep following [Kanya Bunnag](name)?
+- do I want to follow [William Shore](name)?
+- do I want to keep following [Paulinho Simoes](name)?
+- do you think following [Alois Reiter](name) is a good idea?
+- would you recommend following [Andrzej Kraviec](name)
+- will [Benjamin Parker](name)'s portfolio increase?
+- do you think [Kanya Bunnag](name) will increase
+- will [Alois Reiter](name)'s value increase next month
+- is [Paulinho Simoes](name) going to increase?
+
 ## intent:follow
 - follow [Andrzej Kraviec](name)
 - follow [Masami Nishimura](name)

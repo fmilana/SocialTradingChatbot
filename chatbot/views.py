@@ -16,6 +16,8 @@ import decimal
 
 
 def welcome_page(request):
+    generate_next_portfolio_changes()
+
     return render(request, 'welcome.html')
 
 
@@ -36,8 +38,6 @@ def chatbot_page(request):
         'not_followed_portfolios': Portfolio.objects.filter(followed=False),
         'newsposts': serializers.serialize('json', Newspost.objects.all()),
         }
-
-    generate_next_portfolio_changes()
 
     return render(request, 'chatbot.html', context)
 
@@ -112,8 +112,8 @@ def get_next_changes(request):
     response = {}
 
     for portfolio in Portfolio.objects.all():
-        response[portfolio.profile.name + '-name'] = float(portfolio.nextChange)
-        response[portfolio.profile.name + '-risk'] = portfolio.risk
+        response[portfolio.profile.name + '-next-change'] = float(portfolio.nextChange)
+        response[portfolio.profile.name + '-fake-change'] = float(portfolio.fakeChange)
 
     return HttpResponse(json.dumps(response), content_type="application/json")
 
@@ -127,7 +127,15 @@ def generate_next_portfolio_changes():
         elif change_value <= -100:
             change_value = -99
 
+        fake_change_value = gauss(0.0, portfolio.risk*5)
+
+        if fake_change_value >= 100:
+            fake_change_value = 99
+        elif fake_change_value <= -100:
+            fake_change_value = -99
+
         portfolio.nextChange = change_value
+        portfolio.fakeChange = fake_change_value
 
         portfolio.save()
 

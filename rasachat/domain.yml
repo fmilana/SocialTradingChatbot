@@ -13,6 +13,7 @@ intents:
   - ask_follow_advice
   - ask_unfollow_advice
   - follow
+  - should_i_follow
   - unfollow
   - amount
   - add_amount
@@ -38,6 +39,7 @@ actions:
 - action_give_following_advice
 - action_give_unfollowing_advice
 - action_follow
+- action_should_i_follow_advice
 - action_fetch_portfolio
 - action_unfollow
 - action_add_amount
