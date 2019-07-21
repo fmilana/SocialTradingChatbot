@@ -35,8 +35,12 @@ $(document).ready(function() {
 
                     $('#month-number').html(response.month);
 
-                  } else {
+                    $('#result_div').append('<row><p id="month-chat">Month: ' + response.month + '/5</p></row>')
+                    $('#result_div').scrollTop($('#result_div')[0].scrollHeight);
 
+                  } else {
+                    $('#result_div').append('<row><p id="month-chat">Month: ' + response.month + '/5</p></row>')
+                    $('#result_div').scrollTop($('#result_div')[0].scrollHeight);
                   }
               }
           });
@@ -185,20 +189,23 @@ $(document).ready(function() {
 
             text = '';
 
-            // newspost text based on change value and accuracy
+            var change_to_consider;
+
             if (newspost_accurate) {
-              if (next_change >= 0) {
-                text = name + '\'s portfolio to increase by ~' + Math.abs(Math.round(next_change)) + '%.';
-              } else {
-                text = name + '\'s portfolio to decrease by ~' + Math.abs(Math.round(next_change)) + '%.';
-              }
+              change_to_consider = next_change;
             } else {
-              if (fake_change >= 0) {
-                text = name + '\'s portfolio to increase by ~' + Math.abs(Math.round(fake_change)) + '%.';
-              } else {
-                text = name + '\'s portfolio to decrease by ~' + Math.abs(Math.round(fake_change)) + '%.';
-              }
+              change_to_consider = fake_change;
             }
+
+            // newspost text based on change value and accuracy
+            if (change_to_consider > 0) {
+              text = name + '\'s portfolio to increase by ~' + Math.abs(Math.round(change_to_consider)) + '%.';
+            } else if (change_to_consider == 0) {
+              text = name + '\'s portfolio to stay the same.';
+            } else {
+              text = name + '\'s portfolio to decrease by ~' + Math.abs(Math.round(change_to_consider)) + '%.';
+            }
+
 
             console.log(profile.fields.name + ' next_change = ' + next_change + ', newspost_accurate = ' + newspost_accurate);
             console.log('so text = ' + text);

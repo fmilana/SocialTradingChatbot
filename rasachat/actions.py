@@ -107,6 +107,8 @@ class FetchPortfolio(Action):
 
             try:
                 profile_object = Profile.objects.get(name__icontains=profile_name)
+                profile_name = profile_object.name
+
                 portfolio = Portfolio.objects.get(profile=profile_object.id)
 
                 if portfolio.followed:
@@ -116,6 +118,8 @@ class FetchPortfolio(Action):
 
                 if amount is not None and amount > 0:
                     amount_query = "valid"
+                elif amount is not None and amount <= 0:
+                    amount_query = "invalid"
 
             except IndexError:
                 print("PORTFOLIO INDEX ERROR")
@@ -148,7 +152,10 @@ class Follow(Action):
             if amount is None:
                 try:
                     amount = round(Decimal(tracker.latest_message['entities'][0]['value']), 2)
-                    amount_query = 'valid'
+                    if amount > 0:
+                        amount_query = 'valid'
+                    else:
+                        amount_query = 'invalid'
                 except IndexError:
                     print('INVALID AMOUNT')
             else:
@@ -312,9 +319,6 @@ class ShouldIFollowAdvice(Action):
         next_change = portfolio.nextChange
         fake_change = portfolio.fakeChange
 
-        print('--------> ' + str(profile_name) + '\'s fakeChange = ' + str(fake_change))
-        print('----edit----> ' + str(profile_name) + '\'s fakeChange = ' + str(abs(round(fake_change))))
-
         change_to_consider = None
 
         if not newspost.accurate:
@@ -325,27 +329,27 @@ class ShouldIFollowAdvice(Action):
         answer = ''
         increase_or_decrease = ''
 
-        if change_to_consider > 30:
+        if change_to_consider >= 30:
             answer = 'Definitely!'
-            increase_or_decrease = 'increase by ' + str(change_to_consider) + '%'
-        elif change_to_consider > 10:
+            increase_or_decrease = 'increase by ' + str(abs(change_to_consider)) + '%'
+        elif change_to_consider >= 10:
             answer = 'Yes.'
-            increase_or_decrease = 'increase by ' + str(change_to_consider) + '%'
+            increase_or_decrease = 'increase by ' + str(abs(change_to_consider)) + '%'
         elif change_to_consider > 0:
             answer = 'Not really.'
-            increase_or_decrease = 'increase by ' + str(change_to_consider) + '%'
+            increase_or_decrease = 'only increase by ' + str(abs(change_to_consider)) + '%'
         elif change_to_consider == 0:
             answer = 'Not really.'
             increase_or_decrease = 'not change'
         elif change_to_consider > -10:
             answer = 'Not really.'
-            increase_or_decrease = 'decrease by ' + str(change_to_consider) + '%'
+            increase_or_decrease = 'decrease by ' + str(abs(change_to_consider)) + '%'
         elif change_to_consider > -30:
             answer = 'No.'
-            increase_or_decrease = 'decrease by ' + str(change_to_consider) + '%'
+            increase_or_decrease = 'decrease by ' + str(abs(change_to_consider)) + '%'
         else:
             answer = 'Definitely not!'
-            increase_or_decrease = 'decrease by ' + str(change_to_consider) + '%'
+            increase_or_decrease = 'decrease by ' + str(abs(change_to_consider)) + '%'
 
         message = answer + ' I believe ' + profile_name.title() + '\'s portfolio will ' + increase_or_decrease + ' next month.'
 

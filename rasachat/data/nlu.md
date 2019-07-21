@@ -96,88 +96,120 @@
 - should i start following [William Shore](name)?
 - should I start following [Andrzej Kraviec](name)
 - should I keep following [Masami Nishimura](name)?
-- should i keep following [Alois Reiter](name)
+- should i keep following [Alois](name)
 - would you follow [Florianne Paget](name)?
 - do you think I should follow [Paulinho Simoes](name)
 - do you think I should keep following [Kanya Bunnag](name)?
-- do I want to follow [William Shore](name)?
+- do I want to follow [William](name)?
 - do I want to keep following [Paulinho Simoes](name)?
 - do you think following [Alois Reiter](name) is a good idea?
-- would you recommend following [Andrzej Kraviec](name)
+- would you recommend following [Andrzej](name)
 - will [Benjamin Parker](name)'s portfolio increase?
-- do you think [Kanya Bunnag](name) will increase
+- do you think [Kanya](name) will increase
 - will [Alois Reiter](name)'s value increase next month
 - is [Paulinho Simoes](name) going to increase?
 
 ## intent:follow
 - follow [Andrzej Kraviec](name)
-- follow [Masami Nishimura](name)
-- start following [William Shore](name)
+- follow [Masami](name)
+- follow [Ralph Axelsen](name)
+- follow [Bunnag](name)
+- follow [Alois Reiter](name)
+- follow [William](name)
+- follow [Nishimura](name)
+- follow [Florianne Paget](name)
+- follow [Benjamin](name)
+- follow [Simoes](name)
+- start following [Andrzej](name)
 - start following [Masami Nishimura](name)
+- start following [Axelsen](name)
+- start following [Kanya Bunnag](name)
+- start following [Alois](name)
+- start following [Masami Nishimura](name)
+- start following [Shore](name)
+- start following [Florianne Paget](name)
+- start following [Benjamin](name)
+- start following [Paulinho](name)
 - I want to follow [Florianne Paget](name)
 - I want to follow [Benjamin Parker](name)
 - I would like to follow [Paulinho Simoes](name)
-- I would like to follow [William Shore](name)
+- I would like to follow [William](name)
 - I want to start following [Alois Reiter](name)
-- I want to start following [Andrzej Kraviec](name)
+- I want to start following [Kraviec](name)
 
 ## intent:add_amount
 - put [10.00](CARDINAL) on [Andrzej Kraviec](name)
-- put [603](CARDINAL) on [Andrzej Kraviec](name)
-- invest [343](CARDINAL) on [Aricka Lewis](name)
+- put [603](CARDINAL) on [Andrzej](name)
+- invest [343](CARDINAL) on [Aricka](name)
 - invest [23.54](CARDINAL) on [Alois Reiter](name)
 - I want to add [30](CARDINAL) to [Florianne Paget](name)
 - I'd like to add [129.72](CARDINAL) to [Paulinho Simoes](name)
 - increase [72.80](CARDINAL) on [Benjamin Parker](name)
-- increase by [43](CARDINAL) [Benjamin Parker](name)'s portfolio
-- add [3](CARDINAL) to [Paulinho Simoes](name)'s portfolio
+- increase by [43](CARDINAL) [Benjamin](name)'s portfolio
+- add [3](CARDINAL) to [Paulinho](name)'s portfolio
 - add [13.16](CARDINAL) to [Benjamin Parker](name)'s portfolio
 - add [50](CARDINAL) to [William Shore](name)
 - add another [2.39](CARDINAL) to [Ralph Axelsen](name)
 - add another [75](CARDINAL) to [Kanya Bunnag](name)
-- I'd like to put [134](CARDINAL) on [William Shore](name)
-- I'd like to put [63.24](CARDINAL) on [Florianne Paget](name)
+- I'd like to put [134](CARDINAL) on [William](name)
+- I'd like to put [63.24](CARDINAL) on [Florianne](name)
 - I want to invest another [200.34](CARDINAL) on [Masami Nishimura](name)
-- I want to invest another [12](CARDINAL) on [Ralph Axelsen](name)
-- I'd like to increase by [159.16](CARDINAL) [Alois Reiter](name)
+- I want to invest another [12](CARDINAL) on [Ralph](name)
+- I'd like to increase by [159.16](CARDINAL) [Alois](name)
 - I'd like to increase by [65](CARDINAL) [Kanya Bunnag](name)
 - put another [25](CARDINAL) on [Kanya Bunnag](name)
 - put another [178.39](CARDINAL) on [Aricka Lewis](name)
 
 ## intent:withdraw_amount
 - withdraw [57.00](CARDINAL) from [Andrzej Kraviec](name)
-- withdraw [486](CARDINAL) from [Florianne Paget](name)
-- get [100](CARDINAL) from [Masami Nishimura](name)
+- withdraw [486](CARDINAL) from [Florianne](name)
+- get [100](CARDINAL) from [Nishimura](name)
 - get [63.34](CARDINAL) from [Aricka Lewis](name)
-- I want to withdraw [80](CARDINAL) from [Alois Reiter](name)
+- I want to withdraw [80](CARDINAL) from [Alois](name)
 - I'd like to withdraw [283.58](CARDINAL) from [Paulinho Simoes](name)
-- remove [47.30](CARDINAL) from [Benjamin Parker](name)
-- decrease by [85](CARDINAL) [Ralph Axelsen](name)'s portfolio
-- remove [5](CARDINAL) from [William Shore](name)'s portfolio
+- remove [47.30](CARDINAL) from [Benjamin](name)
+- decrease by [85](CARDINAL) [Ralph](name)'s portfolio
+- remove [5](CARDINAL) from [Shore](name)'s portfolio
 - subtract [13.50](CARDINAL) from [Kanya Bunnag](name)'s portfolio
-- decrease [70](CARDINAL) [Andrzej Kraviec](name)
+- decrease [70](CARDINAL) [Andrzej](name)
 - get [2.39](CARDINAL) from [Masami Nishimura](name)
-- withdraw another [59](CARDINAL) from [Alois Reiter](name)
+- withdraw another [59](CARDINAL) from [Reiter](name)
 - I'd like to get [120](CARDINAL) from [William Shore](name)
 - I'd like to withdraw [98.00](CARDINAL) from [Benjamin Parker](name)
-- I want to withdraw [200](CARDINAL) from [Aricka Lewis](name)
+- I want to withdraw [200](CARDINAL) from [Aricka](name)
 - I want to remove another [25.32](CARDINAL) from [Ralph Axelsen](name)
 - I'd like to decrease by [160.50](CARDINAL) [Florianne Paget](name)'s portfolio
 - I'd like to remove [55](CARDINAL) from [Alois Reiter](name)
 - get another [25](CARDINAL) on [Andrzej Kraviec](name)
-- remove another [178.39](CARDINAL) on [Florianne Paget](name)
+- remove another [178.39](CARDINAL) on [Paget](name)
 
 ## intent:unfollow
+- unfollow [Andrzej Kraviec](name)
+- unfollow [Masami](name)
+- unfollow [Ralph Axelsen](name)
+- unfollow [Kanya](name)
+- unfollow [Alois Reiter](name)
+- unfollow [William](name)
 - unfollow [Aricka Lewis](name)
+- unfollow [Florianne](name)
+- unfollow [Benjamin Parker](name)
 - unfollow [Paulinho Simoes](name)
-- stop following [Masami Nishimura](name)
-- stop following [Florianne Paget](name)
-- I want to unfollow [Benjamin Parker](name)
+- start unfollowing [Andrzej](name)
+- start unfollowing [Masami Nishimura](name)
+- start unfollowing [Ralph](name)
+- start unfollowing [Kanya Bunnag](name)
+- start unfollowing [Aricka](name)
+- start unfollowing [Alois](name)
+- start unfollowing [William Shore](name)
+- start unfollowing [Florianne Paget](name)
+- start unfollowing [Benjamin Parker](name)
+- start unfollowing [Paulinho](name)
 - I want to unfollow [Florianne Paget](name)
-- I would like to unfollow [William Shore](name)
+- I want to unfollow [Parker](name)
 - I would like to unfollow [Paulinho Simoes](name)
-- I want to stop following [Andrzej Kraviec](name)
-- I want to stop following [Alois Reiter](name)
+- I would like to unfollow [William](name)
+- I want to start unfollowing [Alois Reiter](name)
+- I want to start unfollowing [Kraviec](name)
 
 ## intent:unfollow_everyone
 - unfollow everyone
@@ -241,14 +273,32 @@
 - [24.94](CARDINAL)
 
 ## lookup:name
+- Andrzej
+- Kraviec
 - Andrzej Kraviec
+- Aricka
+- Lewis
 - Aricka Lewis
+- Benjamin
+- Parker
 - Benjamin Parker
+- Florianne
+- Paget
 - Florianne Paget
+- Kanya
+- Bunnag
 - Kanya Bunnag
+- Masami
+- Nishimura
 - Masami Nishimura
+- Paulinho
+- Simoes
 - Paulinho Simoes
+- Ralph
+- Axelsen
 - Ralph Axelsen
+- William
+- Shore
 - William Shore
 
 ## regex:CARDINAL
