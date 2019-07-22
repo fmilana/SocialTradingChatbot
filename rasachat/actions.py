@@ -25,7 +25,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.aggregates import Count
 from random import randint
 from django.db.models import Sum
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 import random
 
 
@@ -127,7 +127,7 @@ class FetchPortfolio(Action):
                         amount = round(Decimal(e['value']), 2)
                         print('AMOUNT vvvvvvvvvv')
                         print(amount)
-                    except IndexError:
+                    except (IndexError, InvalidOperation):
                         amount_query = 'invalid'
                         print('INVALID AMOUNT')
 
@@ -402,28 +402,27 @@ class ShouldIFollowAdvice(Action):
             increase_or_decrease = ''
 
             if chatbot_change >= 30:
-                answer = 'Definitely!'
+                answer = 'Definitely! '
                 increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
             elif chatbot_change >= 10:
-                answer = 'Yes.'
+                answer = 'Yes. '
                 increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
             elif chatbot_change > 0:
-                answer = 'Up to you.'
                 increase_or_decrease = 'only increase by ' + str(abs(chatbot_change)) + '%'
             elif chatbot_change == 0:
-                answer = 'Not really.'
+                answer = 'Not really. '
                 increase_or_decrease = 'not change'
             elif chatbot_change > -10:
-                answer = 'Not really.'
+                answer = 'Not really. '
                 increase_or_decrease = 'decrease by ' + str(abs(chatbot_change)) + '%'
             elif chatbot_change > -30:
-                answer = 'No.'
+                answer = 'No. '
                 increase_or_decrease = 'decrease by ' + str(abs(chatbot_change)) + '%'
             else:
-                answer = 'Definitely not!'
+                answer = 'Definitely not! '
                 increase_or_decrease = 'decrease by ' + str(abs(chatbot_change)) + '%'
 
-            message = answer + ' I believe ' + profile_name.title() + '\'s portfolio will ' + increase_or_decrease + ' next month.'
+            message = answer + 'I believe ' + profile_name.title() + '\'s portfolio will ' + increase_or_decrease + ' next month.'
 
         dispatcher.utter_message(message)
 
@@ -451,25 +450,24 @@ class ShouldIUnfollowAdvice(Action):
             increase_or_decrease = ''
 
             if chatbot_change >= 30:
-                answer = 'Definitely not!'
+                answer = 'Definitely not! '
                 increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
             elif chatbot_change >= 10:
-                answer = 'No.'
+                answer = 'No. '
                 increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
             elif chatbot_change > 0:
-                answer = 'Not really.'
+                answer = 'Not really. '
                 increase_or_decrease = 'only increase by ' + str(abs(chatbot_change)) + '%'
             elif chatbot_change == 0:
-                answer = 'Up to you.'
                 increase_or_decrease = 'not change'
             elif chatbot_change > -10:
-                answer = 'Yes.'
+                answer = 'Yes. '
                 increase_or_decrease = 'decrease by ' + str(abs(chatbot_change)) + '%'
             elif chatbot_change > -30:
-                answer = 'Yes.'
+                answer = 'Yes. '
                 increase_or_decrease = 'decrease by ' + str(abs(chatbot_change)) + '%'
             else:
-                answer = 'Definitely!'
+                answer = 'Definitely! '
                 increase_or_decrease = 'decrease by ' + str(abs(chatbot_change)) + '%'
 
             message = answer + ' I believe ' + profile_name.title() + '\'s portfolio will ' + increase_or_decrease + ' next month.'

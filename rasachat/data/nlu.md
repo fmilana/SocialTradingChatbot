@@ -91,12 +91,15 @@
 - should i stop following someone?
 
 ## intent:should_i_follow
+- should i follow
 - should i follow [Aricka Lewis](name)?
 - should I follow [Ralph Axelsen](name)
+- should i start following
 - should i start following [William Shore](name)?
 - should I start following [Andrzej Kraviec](name)
 - should I keep following [Masami Nishimura](name)?
 - should i keep following [Alois](name)
+- would you follow
 - would you follow [Florianne Paget](name)?
 - do you think I should follow [Paulinho Simoes](name)
 - do you think I should keep following [Kanya Bunnag](name)?
@@ -257,12 +260,15 @@
 - remove another [178.39](CARDINAL)
 
 ## intent:should_i_unfollow
+- should i unfollow
 - should i unfollow [Aricka Lewis](name)?
 - should I unfollow [Ralph Axelsen](name)
+- should i stop following
 - should i stop following [William Shore](name)?
 - should I stop following [Andrzej Kraviec](name)
 - should I stop following [Masami Nishimura](name)?
 - should i stop following [Alois](name)
+- would you unfollow
 - would you unfollow [Florianne Paget](name)?
 - do you think I should unfollow [Paulinho](name)
 - do you think I should stop following [Kanya Bunnag](name)?

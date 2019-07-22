@@ -33,7 +33,8 @@
 ## give_follow_advice
 * ask_follow_advice
   - action_give_following_advice
-  - slot{"name":null}
+  - slot{"name":"Alois Reiter"}
+  - action_reset_slots
 
 ## give_follow_advice_with_follow
 * ask_follow_advice
@@ -57,7 +58,8 @@
 ## give_unfollow_advice
 * ask_unfollow_advice
   - action_give_unfollowing_advice
-  - slot{"name":null}
+  - slot{"name":"Aricka Lewis"}
+  - action_reset_slots
 
 ## give_unfollow_advice_with_unfollow
 * ask_unfollow_advice
@@ -89,6 +91,14 @@
 * follow
   - action_fetch_portfolio
   - slot{"portfolio_query":"invalid","name":"Jeremy"}
+  - utter_invalid_portfolio
+  - action_reset_slots
+  - slot{"portfolio_query":null,"name":null,"amount_query":null,"amount":null}
+
+## follow_null
+* follow
+  - action_fetch_portfolio
+  - slot{"portfolio_query":null,"name":null}
   - utter_invalid_portfolio
   - action_reset_slots
   - slot{"portfolio_query":null,"name":null,"amount_query":null,"amount":null}
@@ -125,6 +135,14 @@
   - action_reset_slots
   - slot{"portfolio_query":null,"name":null,"amount_query":null,"amount":null}
 
+## unfollow_null
+* unfollow
+  - action_fetch_portfolio
+  - slot{"portfolio_query":null,"name":null}
+  - utter_invalid_portfolio
+  - action_reset_slots
+  - slot{"portfolio_query":null,"name":null,"amount_query":null,"amount":null}
+
 ## add_amount_to_not_followed_successful
 * add_amount
   - action_fetch_portfolio
@@ -149,10 +167,26 @@
   - action_reset_slots
   - slot{"portfolio_query":null,"name":null,"amount_query":null,"amount":null}
 
+## add_amount_null_name
+* add_amount
+  - action_fetch_portfolio
+  - slot{"portfolio_query":null,"name":null}
+  - utter_invalid_portfolio
+  - action_reset_slots
+  - slot{"portfolio_query":null,"name":null,"amount_query":null,"amount":null}
+
 ## add_amount_invalid_amount
 * add_amount
   - action_fetch_portfolio
   - slot{"amount_query":"invalid","name":"Andrzej Kraviec","amount":"-12.00"}
+  - utter_invalid_amount
+  - action_reset_slots
+  - slot{"portfolio_query":null,"name":null,"amount_query":null,"amount":null}
+
+## add_amount_null_amount
+* add_amount
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"not_followed","name":"Masami Nishimura","amount_query":null,"amount":null}
   - utter_invalid_amount
   - action_reset_slots
   - slot{"portfolio_query":null,"name":null,"amount_query":null,"amount":null}
@@ -169,6 +203,20 @@
   - action_fetch_portfolio
   - slot{"portfolio_query":"invalid","name":"Mark Ritz","amount_query":"valid","amount":"10.00"}
   - utter_invalid_portfolio
+  - action_reset_slots
+
+## withdraw_amount_null_name
+* withdraw_amount
+  - action_fetch_portfolio
+  - slot{"portfolio_query":null,"name":null}
+  - utter_invalid_portfolio
+  - action_reset_slots
+
+## withdraw_amount_null_amount
+* withdraw_amount
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"followed","name":"Ralph Axelsen","amount_query":null,"amount":null}
+  - utter_invalid_amount
   - action_reset_slots
 
 ## withdraw_amount_not_followed
@@ -199,17 +247,26 @@
   - action_fetch_portfolio
   - slot{"portfolio_query":"followed","name":"Florianne Paget"}
   - action_should_i_follow_advice
+  - action_reset_slots
 
 ## should_i_follow_not_followed
 * should_i_follow
   - action_fetch_portfolio
   - slot{"portfolio_query":"not_followed","name":"Benjamin Parker"}
   - action_should_i_follow_advice
+  - action_reset_slots
 
 ## should_i_follow_invalid
 * should_i_follow
   - action_fetch_portfolio
   - slot{"portfolio_query":"invalid","name":"Daniel"}
+  - utter_invalid_portfolio
+  - action_reset_slots
+
+## should_i_follow_none
+* should_i_follow
+  - action_fetch_portfolio
+  - slot{"portfolio_query":null,"name":null}
   - utter_invalid_portfolio
   - action_reset_slots
 
@@ -293,6 +350,7 @@
   - action_fetch_portfolio
   - slot{"portfolio_query":"followed","name":"Kanya Bunnag"}
   - action_should_i_unfollow_advice
+  - action_reset_slots
 
 ## should_i_unfollow_not_followed
 * should_i_unfollow
@@ -305,6 +363,13 @@
 * should_i_follow
   - action_fetch_portfolio
   - slot{"portfolio_query":"invalid","name":"Max Jasper"}
+  - utter_invalid_portfolio
+  - action_reset_slots
+
+## should_i_unfollow_none
+* should_i_unfollow
+  - action_fetch_portfolio
+  - slot{"portfolio_query":null,"name":null}
   - utter_invalid_portfolio
   - action_reset_slots
 
