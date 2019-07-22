@@ -1,24 +1,67 @@
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.template.loader import get_template
-
-# from.django.core import serializers
-from django.contrib.auth.models import User
-from .models import Profile, Portfolio, Newspost, Balance, InvestedBalance, Month
-
-from django.core import serializers
-
+# coding: utf-8
 import json
-
 import random
 from random import gauss
 import decimal
+
+from django.http import HttpResponse, HttpResponseBadRequest
+from django.shortcuts import render
+from django.template.loader import get_template
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
+
+from django.contrib.auth.models import User
+from django.contrib.auth import login
+from django.utils.timezone import datetime
+from django.core import serializers
+from django.db import IntegrityError
+
+from .djutils import to_dict
+
+from .models import Profile, Portfolio, Newspost, Balance, InvestedBalance, Month
+
 
 
 def welcome_page(request):
     generate_next_portfolio_changes()
 
     return render(request, 'welcome.html')
+
+
+@csrf_exempt
+@require_POST
+def participants_view(request):
+    username = request.POST['username']
+    is_test_user = False
+    if username == "TEST":
+        username = "TEST_USER__{}".format(datetime.strftime(datetime.now(), '%Y_%m_%d__%H_%M_%S'))
+        is_test_user = True
+    
+    try:
+        user = User.objects.create_user(username=username)
+    except IntegrityError:
+        error = {
+            "username": [{"message": "This field is duplicate.", "code": "duplicate"}]
+            }
+        data = json.dumps(error)
+        return HttpResponseBadRequest(data, content_type='application/json')
+
+    # # TODO: create participant
+    # participant = Participant()
+    # participant.user = user
+    # participant.created_for_testing = is_test_user
+    # # TODO: assign condition or task list
+    # all_task_lists = TaskList.objects.filter(active=True
+    #     ).annotate(n_participants=Count('participant')
+    #     ).order_by('n_participants')
+    # participant.task_list = all_task_lists[0]
+    # participant.save()
+    
+    login(request, user)
+
+    #data = json.dumps(to_dict(participant, transverse=True))
+    data = json.dumps(to_dict(user, transverse=False))
+    return HttpResponse(data, content_type='application/json')
 
 
 def chatbot_page(request):
@@ -144,3 +187,5 @@ def generate_next_portfolio_changes():
         newspost.accurate = random.choice([True, False])
 
         newspost.save()
+
+

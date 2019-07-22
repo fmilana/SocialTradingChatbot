@@ -1,4 +1,4 @@
-var socket = require('socket.io-client')('http://localhost:5500');
+// var socket = require('socket.io-client')('http://localhost:5500');
 
 $(document).ready(function() {
 
@@ -10,34 +10,16 @@ $(document).ready(function() {
 	}
 
 	// console log when socket connects to port 5500
-	socket.on('connect', function() {
-		console.log('connection established...')
-	});
+	// socket.on('connect', function() {
+	// 	console.log('connection established...')
+	// });
 
 	// socket.emit('user_uttered', {'message': 'hey', 'sender': 'rasa'});
 
-	var sendMessage = function() {
-		const chatInput = $("#chat-input").val();
-		console.log(chatInput);
-		if (chatInput) {
-			socket.emit('user_uttered', {'message': chatInput, 'sender': 'rasa'});
-			$("#result_div").append("<p id='user-message'> " + chatInput + "</p><br>");
-			$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
-			$("#chat-input").val('');
-		}
-	};
-
-	$("#send-button").click(sendMessage);
-
-	$('#chat-input').keyup(function (e) {
-    if (e.keyCode === 13) {
-			sendMessage();
-    }
-	});
 
 
 	// event when bot utters message
-	socket.on('bot_uttered', function(data){
+	function process_response (data) {
 		console.log(data);
 
 		setTimeout(function() {appendBotMessage(data);}, 500);
@@ -69,9 +51,49 @@ $(document).ready(function() {
 
 				}
 		});
+	}
+	// socket.on('bot_uttered',process_response);
+
+	var sendMessage = function() {
+		console.log('sendMessage called');
+		const chatInput = $("#chat-input").val();
+		console.log(chatInput);
+		if (chatInput) {
+			// TODO: change this to use $.post -- or even better fetch
+			// TODO: use the user ID from django
+			
+			var url = server_url + '/chatbot/';
+			var post_data = {'message': chatInput, 'sender': username};
+			fetch(post_url, {
+				method: 'POST',
+				body: JSON.stringify(post_data),
+				credentials: 'include',
+				headers: {'Content-Type': 'application/json'}
+			}).then(res => res.json()).then(response => {
+				console.log('POST response:', response);
+				// window.location.replace(server_url + "/tasks/?order=" + next_task_order);
+				//window.location = server_url + "/tasks/?order=" + next_task_order;
+				process_response(response);
+			}).error(error => {
+				console.log('POST error:', error);
+			});
+		
+			// socket.emit('user_uttered', {'message': chatInput, 'sender': 'rasa'});
+			$("#result_div").append("<p id='user-message'> " + chatInput + "</p><br>");
+			$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
+			$("#chat-input").val('');
+		}
+	};
+
+	$("#send-button").click(sendMessage);
+
+	$('#chat-input').keyup(function (e) {
+    if (e.keyCode === 13) {
+			sendMessage();
+    }
 	});
 
 	// do something when connection closes
-	socket.on('disconnect', function(){});
+	// socket.on('disconnect', function(){});
 
 });

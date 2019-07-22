@@ -7,11 +7,6 @@
 {% load chatbot_filters %}
 
 {% block js_imports %}
-    <script>
-      var staticUrl = '{% static "" %}';
-      window.IMG_URL = "{% static 'imagetagging/images/' %}";
-      server_url = 'http://{{ request.get_host }}';
-    </script>
     <script src="{% static 'chatbot/js/chatbot.js' %}"></script>
     <script src="{% static 'imagetagging/js/imagetagging.js' %}"></script>
     <script src="{% static 'chatbot/js/bundle.js' %}" type="text/javascript" charset="utf-8"></script>
