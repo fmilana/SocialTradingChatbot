@@ -29,6 +29,71 @@ from decimal import Decimal, InvalidOperation
 import random
 
 
+class WhatICanDo(Action):
+    def name(self) -> Text:
+        return "action_what_I_can_do"
+
+    def run(self, dispatcher, tracker, domain):
+
+        dispatcher.utter_template("utter_what_i_can_do", tracker)
+
+        return []
+
+
+class GiveGeneralAdvice(Action):
+    def name(self) -> Text:
+        return "action_give_general_advice"
+
+    def run(self, dispatcher, tracker, domain):
+        highest_change = 10
+        highest_pronoun = ''
+        lowest_change = 0
+        lowest_pronoun = ''
+
+        highest_changing_portfolio_name = None
+        lowest_changing_portfolio_name = None
+
+        for portfolio in Portfolio.objects.all():
+
+            chatbot_change = portfolio.chatbotNextChange
+
+            if portfolio.followed and chatbot_change < lowest_change:
+                lowest_change = chatbot_change
+                lowest_changing_portfolio_name = portfolio.profile.name
+
+                if portfolio.profile.gender == 'Male':
+                    lowest_pronoun = 'his'
+                else:
+                    lowest_pronoun = 'her'
+
+            elif not portfolio.followed and chatbot_change > highest_change:
+                highest_change = chatbot_change
+                highest_changing_portfolio_name = portfolio.profile.name
+
+                if portfolio.profile.gender == 'Male':
+                    highest_pronoun = 'his'
+                else:
+                    highest_pronoun = 'her'
+
+        message = ''
+        profile_name = None
+
+        higher_is_greater = (highest_change-10) >= abs(lowest_change)
+
+        if highest_changing_portfolio_name is None and lowest_changing_portfolio_name is None:
+            message = "You're doing great! I don't think you should follow or unfollow anyone else this month."
+        elif lowest_changing_portfolio_name is None or higher_is_greater:
+            message = "I think you should start following " + highest_changing_portfolio_name + ". I believe " + highest_pronoun + " porfolio will increase by " + str(round(highest_change)) + "% next month."
+            profile_name = highest_changing_portfolio_name
+        else:
+            message = "I think you should stop following " + lowest_changing_portfolio_name + ". I believe " + lowest_pronoun + " porfolio will decrease by " + str(round(abs(lowest_change))) + "% next month."
+            profile_name = lowest_changing_portfolio_name
+
+        dispatcher.utter_message(message)
+
+        return [SlotSet("name", profile_name)]
+
+
 class GiveFollowingAdvice(Action):
     def name(self) -> Text:
         return "action_give_following_advice"
@@ -76,7 +141,7 @@ class GiveUnfollowingAdvice(Action):
         lowest_changing_portfolio_name = None
 
         if not followed_portfolios:
-            message = "You are following everyone at the moment."
+            message = "You are not following anyone at the moment."
         else:
             lowest_change = 0
             pronoun = ''
@@ -156,14 +221,28 @@ class FetchPortfolio(Action):
         return [SlotSet("portfolio_query", portfolio_query), SlotSet("name", profile_name), SlotSet("amount_query", amount_query), SlotSet("amount", amount)]
 
 
-class AskFollowAmount(Action):
+class AskAddAmount(Action):
     def name(self) -> Text:
-        return "action_ask_follow_amount"
+        return "action_ask_add_amount"
 
     def run(self, dispatcher, tracker, domain):
         profile_name = tracker.get_slot('name')
 
         message = "How much would you like to invest?"
+
+        dispatcher.utter_message(message)
+
+        return [SlotSet("name", profile_name)]
+
+
+class AskWithdrawAmount(Action):
+    def name(self) -> Text:
+        return "action_ask_withdraw_amount"
+
+    def run(self, dispatcher, tracker, domain):
+        profile_name = tracker.get_slot('name')
+
+        message = "How much would you like to withdraw?"
 
         dispatcher.utter_message(message)
 
@@ -391,6 +470,10 @@ class ShouldIFollowAdvice(Action):
         profile_name = tracker.get_slot('name')
 
         if profile_name is None:
+            profile_name = tracker.latest_message['entities'][0]['value']
+            print('PROFILE_NAME SLOT IS EMPTY, ENTITY = ' + profile_name)
+
+        if profile_name is None:
             message = "Sorry, I can't find that portfolio. Have you spelt the name correctly?"
         else:
             profile_object = Profile.objects.get(name__icontains=profile_name)
@@ -402,13 +485,13 @@ class ShouldIFollowAdvice(Action):
             increase_or_decrease = ''
 
             if chatbot_change >= 30:
-                answer = 'Definitely! '
+                answer = 'Absolutely! '
                 increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
             elif chatbot_change >= 10:
                 answer = 'Yes. '
                 increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
             elif chatbot_change > 0:
-                increase_or_decrease = 'only increase by ' + str(abs(chatbot_change)) + '%'
+                increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
             elif chatbot_change == 0:
                 answer = 'Not really. '
                 increase_or_decrease = 'not change'
@@ -419,7 +502,7 @@ class ShouldIFollowAdvice(Action):
                 answer = 'No. '
                 increase_or_decrease = 'decrease by ' + str(abs(chatbot_change)) + '%'
             else:
-                answer = 'Definitely not! '
+                answer = 'Absolutely not! '
                 increase_or_decrease = 'decrease by ' + str(abs(chatbot_change)) + '%'
 
             message = answer + 'I believe ' + profile_name.title() + '\'s portfolio will ' + increase_or_decrease + ' next month.'
@@ -439,6 +522,10 @@ class ShouldIUnfollowAdvice(Action):
         profile_name = tracker.get_slot('name')
 
         if profile_name is None:
+            profile_name = tracker.latest_message['entities'][0]['value']
+            print('PROFILE_NAME SLOT IS EMPTY, ENTITY = ' + profile_name)
+
+        if profile_name is None:
             message = "Sorry, I can't find that portfolio. Have you spelt the name correctly?"
         else:
             profile_object = Profile.objects.get(name__icontains=profile_name)
@@ -450,14 +537,14 @@ class ShouldIUnfollowAdvice(Action):
             increase_or_decrease = ''
 
             if chatbot_change >= 30:
-                answer = 'Definitely not! '
+                answer = 'Absolutely not! '
                 increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
             elif chatbot_change >= 10:
                 answer = 'No. '
                 increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
             elif chatbot_change > 0:
-                answer = 'Not really. '
-                increase_or_decrease = 'only increase by ' + str(abs(chatbot_change)) + '%'
+                answer = 'No.'
+                increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
             elif chatbot_change == 0:
                 increase_or_decrease = 'not change'
             elif chatbot_change > -10:
@@ -467,7 +554,7 @@ class ShouldIUnfollowAdvice(Action):
                 answer = 'Yes. '
                 increase_or_decrease = 'decrease by ' + str(abs(chatbot_change)) + '%'
             else:
-                answer = 'Definitely! '
+                answer = 'Absolutely! '
                 increase_or_decrease = 'decrease by ' + str(abs(chatbot_change)) + '%'
 
             message = answer + ' I believe ' + profile_name.title() + '\'s portfolio will ' + increase_or_decrease + ' next month.'

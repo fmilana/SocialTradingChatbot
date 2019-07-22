@@ -1,3 +1,15 @@
+## intent:what_can_you_do
+- what can you do?
+- what do you do
+- how can you help me?
+- help
+- what can i ask you?
+- who are you?
+- what can you tell me
+- tell me about yourself
+- tell me what you do
+- tell me what you can do
+
 ## intent:greet
 - hey
 - hello
@@ -55,6 +67,7 @@
 ## intent:ask_general_advice
 - give me some advice
 - what should I do?
+- am I doing alright?
 - what do you think I should do
 - tell me what to do
 - advice
@@ -159,6 +172,36 @@
 - okay start following him
 - okay start following her
 
+## intent:do_it
+- do it
+- do it anyway
+- ok do it
+- okay, do it anyway
+- go for it
+- go for it anyway
+- let's do it
+- let's try
+
+## intent:should_i_add_amount
+- should i add
+- should i put
+- should i add [50](CARDINAL) to [Aricka Lewis](name)?
+- should I add [124.54](CARDINAL) on [Ralph Axelsen](name)
+- should i increase
+- should I increase [Kanya](name)?
+- should i increase [William Shore](name) by [5](CARDINAL)?
+- should I increase [Andrzej Kraviec](name) by another [75](CARDINAL)
+- should I put [34.59](CARDINAL) on [Masami Nishimura](name)?
+- should i put money on [Alois](name)
+- would you put
+- would you increase
+- would you add to [Florianne Paget](name)?
+- do you think I should put more money on [Paulinho Simoes](name)
+- do you think I should increase [Kanya Bunnag](name) by [159](CARDINAL)?
+- do I want to add [5](CARDINAL) to [William](name)?
+- do I want to invest in [Paulinho Simoes](name)?
+- do you think investing [315.00](CARDINAL) in [Alois Reiter](name) is a good idea?
+- would you recommend adding to [Andrzej](name)
 
 ## intent:add_amount
 - put [10.00](CARDINAL) on [Andrzej Kraviec](name)
@@ -209,6 +252,50 @@
 - put another [25](CARDINAL)
 - put another [178.39](CARDINAL) on him
 
+# intent:add_to_him_her
+- add to him
+- add to her
+- add more money to him
+- add money to her
+- put money
+- put money on him
+- put more money on her
+- add
+- invest
+- invest in him
+- invest in her
+- invest more
+- increase
+- increase him
+- increase her
+- I'd like to put more money
+- I'd like to increase
+- I want to put more
+- I want to invest
+- let's put more
+- let's increase him
+
+## intent:should_i_withdraw_amount
+- should i withdraw
+- should i withdraw
+- should i withdraw [50](CARDINAL) from [Aricka Lewis](name)?
+- should I withdraw [124.54](CARDINAL) from [Ralph Axelsen](name)
+- should i decrease
+- should I decrease [Kanya](name)?
+- should i decrease [William Shore](name) by [5](CARDINAL)?
+- should I decrease [Andrzej Kraviec](name) by another [75](CARDINAL)
+- should I get [34.59](CARDINAL) from [Masami Nishimura](name)?
+- should i get money from [Alois](name)
+- would you get
+- would you withdraw
+- would you withdraw from [Florianne Paget](name)?
+- do you think I should withdraw more money from [Paulinho Simoes](name)
+- do you think I should decrease [Kanya Bunnag](name) by [159](CARDINAL)?
+- do I want to withdraw [5](CARDINAL) from [William](name)?
+- do I want to decrease [Paulinho Simoes](name)?
+- do you think withdrawing [315.00](CARDINAL) from [Alois Reiter](name) is a good idea?
+- would you recommend getting from [Andrzej](name)
+
 ## intent:withdraw_amount
 - withdraw [57.00](CARDINAL) from [Andrzej Kraviec](name)
 - withdraw [486](CARDINAL) from [Florianne](name)
@@ -258,6 +345,29 @@
 - I'd like to remove [55](CARDINAL)
 - get another [25](CARDINAL)
 - remove another [178.39](CARDINAL)
+
+# intent:withdraw_from_him_her
+- withdraw from him
+- withdraw from her
+- get more money from him
+- get money from her
+- get money
+- get money from him
+- get more money from her
+- get
+- withdraw
+- withdraw from him
+- withdraw from her
+- withdraw more
+- decrease
+- decrease him
+- decrease her
+- I'd like to get more money
+- I'd like to decrease
+- I want to get more
+- I want to withdraw
+- let's get more
+- let's decrease him
 
 ## intent:should_i_unfollow
 - should i unfollow
