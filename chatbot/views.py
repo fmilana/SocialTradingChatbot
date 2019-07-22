@@ -70,15 +70,15 @@ def update_portfolios(request):
     response = {}
 
     for portfolio in Portfolio.objects.all():
-        change_value = portfolio.nextChange
+        next_change = random.choice([portfolio.chatbotNextChange, portfolio.newspostNextChange])
 
-        portfolio.lastChange = round(change_value, 2)
+        portfolio.lastChange = round(next_change, 2)
 
-        change_value /= 100
-        change_value += 1
+        next_change /= 100
+        next_change += 1
 
         if portfolio.followed:
-            new_invested_amount = round(portfolio.invested * decimal.Decimal(change_value), 2)
+            new_invested_amount = round(portfolio.invested * decimal.Decimal(next_change), 2)
             portfolio.invested = new_invested_amount
 
         portfolio.save()
@@ -112,35 +112,31 @@ def get_next_changes(request):
     response = {}
 
     for portfolio in Portfolio.objects.all():
-        response[portfolio.profile.name + '-next-change'] = float(portfolio.nextChange)
-        response[portfolio.profile.name + '-fake-change'] = float(portfolio.fakeChange)
+        response[portfolio.profile.name + '-chatbot-change'] = float(portfolio.chatbotNextChange)
+        response[portfolio.profile.name + '-newspost-change'] = float(portfolio.newspostNextChange)
 
     return HttpResponse(json.dumps(response), content_type="application/json")
 
 
 def generate_next_portfolio_changes():
+
     for portfolio in Portfolio.objects.all():
-        change_value = gauss(0.0, portfolio.risk*5)
 
-        if change_value >= 100:
-            change_value = 99
-        elif change_value <= -100:
-            change_value = -99
+        chatbot_change = gauss(0.0, portfolio.risk*5)
 
-        fake_change_value = gauss(0.0, portfolio.risk*5)
+        if chatbot_change >= 100:
+            chatbot_change = 99
+        elif chatbot_change <= -100:
+            chatbot_change = -99
 
-        if fake_change_value >= 100:
-            fake_change_value = 99
-        elif fake_change_value <= -100:
-            fake_change_value = -99
+        newspost_change = gauss(0.0, portfolio.risk*5)
 
-        portfolio.nextChange = change_value
-        portfolio.fakeChange = fake_change_value
+        if newspost_change >= 100:
+            newspost_change = 99
+        elif newspost_change <= -100:
+            newspost_change = -99
+
+        portfolio.chatbotNextChange = chatbot_change
+        portfolio.newspostNextChange = newspost_change
 
         portfolio.save()
-
-        newspost = Newspost.objects.get(profile=portfolio.profile)
-
-        newspost.accurate = random.choice([True, False])
-
-        newspost.save()

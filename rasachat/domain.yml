@@ -13,11 +13,16 @@ intents:
   - ask_follow_advice
   - ask_unfollow_advice
   - follow
+  - follow_him_her
   - should_i_follow
+  - should_i_unfollow
   - unfollow
+  - unfollow_him_her
   - amount
   - add_amount
+  - add_amount_to_him_her
   - withdraw_amount
+  - withdraw_amount_from_him_her
   - unfollow_everyone
   - follow_everyone
 
@@ -28,7 +33,6 @@ actions:
 - utter_happy
 - utter_goodbye
 - utter_general_advice
-- utter_ask_follow_amount
 - utter_invalid_portfolio
 - utter_already_followed_portfolio
 - utter_already_not_followed_portfolio
@@ -39,7 +43,9 @@ actions:
 - action_give_following_advice
 - action_give_unfollowing_advice
 - action_follow
+- action_ask_follow_amount
 - action_should_i_follow_advice
+- action_should_i_unfollow_advice
 - action_fetch_portfolio
 - action_unfollow
 - action_add_amount
@@ -66,9 +72,6 @@ templates:
 
   utter_general_advice:
   - text: "I think you're doing a great job. I'll get back to you when things change"
-
-  utter_ask_follow_amount:
-  - text: "How much would you like to invest?"
 
   utter_invalid_portfolio:
   - text: "Sorry, I can't find that portfolio. Have you spelt the name correctly?"

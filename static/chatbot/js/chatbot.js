@@ -175,7 +175,6 @@ $(document).ready(function() {
       $('#loading-gif').remove();
 
       newspost = newsposts[newspostCounter];
-      newspost_accurate = newspost.fields.accurate;
       profile = profiles[newspost.fields.profile - 1];
       name = profile.fields.name;
 
@@ -184,31 +183,27 @@ $(document).ready(function() {
           url: server_url + '/getnextchanges/',
           success: function (response) {
 
-            next_change = (Math.round(response[profile.fields.name + '-next-change'] * 100) / 100).toFixed(2)
-            fake_change = (Math.round(response[profile.fields.name + '-fake-change'] * 100) / 100).toFixed(2)
+            // chatbot_change = (Math.round(response[profile.fields.name + '-chatbot-change'] * 100) / 100).toFixed(2)
+            newspost_change = (Math.round(response[profile.fields.name + '-newspost-change'] * 100) / 100).toFixed(2)
 
             text = '';
 
-            var change_to_consider;
-
-            if (newspost_accurate) {
-              change_to_consider = next_change;
-            } else {
-              change_to_consider = fake_change;
-            }
+            // var change_to_consider;
+            //
+            // if (newspost_accurate) {
+            //   change_to_consider = next_change;
+            // } else {
+            //   change_to_consider = fake_change;
+            // }
 
             // newspost text based on change value and accuracy
-            if (change_to_consider > 0) {
-              text = name + '\'s portfolio to increase by ~' + Math.abs(Math.round(change_to_consider)) + '%.';
-            } else if (change_to_consider == 0) {
+            if (newspost_change > 0) {
+              text = name + '\'s portfolio to increase by ~' + Math.abs(Math.round(newspost_change)) + '%.';
+            } else if (newspost_change == 0) {
               text = name + '\'s portfolio to stay the same.';
             } else {
-              text = name + '\'s portfolio to decrease by ~' + Math.abs(Math.round(change_to_consider)) + '%.';
+              text = name + '\'s portfolio to decrease by ~' + Math.abs(Math.round(newspost_change)) + '%.';
             }
-
-
-            console.log(profile.fields.name + ' next_change = ' + next_change + ', newspost_accurate = ' + newspost_accurate);
-            console.log('so text = ' + text);
 
             var div = '<div class="wrapper-newspost"> \
               <div class="container-newspost"> \
