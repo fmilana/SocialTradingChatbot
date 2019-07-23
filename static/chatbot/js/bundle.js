@@ -8462,28 +8462,9 @@ $(document).ready(function() {
 
 	// socket.emit('user_uttered', {'message': 'hey', 'sender': 'rasa'});
 
-	var sendMessage = function() {
-		const chatInput = $("#chat-input").val();
-		console.log(chatInput);
-		if (chatInput) {
-			socket.emit('user_uttered', {'message': chatInput, 'sender': 'rasa'});
-			$("#result_div").append("<p id='user-message'> " + chatInput + "</p><br>");
-			$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
-			$("#chat-input").val('');
-		}
-	};
-
-	$("#send-button").click(sendMessage);
-
-	$('#chat-input').keyup(function (e) {
-    if (e.keyCode === 13) {
-			sendMessage();
-    }
-	});
-
-
-	// event when bot utters message
-	socket.on('bot_uttered', function(data){
+  	// event when bot utters message
+	function process_response (data) {
+    data = data[0];
 		console.log(data);
 
 		setTimeout(function() {appendBotMessage(data);}, 500);
@@ -8515,10 +8496,46 @@ $(document).ready(function() {
 
 				}
 		});
+	}
+
+	var sendMessage = function() {
+		const chatInput = $("#chat-input").val();
+		console.log(chatInput);
+		if (chatInput) {
+      //socket.emit('user_uttered', {'message': chatInput, 'sender': 'rasa'});
+			var post_url = server_url + '/chatbotproxy/';
+			var post_data = {'message': chatInput, 'sender': username};
+			fetch(post_url, {
+				method: 'POST',
+				body: JSON.stringify(post_data),
+				credentials: 'include',
+				headers: {'Content-Type': 'application/json'}
+			}).then(res => res.json()).then(response => {
+				console.log('POST response:', response);
+				// window.location.replace(server_url + "/tasks/?order=" + next_task_order);
+				//window.location = server_url + "/tasks/?order=" + next_task_order;
+				process_response(response);
+			}).catch(error => {
+				console.log('POST error:', error);
+			});
+      
+			$("#result_div").append("<p id='user-message'> " + chatInput + "</p><br>");
+			$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
+			$("#chat-input").val('');
+		}
+	};
+
+	$("#send-button").click(sendMessage);
+
+	$('#chat-input').keyup(function (e) {
+    if (e.keyCode === 13) {
+			sendMessage();
+    }
 	});
 
-	// do something when connection closes
-	socket.on('disconnect', function(){});
+
+
+
 
 });
 

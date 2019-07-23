@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url
-from django.urls import include
+from django.urls import path, include
 
 
 from .views import (
@@ -25,6 +25,7 @@ from .views import (
     update_portfolios,
     update_balances,
     get_next_changes,
+    participants_view,
     # update_followed,
     # imagetagging_page,
     )
@@ -39,4 +40,8 @@ urlpatterns = [
     url(r'^getnextchanges/', get_next_changes, name='getnextchanges'),
     # url(r'^updatefollowed/', update_followed, name='updatefollowed'),
     url(r'^admin/', admin.site.urls),
+
+    path('participants/', participants_view, name='participants-view'),
+    path('chatbotproxy/', include('chatbotproxy.urls')),
+
 ]

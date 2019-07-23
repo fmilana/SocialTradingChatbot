@@ -13,8 +13,12 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet
 
-import sys
-sys.path.insert(0, 'C:\\Users\\feder\\chatbot')
+import sys, os
+#sys.path.insert(0, 'C:\\Users\\feder\\chatbot')
+here = os.path.dirname(__file__)
+project_dir, _ = os.path.split(here)
+#print('project_dir', project_dir)
+sys.path.insert(0, project_dir) 
 
 import os, django
 os.environ["DJANGO_SETTINGS_MODULE"] = 'chatbot.settings'

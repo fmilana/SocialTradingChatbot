@@ -12,6 +12,12 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="{% static 'chatbot/js/base.js' %}" type="text/javascript" charset="utf-8"></script>
 
+<script>
+  var staticUrl = '{% static "" %}';
+  window.IMG_URL = "{% static 'imagetagging/images/' %}";
+  var server_url = 'http://{{ request.get_host }}';
+  var username = "{{ request.user.username }}"
+</script>
 
 
 <html lang="en">
