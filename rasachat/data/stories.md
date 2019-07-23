@@ -32,9 +32,112 @@
 
 
 
-## give_general_advice
+## give_general_advice_give_general_advice
 * ask_general_advice
   - action_give_general_advice
+  - slot{"name":"Aricka Lewis","portfolio_query":"followed"}
+* ask_general_advice
+  - action_give_general_advice
+  - slot{"name":"Benjamin Parker","portfolio_query":"not_followed"}
+  - action_reset_slots
+
+## give_general_advice_give_follow_advice
+* ask_general_advice
+  - action_give_general_advice
+  - slot{"name":"Aricka Lewis","portfolio_query":"followed"}
+* ask_follow_advice
+  - action_give_following_advice
+  - slot{"name":"Alois Reiter","portfolio_query":"not_followed"}
+  - action_reset_slots
+
+## give_general_advice_give_unfollow_advice
+* ask_general_advice
+  - action_give_general_advice
+  - slot{"name":"Aricka Lewis","portfolio_query":"followed"}
+* ask_unfollow_advice
+  - action_give_following_advice
+  - slot{"name":"Florianne Paget","portfolio_query":"followed"}
+  - action_reset_slots
+
+## give_general_advice_should_i_follow
+* ask_general_advice
+  - action_give_general_advice
+  - slot{"name":"Aricka Lewis","portfolio_query":"followed"}
+* should_i_follow
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"not_followed","name":"Benjamin Parker"}
+  - action_should_i_follow_advice
+  - action_reset_slots
+
+## give_general_advice_should_i_unfollow
+* ask_general_advice
+  - action_give_general_advice
+  - slot{"name":"Paulinho Simoes","portfolio_query":"followed"}
+* should_i_unfollow
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"followed","name":"William Shore"}
+  - action_should_i_unfollow_advice
+  - action_reset_slots
+
+## give_general_advice_follow
+* ask_general_advice
+  - action_give_general_advice
+  - slot{"name":"Aricka Lewis","portfolio_query":"not_followed"}
+* follow
+  - action_fetch_portfolio
+  - slot{"name":"Aricka Lewis","portfolio_query":"not_followed","amount_query":null,"amount":null}
+  - action_ask_add_amount
+* amount
+  - action_follow
+  - action_reset_slots
+  - slot{"portfolio_query":null,"name":null,"amount_query":null,"amount":null}
+
+## give_general_advice_follow_him_her
+* ask_general_advice
+  - action_give_general_advice
+  - slot{"name":"Aricka Lewis","portfolio_query":"not_followed"}
+* follow_him_her
+  - action_ask_add_amount
+* amount
+  - action_follow
+  - action_reset_slots
+  - slot{"portfolio_query":null,"name":null,"amount_query":null,"amount":null}
+
+## give_general_advice_follow_do_it
+* ask_general_advice
+  - action_give_general_advice
+  - slot{"name":"Aricka Lewis","portfolio_query":"not_followed"}
+* do_it
+  - action_ask_add_amount
+* amount
+  - action_follow
+  - action_reset_slots
+  - slot{"portfolio_query":null,"name":null,"amount_query":null,"amount":null}
+
+## give_general_advice_unfollow
+* ask_general_advice
+  - action_give_general_advice
+  - slot{"name":"Aricka Lewis","portfolio_query":"followed"}
+* unfollow
+  - action_fetch_portfolio
+  - slot{"name":"Aricka Lewis","portfolio_query":"followed","amount_query":null,"amount":null}
+  - action_unfollow
+  - action_reset_slots
+
+## give_general_advice_unfollow_him_her
+* ask_general_advice
+  - action_give_general_advice
+  - slot{"name":"Masami Nishimura","portfolio_query":"followed"}
+* unfollow_him_her
+  - action_unfollow
+  - action_reset_slots
+
+## give_general_advice_unfollow_do_it
+* ask_general_advice
+  - action_give_general_advice
+  - slot{"name":"Paulinho Simoes","portfolio_query":"followed"}
+* do_it
+  - action_unfollow
   - action_reset_slots
 
 
@@ -221,10 +324,30 @@
   - action_reset_slots
   - slot{"portfolio_query":null,"name":null,"amount_query":null,"amount":null}
 
+## add_amount_to_not_followed_successful
+* add_amount
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"not_followed","name":"Florianne Paget", "amount_query":null,"amount":null}
+  - action_ask_add_amount
+* amount
+  - action_follow
+  - action_reset_slots
+  - slot{"portfolio_query":null,"name":null,"amount_query":null,"amount":null}
+
 ## add_amount_to_followed_successful
 * add_amount
   - action_fetch_portfolio
   - slot{"portfolio_query":"followed","name":"Ralph Axelsen","amount_query":"valid","amount":"100"}
+  - action_add_amount
+  - action_reset_slots
+  - slot{"portfolio_query":null,"name":null,"amount_query":null,"amount":null}
+
+## add_amount_to_followed_successful
+* add_amount
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"followed","name":"Ralph Axelsen","amount_query":null,"amount":null}
+  - action_ask_add_amount
+* amount
   - action_add_amount
   - action_reset_slots
   - slot{"portfolio_query":null,"name":null,"amount_query":null,"amount":null}
@@ -270,6 +393,15 @@
   - action_withdraw_amount
   - action_reset_slots
 
+## withdraw_amount_successful
+* withdraw_amount
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"followed","name":"Alois Reiter","amount_query":null,"amount":null}
+  - action_ask_withdraw_amount
+* amount
+  - action_withdraw_amount
+  - action_reset_slots
+
 ## withdraw_amount_invalid_name
 * withdraw_amount
   - action_fetch_portfolio
@@ -282,13 +414,6 @@
   - action_fetch_portfolio
   - slot{"portfolio_query":null,"name":null}
   - utter_invalid_portfolio
-  - action_reset_slots
-
-## withdraw_amount_null_amount
-* withdraw_amount
-  - action_fetch_portfolio
-  - slot{"portfolio_query":"followed","name":"Ralph Axelsen","amount_query":null,"amount":null}
-  - utter_invalid_amount
   - action_reset_slots
 
 ## withdraw_amount_not_followed

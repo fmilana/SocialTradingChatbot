@@ -8,7 +8,7 @@ intents:
   - goodbye: {triggers: utter_goodbye}
   - affirm: {triggers: utter_happy}
   - deny: {triggers: utter_goodbye}
-  - mood_great: {triggers: utter_goodbye}
+  - mood_great: {triggers: utter_happy}
   - mood_unhappy: {triggers: utter_cheer_up}
   - do_it
   - ask_general_advice: {triggers: action_give_general_advice}

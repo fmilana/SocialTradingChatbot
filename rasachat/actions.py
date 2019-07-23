@@ -78,6 +78,8 @@ class GiveGeneralAdvice(Action):
         message = ''
         profile_name = None
 
+        portfolio_query = None
+
         higher_is_greater = (highest_change-10) >= abs(lowest_change)
 
         if highest_changing_portfolio_name is None and lowest_changing_portfolio_name is None:
@@ -85,13 +87,15 @@ class GiveGeneralAdvice(Action):
         elif lowest_changing_portfolio_name is None or higher_is_greater:
             message = "I think you should start following " + highest_changing_portfolio_name + ". I believe " + highest_pronoun + " porfolio will increase by " + str(round(highest_change)) + "% next month."
             profile_name = highest_changing_portfolio_name
+            portfolio_query = "not_followed"
         else:
             message = "I think you should stop following " + lowest_changing_portfolio_name + ". I believe " + lowest_pronoun + " porfolio will decrease by " + str(round(abs(lowest_change))) + "% next month."
             profile_name = lowest_changing_portfolio_name
+            portfolio_query = "followed"
 
         dispatcher.utter_message(message)
 
-        return [SlotSet("name", profile_name)]
+        return [SlotSet("name", profile_name), SlotSet("portfolio_query", portfolio_query)]
 
 
 class GiveFollowingAdvice(Action):
@@ -346,38 +350,41 @@ class AddAmount(Action):
     def run(self, dispatcher, tracker, domain):
         profile_name = tracker.get_slot('name')
 
-        profile_object = Profile.objects.get(name__icontains=profile_name)
-        portfolio = Portfolio.objects.get(profile=profile_object.id)
+        if profile_name is None:
+            message = "Sorry, I can't find that portfolio. Have you spelt the name correctly?"
+        else:
+            profile_object = Profile.objects.get(name__icontains=profile_name)
+            portfolio = Portfolio.objects.get(profile=profile_object.id)
 
-        amount = tracker.get_slot('amount')
+            amount = tracker.get_slot('amount')
 
-        if amount is None:
-            try:
-                amount = tracker.latest_message['entities'][0]['value']
+            if amount is None:
+                try:
+                    amount = tracker.latest_message['entities'][0]['value']
 
-            except IndexError:
-                message = "That's not a valid amount."
+                except IndexError:
+                    message = "That's not a valid amount."
 
-        if amount is not None:
-            amount = round(Decimal(amount), 2)
+            if amount is not None:
+                amount = round(Decimal(amount), 2)
 
-            if amount > 0:
-                balance = Balance.objects.first()
-                balance.amount -= amount
+                if amount > 0:
+                    balance = Balance.objects.first()
+                    balance.amount -= amount
 
-                if balance.amount < 0:
-                    message = "I'm afraid your current balance is not sufficient."
+                    if balance.amount < 0:
+                        message = "I'm afraid your current balance is not sufficient."
+                    else:
+                        balance.save()
+
+                        portfolio.invested += amount
+                        portfolio.save()
+
+                        message = "You have invested another £" + str(amount) + " in " + profile_name.title() + "."
                 else:
-                    balance.save()
-
-                    portfolio.invested += amount
-                    portfolio.save()
-
-                    message = "You have invested another £" + str(amount) + " in " + profile_name.title() + "."
+                    message = "That's not a valid amount."
             else:
                 message = "That's not a valid amount."
-        else:
-            message = "That's not a valid amount."
 
         dispatcher.utter_message(message)
 
@@ -391,39 +398,42 @@ class WithdrawAmount(Action):
     def run(self, dispatcher, tracker, domain):
         profile_name = tracker.get_slot('name')
 
-        profile_object = Profile.objects.get(name__icontains=profile_name)
-        portfolio = Portfolio.objects.get(profile=profile_object.id)
-
-        amount = tracker.get_slot('amount')
-
-        if amount is None:
-            try:
-                amount = tracker.latest_message['entities'][0]['value']
-
-            except IndexError:
-                message = "That's not a valid amount."
-
-        if amount is not None:
-            amount = round(Decimal(amount), 2)
-
-            portfolio.invested -= amount
-
-            if portfolio.invested < 0:
-                message = "That's not a valid amount to withdraw."
-            else:
-                balance = Balance.objects.first()
-                balance.amount += amount
-                balance.save()
-
-                if portfolio.invested == 0:
-                    portfolio.followed = False
-                    message = "You have stopped following " + profile_name.title() + "."
-                else:
-                    message = "You have withdrawn £" + str(amount) + " from " + profile_name.title() + "."
-
-                portfolio.save()
+        if profile_name is None:
+            message = "Sorry, I can't find that portfolio. Have you spelt the name correctly?"
         else:
-            message = "That's not a valid amount."
+            profile_object = Profile.objects.get(name__icontains=profile_name)
+            portfolio = Portfolio.objects.get(profile=profile_object.id)
+
+            amount = tracker.get_slot('amount')
+
+            if amount is None:
+                try:
+                    amount = tracker.latest_message['entities'][0]['value']
+
+                except IndexError:
+                    message = "That's not a valid amount."
+
+            if amount is not None:
+                amount = round(Decimal(amount), 2)
+
+                portfolio.invested -= amount
+
+                if portfolio.invested < 0:
+                    message = "That's not a valid amount to withdraw."
+                else:
+                    balance = Balance.objects.first()
+                    balance.amount += amount
+                    balance.save()
+
+                    if portfolio.invested == 0:
+                        portfolio.followed = False
+                        message = "You have stopped following " + profile_name.title() + "."
+                    else:
+                        message = "You have withdrawn £" + str(amount) + " from " + profile_name.title() + "."
+
+                    portfolio.save()
+            else:
+                message = "That's not a valid amount."
 
         dispatcher.utter_message(message)
 

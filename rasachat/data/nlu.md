@@ -106,52 +106,52 @@
 ## intent:should_i_follow
 - should i follow
 - should i follow [Aricka Lewis](name)?
-- should I follow [Ralph Axelsen](name)
+- should I follow [ralph axelsen](name)
 - should i start following
 - should i start following [William Shore](name)?
-- should I start following [Andrzej Kraviec](name)
+- should I start following [andrzej kraviec](name)
 - should I keep following [Masami Nishimura](name)?
-- should i keep following [Alois](name)
+- should i keep following [alois](name)
 - would you follow
 - would you follow [Florianne Paget](name)?
-- do you think I should follow [Paulinho Simoes](name)
+- do you think I should follow [paulinho simoes](name)
 - do you think I should keep following [Kanya Bunnag](name)?
-- do I want to follow [William](name)?
+- do I want to follow [william](name)?
 - do I want to keep following [Paulinho Simoes](name)?
-- do you think following [Alois Reiter](name) is a good idea?
+- do you think following [alois reiter](name) is a good idea?
 - would you recommend following [Andrzej](name)
-- will [Benjamin Parker](name)'s portfolio increase?
+- will [benjamin parker](name)'s portfolio increase?
 - do you think [Kanya](name) will increase
-- will [Alois Reiter](name)'s value increase next month
+- will [alois reiter](name)'s value increase next month
 - is [Paulinho Simoes](name) going to increase?
 
 ## intent:follow
-- follow [Andrzej Kraviec](name)
+- follow [andrzej kraviec](name)
 - follow [Masami](name)
-- follow [Ralph Axelsen](name)
+- follow [ralph axelsen](name)
 - follow [Bunnag](name)
-- follow [Alois Reiter](name)
+- follow [alois reiter](name)
 - follow [William](name)
-- follow [Nishimura](name)
+- follow [nishimura](name)
 - follow [Florianne Paget](name)
-- follow [Benjamin](name)
+- follow [benjamin](name)
 - follow [Simoes](name)
-- start following [Andrzej](name)
+- start following [andrzej](name)
 - start following [Masami Nishimura](name)
-- start following [Axelsen](name)
-- start following [Kanya Bunnag](name)
+- start following [axelsen](name)
+- start following [kanya bunnag](name)
 - start following [Alois](name)
-- start following [Masami Nishimura](name)
-- start following [Shore](name)
-- start following [Florianne Paget](name)
+- start following [masami nishimura](name)
+- start following [shore](name)
+- start following [Florianne paget](name)
 - start following [Benjamin](name)
-- start following [Paulinho](name)
+- start following [paulinho](name)
 - I want to follow [Florianne Paget](name)
-- I want to follow [Benjamin Parker](name)
+- I want to follow [benjamin parker](name)
 - I would like to follow [Paulinho Simoes](name)
-- I would like to follow [William](name)
-- I want to start following [Alois Reiter](name)
-- I want to start following [Kraviec](name)
+- I would like to follow [william](name)
+- I want to start following [alois reiter](name)
+- I want to start following [kraviec](name)
 
 ## intent:follow_him_her
 - follow
@@ -185,45 +185,45 @@
 ## intent:should_i_add_amount
 - should i add
 - should i put
-- should i add [50](CARDINAL) to [Aricka Lewis](name)?
-- should I add [124.54](CARDINAL) on [Ralph Axelsen](name)
+- should i add [50](CARDINAL) to [aricka lewis](name)?
+- should I add [124.54](CARDINAL) on [ralph axelsen](name)
 - should i increase
 - should I increase [Kanya](name)?
-- should i increase [William Shore](name) by [5](CARDINAL)?
-- should I increase [Andrzej Kraviec](name) by another [75](CARDINAL)
-- should I put [34.59](CARDINAL) on [Masami Nishimura](name)?
-- should i put money on [Alois](name)
+- should i increase [william shore](name) by [5](CARDINAL)?
+- should I increase [Andrzej kraviec](name) by another [75](CARDINAL)
+- should I put [34.59](CARDINAL) on [masami nishimura](name)?
+- should i put money on [alois](name)
 - would you put
 - would you increase
-- would you add to [Florianne Paget](name)?
-- do you think I should put more money on [Paulinho Simoes](name)
-- do you think I should increase [Kanya Bunnag](name) by [159](CARDINAL)?
+- would you add to [florianne paget](name)?
+- do you think I should put more money on [paulinho](name)
+- do you think I should increase [kanya bunnag](name) by [159](CARDINAL)?
 - do I want to add [5](CARDINAL) to [William](name)?
-- do I want to invest in [Paulinho Simoes](name)?
-- do you think investing [315.00](CARDINAL) in [Alois Reiter](name) is a good idea?
-- would you recommend adding to [Andrzej](name)
+- do I want to invest in [paulinho](name)?
+- do you think investing [315.00](CARDINAL) in [alois reiter](name) is a good idea?
+- would you recommend adding to [andrzej](name)
 
 ## intent:add_amount
-- put [10.00](CARDINAL) on [Andrzej Kraviec](name)
-- put [603](CARDINAL) on [Andrzej](name)
-- invest [343](CARDINAL) on [Aricka](name)
-- invest [23.54](CARDINAL) on [Alois Reiter](name)
+- put [10.00](CARDINAL) on [andrzej kraviec](name)
+- put [603](CARDINAL) on [andrzej](name)
+- invest [343](CARDINAL) on [aricka](name)
+- invest [23.54](CARDINAL) on [alois reiter](name)
 - I want to add [30](CARDINAL) to [Florianne Paget](name)
-- I'd like to add [129.72](CARDINAL) to [Paulinho Simoes](name)
+- I'd like to add [129.72](CARDINAL) to [paulinho simoes](name)
 - increase [72.80](CARDINAL) on [Benjamin Parker](name)
-- increase by [43](CARDINAL) [Benjamin](name)'s portfolio
-- add [3](CARDINAL) to [Paulinho](name)'s portfolio
-- add [13.16](CARDINAL) to [Benjamin Parker](name)'s portfolio
+- increase by [43](CARDINAL) [benjamin](name)'s portfolio
+- add [3](CARDINAL) to [paulinho](name)'s portfolio
+- add [13.16](CARDINAL) to [benjamin parker](name)'s portfolio
 - add [50](CARDINAL) to [William Shore](name)
-- add another [2.39](CARDINAL) to [Ralph Axelsen](name)
+- add another [2.39](CARDINAL) to [ralph axelsen](name)
 - add another [75](CARDINAL) to [Kanya Bunnag](name)
-- I'd like to put [134](CARDINAL) on [William](name)
+- I'd like to put [134](CARDINAL) on [william](name)
 - I'd like to put [63.24](CARDINAL) on [Florianne](name)
-- I want to invest another [200.34](CARDINAL) on [Masami Nishimura](name)
+- I want to invest another [200.34](CARDINAL) on [masami nishimura](name)
 - I want to invest another [12](CARDINAL) on [Ralph](name)
-- I'd like to increase by [159.16](CARDINAL) [Alois](name)
+- I'd like to increase by [159.16](CARDINAL) [alois](name)
 - I'd like to increase by [65](CARDINAL) [Kanya Bunnag](name)
-- put another [25](CARDINAL) on [Kanya Bunnag](name)
+- put another [25](CARDINAL) on [kanya bunnag](name)
 - put another [178.39](CARDINAL) on [Aricka Lewis](name)
 
 ## intent:add_amount_to_him_her
@@ -278,45 +278,45 @@
 ## intent:should_i_withdraw_amount
 - should i withdraw
 - should i withdraw
-- should i withdraw [50](CARDINAL) from [Aricka Lewis](name)?
+- should i withdraw [50](CARDINAL) from [aricka lewis](name)?
 - should I withdraw [124.54](CARDINAL) from [Ralph Axelsen](name)
 - should i decrease
-- should I decrease [Kanya](name)?
+- should I decrease [kanya](name)?
 - should i decrease [William Shore](name) by [5](CARDINAL)?
-- should I decrease [Andrzej Kraviec](name) by another [75](CARDINAL)
-- should I get [34.59](CARDINAL) from [Masami Nishimura](name)?
+- should I decrease [andrzej kraviec](name) by another [75](CARDINAL)
+- should I get [34.59](CARDINAL) from [masami nishimura](name)?
 - should i get money from [Alois](name)
 - would you get
 - would you withdraw
-- would you withdraw from [Florianne Paget](name)?
+- would you withdraw from [florianne paget](name)?
 - do you think I should withdraw more money from [Paulinho Simoes](name)
 - do you think I should decrease [Kanya Bunnag](name) by [159](CARDINAL)?
-- do I want to withdraw [5](CARDINAL) from [William](name)?
-- do I want to decrease [Paulinho Simoes](name)?
+- do I want to withdraw [5](CARDINAL) from [william](name)?
+- do I want to decrease [paulinho simoes](name)?
 - do you think withdrawing [315.00](CARDINAL) from [Alois Reiter](name) is a good idea?
-- would you recommend getting from [Andrzej](name)
+- would you recommend getting from [andrzej](name)
 
 ## intent:withdraw_amount
-- withdraw [57.00](CARDINAL) from [Andrzej Kraviec](name)
+- withdraw [57.00](CARDINAL) from [andrzej kraviec](name)
 - withdraw [486](CARDINAL) from [Florianne](name)
 - get [100](CARDINAL) from [Nishimura](name)
-- get [63.34](CARDINAL) from [Aricka Lewis](name)
-- I want to withdraw [80](CARDINAL) from [Alois](name)
+- get [63.34](CARDINAL) from [aricka lewis](name)
+- I want to withdraw [80](CARDINAL) from [alois](name)
 - I'd like to withdraw [283.58](CARDINAL) from [Paulinho Simoes](name)
-- remove [47.30](CARDINAL) from [Benjamin](name)
-- decrease by [85](CARDINAL) [Ralph](name)'s portfolio
+- remove [47.30](CARDINAL) from [benjamin](name)
+- decrease by [85](CARDINAL) [ralph](name)'s portfolio
 - remove [5](CARDINAL) from [Shore](name)'s portfolio
 - subtract [13.50](CARDINAL) from [Kanya Bunnag](name)'s portfolio
-- decrease [70](CARDINAL) [Andrzej](name)
+- decrease [70](CARDINAL) [andrzej](name)
 - get [2.39](CARDINAL) from [Masami Nishimura](name)
-- withdraw another [59](CARDINAL) from [Reiter](name)
+- withdraw another [59](CARDINAL) from [reiter](name)
 - I'd like to get [120](CARDINAL) from [William Shore](name)
 - I'd like to withdraw [98.00](CARDINAL) from [Benjamin Parker](name)
-- I want to withdraw [200](CARDINAL) from [Aricka](name)
-- I want to remove another [25.32](CARDINAL) from [Ralph Axelsen](name)
+- I want to withdraw [200](CARDINAL) from [aricka](name)
+- I want to remove another [25.32](CARDINAL) from [ralph axelsen](name)
 - I'd like to decrease by [160.50](CARDINAL) [Florianne Paget](name)'s portfolio
 - I'd like to remove [55](CARDINAL) from [Alois Reiter](name)
-- get another [25](CARDINAL) on [Andrzej Kraviec](name)
+- get another [25](CARDINAL) on [andrzej kraviec](name)
 - remove another [178.39](CARDINAL) on [Paget](name)
 
 ## intent:withdraw_amount_from_him_her
@@ -371,54 +371,54 @@
 
 ## intent:should_i_unfollow
 - should i unfollow
-- should i unfollow [Aricka Lewis](name)?
+- should i unfollow [aricka lewis](name)?
 - should I unfollow [Ralph Axelsen](name)
 - should i stop following
-- should i stop following [William Shore](name)?
+- should i stop following [william shore](name)?
 - should I stop following [Andrzej Kraviec](name)
-- should I stop following [Masami Nishimura](name)?
-- should i stop following [Alois](name)
+- should I stop following [masami nishimura](name)?
+- should i stop following [alois](name)
 - would you unfollow
 - would you unfollow [Florianne Paget](name)?
-- do you think I should unfollow [Paulinho](name)
+- do you think I should unfollow [paulinho](name)
 - do you think I should stop following [Kanya Bunnag](name)?
-- do I want to unfollow [William](name)?
+- do I want to unfollow [william](name)?
 - do I want to stop following [Paulinho Simoes](name)?
-- do you think unfollowing [Alois Reiter](name) is a good idea?
+- do you think unfollowing [alois reiter](name) is a good idea?
 - would you recommend unfollowing [Andrzej](name)
-- will [Benjamin Parker](name)'s portfolio decrease?
-- will [Florianne](name)'s portfolio drop?
-- do you think [William](name) will drop
+- will [benjamin parker](name)'s portfolio decrease?
+- will [florianne](name)'s portfolio drop?
+- do you think [william](name) will drop
 - will [Alois Reiter](name)'s value decrease next month
-- is [Paulinho Simoes](name) going to decrease?
+- is [paulinho simoes](name) going to decrease?
 
 
 ## intent:unfollow
-- unfollow [Andrzej Kraviec](name)
+- unfollow [andrzej kraviec](name)
 - unfollow [Masami](name)
 - unfollow [Ralph Axelsen](name)
-- unfollow [Kanya](name)
-- unfollow [Alois Reiter](name)
+- unfollow [kanya](name)
+- unfollow [alois reiter](name)
 - unfollow [William](name)
-- unfollow [Aricka Lewis](name)
+- unfollow [aricka lewis](name)
 - unfollow [Florianne](name)
-- unfollow [Benjamin Parker](name)
+- unfollow [benjamin parker](name)
 - unfollow [Paulinho Simoes](name)
-- stop following [Andrzej](name)
+- stop following [andrzej](name)
 - stop following [Masami Nishimura](name)
-- stop following [Ralph](name)
-- stop following [Kanya Bunnag](name)
+- stop following [ralph](name)
+- stop following [kanya bunnag](name)
 - stop following [Aricka](name)
-- stop following [Alois](name)
+- stop following [alois](name)
 - stop following [William Shore](name)
-- stop following [Florianne Paget](name)
+- stop following [florianne paget](name)
 - stop following [Benjamin Parker](name)
-- stop following [Paulinho](name)
+- stop following [paulinho](name)
 - I want to follow [Florianne Paget](name)
-- I want to follow [Parker](name)
-- I would like to unfollow [Paulinho Simoes](name)
+- I want to follow [parker](name)
+- I would like to unfollow [paulinho simoes](name)
 - I would like to unfollow [William](name)
-- I want to stop following [Alois Reiter](name)
+- I want to stop following [alois reiter](name)
 - I want to stop following [Kraviec](name)
 
 ## intent:unfollow_him_her
@@ -526,6 +526,33 @@
 - William
 - Shore
 - William Shore
+- andrzej
+- kraviec
+- andrzej kraviec
+- aricka
+- lewis
+- aricka lewis
+- benjamin
+- parker
+- benjamin parker
+- florianne
+- paget
+- florianne paget
+- kanya
+- bunnag
+- kanya bunnag
+- masami
+- nishimura
+- masami nishimura
+- paulinho
+- simoes
+- paulinho simoes
+- ralph
+- axelsen
+- ralph axelsen
+- william
+- shore
+- william shore
 
 ## regex:CARDINAL
 - ^(\d{1,5}|\d{0,5}\.\d{1,2})$
