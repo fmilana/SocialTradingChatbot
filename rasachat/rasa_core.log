@@ -16307,3 +16307,27 @@ KeyboardInterrupt
 /webhooks/rest/webhook                             POST                           custom_webhook_RestInput.receive
 /socket.io                                         POST                           handle_request
 /webhooks/socketio                                 GET                            socketio_webhook.health
+2019-07-23 19:19:02,176 [ERROR]  Experienced exception while trying to serve
+Traceback (most recent call last):
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\app.py", line 1096, in run
+    serve(**server_settings)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\sanic\server.py", line 770, in serve
+    loop.run_forever()
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\asyncio\base_events.py", line 421, in run_forever
+    self._run_once()
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\asyncio\base_events.py", line 1370, in _run_once
+    event_list = self._selector.select(timeout)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\selectors.py", line 323, in select
+    r, w, _ = self._select(self._readers, self._writers, [], timeout)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\selectors.py", line 314, in _select
+    r, w, x = select.select(r, w, w, timeout)
+  File "c:\users\feder\appdata\local\programs\python\python36\lib\site-packages\engineio\client.py", line 41, in signal_handler
+    return original_signal_handler(sig, frame)
+KeyboardInterrupt
+2019-07-23 19:20:02,486 [DEBUG]  Available web server routes: 
+/webhooks/rasa                                     GET                            custom_webhook_RasaChatInput.health
+/webhooks/rasa/webhook                             POST                           custom_webhook_RasaChatInput.receive
+/webhooks/rest                                     GET                            custom_webhook_RestInput.health
+/webhooks/rest/webhook                             POST                           custom_webhook_RestInput.receive
+/socket.io                                         POST                           handle_request
+/webhooks/socketio                                 GET                            socketio_webhook.health

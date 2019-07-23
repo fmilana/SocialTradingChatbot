@@ -196,13 +196,15 @@ $(document).ready(function() {
             //   change_to_consider = fake_change;
             // }
 
+            newspost_change = Math.abs(Math.round(newspost_change))
+
             // newspost text based on change value and accuracy
             if (newspost_change > 0) {
-              text = name + '\'s portfolio to increase by ~' + Math.abs(Math.round(newspost_change)) + '%.';
+              text = name + '\'s portfolio to increase by ~' + newspost_change + '%.';
             } else if (newspost_change == 0) {
               text = name + '\'s portfolio to stay the same.';
             } else {
-              text = name + '\'s portfolio to decrease by ~' + Math.abs(Math.round(newspost_change)) + '%.';
+              text = name + '\'s portfolio to decrease by ~' + newspost_change + '%.';
             }
 
             var div = '<div class="wrapper-newspost"> \
