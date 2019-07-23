@@ -200,10 +200,10 @@ LOGGING = {
             'format': '{"level": "%(levelname)s", "timestamp": "%(asctime)s", %(message)s}'
         },
         'simple': {
-            'format': 'movieclustering | %(levelname)s %(asctime)s %(message)s'
+            'format': 'investment_bot | %(levelname)s %(asctime)s %(message)s'
         },
         'detailed': {
-            'format': "movieclustering | %(levelname)s %(asctime)s \n%(pathname)s %(filename)s \n%(funcName)s \n%(message)s"
+            'format': "investment_bot | %(levelname)s %(asctime)s \n%(pathname)s %(filename)s \n%(funcName)s \n%(message)s"
         },
     },
     'handlers': {

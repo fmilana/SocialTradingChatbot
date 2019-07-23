@@ -1,6 +1,6 @@
 absl-py==0.7.1
 aiofiles==0.4.0
-aiohttp==3.5.4
+aiohttp
 APScheduler==3.6.1
 asn1crypto==0.24.0
 astor==0.8.0
@@ -54,6 +54,7 @@ mattermostwrapper==2.1
 mock==3.0.5
 multidict==4.5.2
 murmurhash==1.0.2
+mysqlclient==1.4.2.post1
 networkx==2.3
 numpy==1.16.4
 packaging==19.0

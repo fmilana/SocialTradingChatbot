@@ -24,8 +24,8 @@ from patchwork.transfers import rsync
 #from fabric.contrib import files
 
 env = {}
-env['project_local'] = 'movieclustering'
-env['project_remote'] = 'movieclustering'
+env['project_local'] = 'investment_bot'
+env['project_remote'] = 'investment_bot'
 
 # the db name must be at most 16 chars
 env['dbname'] = env['project_remote']
