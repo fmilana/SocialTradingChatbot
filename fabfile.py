@@ -92,6 +92,13 @@ def restart_gunicorn(c):
     c.sudo('systemctl restart gunicorn-%(project_remote)s.socket' % env)
 
 @task
+def restart_rasa(c):
+    #c.sudo('systemctl daemon-reload')
+    #c.sudo('systemctl restart gunicorn-' + env['project_remote'])
+    c.sudo('systemctl restart rasa-actions-%(project_remote)s.service' % env)
+    c.sudo('systemctl restart rasa-%(project_remote)s.service' % env)
+
+@task
 def pull_data(c):
     with c.cd('/srv/django-projects/' + env['project_remote'] + '/'):
         virtualenv(c, 'python manage.py pull_protected_store_data')
@@ -101,12 +108,20 @@ def pull_data(c):
 @task
 def setup_virtualenv(c):
     #with lcd("../" + env['project_local'] + "/"):
-    c.put("requirements_srv.txt", "/tmp/")
+#     c.put("requirements_srv.txt", "/tmp/")
 
-    with c.cd('/srv/pve/'):
-        c.run('virtualenv -p python3 --no-site-packages %(project_remote)s' % env)
+#     with c.cd('/srv/pve/'):
+#         c.run('virtualenv -p python3 --no-site-packages %(project_remote)s' % env)
 
-    virtualenv(c, 'pip install -r /tmp/requirements_srv.txt')
+#     virtualenv(c, 'pip install -r /tmp/requirements_srv.txt')
+        pass
+        # TODO: check if python3.7 is available, if not install it via apt
+        # then use something like c.run('virtualenv -python=/usr/bin/python3.7 %(project_remote)s' % env)
+        # then install rasa via 
+        # pip install rasa --extra-index-url https://pypi.rasa.com/simple
+        # then 
+        # pip install spacy 
+        # then python -m spacy download en
 
 @task
 def setup_db(c):
@@ -234,6 +249,69 @@ WantedBy=sockets.target""" % env
     # restart things
     restart_gunicorn(c)
 
+@task
+def setup_rasa(c):
+    # TODO: test this
+
+    rasaServiceConf = """
+[Unit]
+Description=rasa daemon for %(project_remote)s 
+After=network.target
+
+[Service]
+PIDFile=/run/rasa_%(project_remote)s/pid
+User=costanza
+Group=www-data
+RuntimeDirectory=rasa_%(project_remote)s
+WorkingDirectory=/srv/django-projects/%(project_remote)s/rasachat
+ExecStart=/srv/pve/%(project_remote)s/bin/rasa \
+         run -m models -p 5500 --enable-api
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+""" % env
+
+    fname = 'rasa-%(project_remote)s.service' % env
+    open(fname, 'w').write(rasaServiceConf)
+    # TODO: test this
+    #gunicorn_config_filename = 'gunicorn-%(project_remote)s.service' % env
+
+    c.put(fname, '/tmp/')
+    c.sudo('mv /tmp/' + fname + ' /etc/systemd/system/' + fname)
+    os.remove(fname)
+
+    rasaActionsSocketConf = """
+[Unit]
+Description=rasa actions daemon for %(project_remote)s 
+After=network.target
+
+[Service]
+PIDFile=/run/rasa_actions_%(project_remote)s/pid
+User=costanza
+Group=www-data
+RuntimeDirectory=rasa_actions_%(project_remote)s
+WorkingDirectory=/srv/django-projects/%(project_remote)s/rasachat
+ExecStart=/srv/pve/%(project_remote)s/bin/rasa \
+        run actions
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+""" % env
+
+    fname = 'rasa-actions-%(project_remote)s.service' % env
+    open(fname, 'w').write(rasaActionsSocketConf)
+    c.put(fname, '/tmp/')
+    c.sudo('mv /tmp/' + fname + ' /etc/systemd/system/' + fname)
+    os.remove(fname)
+
+    # TODO: restart things
+    restart_rasa(c)
 
 @task
 def setup(c):

@@ -13,10 +13,17 @@
 <script src="{% static 'chatbot/js/base.js' %}" type="text/javascript" charset="utf-8"></script>
 
 <script>
-  var staticUrl = '{% static "" %}';
-  window.IMG_URL = "{% static 'imagetagging/images/' %}";
-  var server_url = 'http://{{ request.get_host }}';
-  var username = "{{ request.user.username }}"
+    var staticUrl = '{% static "" %}';
+    window.IMG_URL = "{% static 'imagetagging/images/' %}";
+    var host = '{{ request.get_host }}';
+    var server_url;
+    if (host.includes('iot')) {
+        server_url = "https://iot.cs.ucl.ac.uk/investment_bot";
+    } else {
+        server_url = 'http://{{ request.get_host }}';
+    }
+    console.log('server_url:', server_url);
+    var username = "{{ request.user.username }}"
 </script>
 
 
