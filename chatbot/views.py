@@ -55,7 +55,6 @@ def participants_view(request):
     #     ).annotate(n_participants=Count('participant')
     #     ).order_by('n_participants')
     # participant.task_list = all_task_lists[0]
-    # participant.save()
 
     login(request, user)
 

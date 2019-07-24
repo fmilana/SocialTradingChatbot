@@ -57,14 +57,11 @@ $(document).ready(function() {
 	// socket.on('bot_uttered',process_response);
 
 	var sendMessage = function() {
-		console.log('sendMessage called');
 		const chatInput = $("#chat-input").val();
 		console.log(chatInput);
 		if (chatInput) {
-			// TODO: change this to use $.post -- or even better fetch
-			// TODO: use the user ID from django
-
-			var url = server_url + '/chatbot/';
+      //socket.emit('user_uttered', {'message': chatInput, 'sender': 'rasa'});
+			var post_url = server_url + '/chatbotproxy/';
 			var post_data = {'message': chatInput, 'sender': username};
 			fetch(post_url, {
 				method: 'POST',
@@ -76,11 +73,10 @@ $(document).ready(function() {
 				// window.location.replace(server_url + "/tasks/?order=" + next_task_order);
 				//window.location = server_url + "/tasks/?order=" + next_task_order;
 				process_response(response);
-			}).error(error => {
+			}).catch(error => {
 				console.log('POST error:', error);
 			});
 
-			// socket.emit('user_uttered', {'message': chatInput, 'sender': 'rasa'});
 			$("#result_div").append("<p id='user-message'> " + chatInput + "</p><br>");
 			$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
 			setTimeout(function(){
