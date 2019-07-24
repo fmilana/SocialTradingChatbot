@@ -5,6 +5,7 @@ $(function () {
     var render_tagging_task = function () {
         // var image_url = server_url + '/imagetagging/static/' + _task.image_url;
         var image_url = server_url + '/static/' + _task.image_url;
+        console.log('IMAGE URL = ' + image_url);
 
         console.log(image_url);
         $('.tagging img').attr("src", image_url);
@@ -33,6 +34,7 @@ $(function () {
     var load_tagging_task = function (task_id) {
         console.log('load_tagging_task');
         var url = server_url + '/imagetagging/image-task/';
+        console.log('url = ' + url);
 
         if (task_id) {
             url = url + task_id + '/';

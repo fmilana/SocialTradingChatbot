@@ -17,13 +17,25 @@
 <link rel="stylesheet" href="{% static 'chatbot/css/style.css' %}">
 
 <div class="content-container">
-  <div class="row">
+  <div class="row" id="title-row">
+    <div class="col-4" id="portfolio-title-row">
+      <h2>Portfolios</h2>
+    </div>
+    <div class="col-4" id="chatbot-title-row">
+      <h2>Chatbot</h2>
+    </div>
+    <div class="col-4" id="newsfeed-title-row">
+      <h2>Newsfeed</h2>
+      <h5>Predictions not always accurate</h5>
+    </div>
+  </div>
+  <div class="row" id="content-row">
     <div class="col-4" id="portfolios">
 
       <!-- <link rel="stylesheet" href="{% static 'chatbot/css/style.css' %}"> -->
 
-      <h2>Portfolios</h2>
-      <h5>Followed</h5>
+
+      <h5 id="followed-title">Followed</h5>
 
       <b id="empty-followed-tag">You are not following any portfolios.</b>
 
@@ -104,15 +116,12 @@
     </div>
 
     <div class="col-4" id="chatbot">
-      <h2>Chatbot</h2>
       <div class="container-chatbot">
         <mybot></mybot>
       </div>
     </div>
 
     <div class="col-4" id="newsfeed">
-      <h2>Newsfeed</h2>
-      <h5>Predictions not always accurate</h5>
       <div class="scrollable-newsposts">
 
         <script>

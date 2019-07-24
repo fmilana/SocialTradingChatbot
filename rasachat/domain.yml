@@ -4,10 +4,10 @@ entities:
 
 intents:
   - what_can_you_do: {triggers: action_what_I_can_do}
-  - greet: {triggers: utter_greet}
-  - goodbye: {triggers: utter_goodbye}
-  - affirm: {triggers: utter_happy}
-  - deny: {triggers: utter_goodbye}
+  - greet
+  - goodbye
+  - affirm
+  - deny
   - mood_great: {triggers: utter_happy}
   - mood_unhappy: {triggers: utter_cheer_up}
   - do_it

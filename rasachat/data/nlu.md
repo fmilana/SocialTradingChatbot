@@ -46,20 +46,32 @@
 - perfect
 - very good
 - great
+- doing great
 - amazing
 - wonderful
+- brilliant
+- magnificent
+- I'm good
+- alright
+- fine
+- i'm okay
+- all good
 - I am feeling very good
 - I am great
 - I'm good
+- not too bad
+- not bad
 
 ## intent:mood_unhappy
 - sad
 - very sad
 - unhappy
+- i don't know
 - bad
 - very bad
 - awful
 - terrible
+- horrible
 - not very good
 - extremely sad
 - so sad
