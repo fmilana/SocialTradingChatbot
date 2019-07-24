@@ -1,16 +1,12 @@
 ## what_can_you_do
 * what_can_you_do
   - action_what_I_can_do
-  - action_reset_slots
-  - slot{"portfolio_query":null,"name":null,"amount_query":null,"amount":null}
 
 ## happy path
 * greet
   - utter_greet
 * mood_great
   - utter_happy
-  - action_reset_slots
-  - slot{"portfolio_query":null,"name":null,"amount_query":null,"amount":null}
 
 ## sad path 1
 * greet
@@ -20,8 +16,6 @@
   - utter_did_that_help
 * affirm
   - utter_happy
-  - action_reset_slots
-  - slot{"portfolio_query":null,"name":null,"amount_query":null,"amount":null}
 
 ## sad path 2
 * greet
@@ -31,14 +25,10 @@
   - utter_did_that_help
 * deny
   - utter_goodbye
-  - action_reset_slots
-  - slot{"portfolio_query":null,"name":null,"amount_query":null,"amount":null}
 
 ## say goodbye
 * goodbye
   - utter_goodbye
-  - action_reset_slots
-  - slot{"portfolio_query":null,"name":null,"amount_query":null,"amount":null}
 
 
 
