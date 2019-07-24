@@ -2431,7 +2431,7 @@ Backoff.prototype.setJitter = function(jitter){
 var BlobBuilder = typeof BlobBuilder !== 'undefined' ? BlobBuilder :
   typeof WebKitBlobBuilder !== 'undefined' ? WebKitBlobBuilder :
   typeof MSBlobBuilder !== 'undefined' ? MSBlobBuilder :
-  typeof MozBlobBuilder !== 'undefined' ? MozBlobBuilder : 
+  typeof MozBlobBuilder !== 'undefined' ? MozBlobBuilder :
   false;
 
 /**
@@ -8451,6 +8451,8 @@ $(document).ready(function() {
 	function appendBotMessage(data) {
 		var message = data['text'];
 
+		$('#result_div #typing-gif').remove();
+
 		$("#result_div").append("<p id='bot-message'>" + message + "</p><br>");
 		$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
 	}
@@ -8518,9 +8520,13 @@ $(document).ready(function() {
 			}).catch(error => {
 				console.log('POST error:', error);
 			});
-      
+
 			$("#result_div").append("<p id='user-message'> " + chatInput + "</p><br>");
 			$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
+			setTimeout(function(){
+				$('#result_div').append('<img id="typing-gif" src="' + staticUrl + 'chatbot/images/typing.svg">')
+				$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
+			}, 500);
 			$("#chat-input").val('');
 		}
 	};

@@ -1,7 +1,6 @@
 {
   "name": "chatbot",
   "version": "1.0.0",
-  "description": "",
   "main": "chatbot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,5 +17,7 @@
   "homepage": "https://github.com/fmilana/chatbot#readme",
   "dependencies": {
     "socket.io": "^2.2.0"
-  }
+  },
+  "devDependencies": {},
+  "description": ""
 }

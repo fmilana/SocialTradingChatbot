@@ -3,23 +3,34 @@ entities:
   - CARDINAL
 
 intents:
-  - greet
-  - goodbye
-  - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
-  - ask_general_advice
-  - ask_follow_advice
-  - ask_unfollow_advice
+  - what_can_you_do: {triggers: action_what_I_can_do}
+  - greet: {triggers: utter_greet}
+  - goodbye: {triggers: utter_goodbye}
+  - affirm: {triggers: utter_happy}
+  - deny: {triggers: utter_goodbye}
+  - mood_great: {triggers: utter_happy}
+  - mood_unhappy: {triggers: utter_cheer_up}
+  - do_it
+  - ask_general_advice: {triggers: action_give_general_advice}
+  - ask_follow_advice: {triggers: action_give_following_advice}
+  - ask_unfollow_advice: {triggers: action_give_unfollowing_advice}
   - follow
+  - follow_him_her
   - should_i_follow
+  - should_i_unfollow
   - unfollow
+  - unfollow_him_her
   - amount
+  - should_i_add_amount
   - add_amount
+  - add_amount_to_him_her
+  - add_to_him_her
+  - should_i_withdraw_amount
   - withdraw_amount
-  - unfollow_everyone
-  - follow_everyone
+  - withdraw_amount_from_him_her
+  - withdraw_from_him_her
+  - unfollow_everyone: {triggers: utter_are_you_sure_unfollow_everyone}
+  - follow_everyone: {triggers: utter_please_follow_one_portfolio_at_a_time}
 
 actions:
 - utter_greet
@@ -27,8 +38,6 @@ actions:
 - utter_did_that_help
 - utter_happy
 - utter_goodbye
-- utter_general_advice
-- utter_ask_follow_amount
 - utter_invalid_portfolio
 - utter_already_followed_portfolio
 - utter_already_not_followed_portfolio
@@ -36,10 +45,15 @@ actions:
 - utter_are_you_sure_unfollow_everyone
 - utter_please_follow_one_portfolio_at_a_time
 - utter_okay
+- action_what_I_can_do
+- action_give_general_advice
 - action_give_following_advice
 - action_give_unfollowing_advice
 - action_follow
+- action_ask_add_amount
+- action_ask_withdraw_amount
 - action_should_i_follow_advice
+- action_should_i_unfollow_advice
 - action_fetch_portfolio
 - action_unfollow
 - action_add_amount
@@ -48,6 +62,13 @@ actions:
 - action_reset_slots
 
 templates:
+  utter_what_i_can_do:
+  - text: "You can tell me to follow/unfollow portfolios, \
+  add/withdraw amounts or ask me things like: \
+  \"Should I invest 50 in Ralph Axelsen?\" \
+  or \"Who should I unfollow?\". I'm here to give you \
+  accurate predictions!"
+
   utter_greet:
   - text: "Hey! How are you?"
 
@@ -59,16 +80,10 @@ templates:
   - text: "Did that help you?"
 
   utter_happy:
-  - text: "Great carry on!"
+  - text: "Great, carry on!"
 
   utter_goodbye:
   - text: "Bye"
-
-  utter_general_advice:
-  - text: "I think you're doing a great job. I'll get back to you when things change"
-
-  utter_ask_follow_amount:
-  - text: "How much would you like to invest?"
 
   utter_invalid_portfolio:
   - text: "Sorry, I can't find that portfolio. Have you spelt the name correctly?"

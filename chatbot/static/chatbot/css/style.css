@@ -231,6 +231,17 @@ h5 {
   padding-right: 90px;
 }
 
+#typing-gif {
+  display: inline-block;
+  max-width: 25%; 
+  height: auto;
+  clear: both;
+  padding: 20px;
+  float: left;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
 ::-webkit-scrollbar {
     width: 0px;
     background: transparent; /* make scrollbar transparent */

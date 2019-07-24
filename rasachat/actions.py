@@ -29,8 +29,77 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.aggregates import Count
 from random import randint
 from django.db.models import Sum
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 import random
+
+
+class WhatICanDo(Action):
+    def name(self) -> Text:
+        return "action_what_I_can_do"
+
+    def run(self, dispatcher, tracker, domain):
+
+        dispatcher.utter_template("utter_what_i_can_do", tracker)
+
+        return []
+
+
+class GiveGeneralAdvice(Action):
+    def name(self) -> Text:
+        return "action_give_general_advice"
+
+    def run(self, dispatcher, tracker, domain):
+        highest_change = 10
+        highest_pronoun = ''
+        lowest_change = 0
+        lowest_pronoun = ''
+
+        highest_changing_portfolio_name = None
+        lowest_changing_portfolio_name = None
+
+        for portfolio in Portfolio.objects.all():
+
+            chatbot_change = portfolio.chatbotNextChange
+
+            if portfolio.followed and chatbot_change < lowest_change:
+                lowest_change = chatbot_change
+                lowest_changing_portfolio_name = portfolio.profile.name
+
+                if portfolio.profile.gender == 'Male':
+                    lowest_pronoun = 'his'
+                else:
+                    lowest_pronoun = 'her'
+
+            elif not portfolio.followed and chatbot_change > highest_change:
+                highest_change = chatbot_change
+                highest_changing_portfolio_name = portfolio.profile.name
+
+                if portfolio.profile.gender == 'Male':
+                    highest_pronoun = 'his'
+                else:
+                    highest_pronoun = 'her'
+
+        message = ''
+        profile_name = None
+
+        portfolio_query = None
+
+        higher_is_greater = (highest_change-10) >= abs(lowest_change)
+
+        if highest_changing_portfolio_name is None and lowest_changing_portfolio_name is None:
+            message = "You're doing great! I don't think you should follow or unfollow anyone else this month."
+        elif lowest_changing_portfolio_name is None or higher_is_greater:
+            message = "I think you should start following " + highest_changing_portfolio_name + ". I believe " + highest_pronoun + " porfolio will increase by " + str(round(highest_change)) + "% next month."
+            profile_name = highest_changing_portfolio_name
+            portfolio_query = "not_followed"
+        else:
+            message = "I think you should stop following " + lowest_changing_portfolio_name + ". I believe " + lowest_pronoun + " porfolio will decrease by " + str(round(abs(lowest_change))) + "% next month."
+            profile_name = lowest_changing_portfolio_name
+            portfolio_query = "followed"
+
+        dispatcher.utter_message(message)
+
+        return [SlotSet("name", profile_name), SlotSet("portfolio_query", portfolio_query)]
 
 
 class GiveFollowingAdvice(Action):
@@ -40,21 +109,34 @@ class GiveFollowingAdvice(Action):
     def run(self, dispatcher, tracker, domain):
         not_followed_portfolios = Portfolio.objects.filter(followed=False)
 
+        highest_changing_portfolio_name = None
+
         if not not_followed_portfolios:
             message = "You are following everyone at the moment."
         else:
-            count = not_followed_portfolios.aggregate(count=Count('id'))['count']
+            highest_change = 10
+            pronoun = ''
 
-            random_index = randint(0, count-1)
+            for portfolio in not_followed_portfolios:
+                chatbot_change = portfolio.chatbotNextChange
 
-            random_not_followed_portfolio = not_followed_portfolios[random_index]
-            profile = random_not_followed_portfolio.profile
+                if chatbot_change > highest_change:
+                    highest_change = chatbot_change
+                    highest_changing_portfolio_name = portfolio.profile.name
 
-            message = "I think you should start following " + profile.name + "."
+                    if portfolio.profile.gender == 'Male':
+                        pronoun = 'his'
+                    else:
+                        pronoun = 'her'
+
+            if highest_changing_portfolio_name is not None:
+                message = "I think you should start following " + highest_changing_portfolio_name + ". I believe " + pronoun + " porfolio will increase by " + str(round(abs(highest_change))) + "% next month."
+            else:
+                message = "I don't think there is anyone you should start following right now."
 
         dispatcher.utter_message(message)
 
-        return []
+        return [SlotSet("name", highest_changing_portfolio_name)]
 
 
 class GiveUnfollowingAdvice(Action):
@@ -64,21 +146,34 @@ class GiveUnfollowingAdvice(Action):
     def run(self, dispatcher, tracker, domain):
         followed_portfolios = Portfolio.objects.filter(followed=True)
 
+        lowest_changing_portfolio_name = None
+
         if not followed_portfolios:
-            message = "You aren't following anyone at the moment."
+            message = "You are not following anyone at the moment."
         else:
-            count = followed_portfolios.aggregate(count=Count('id'))['count']
+            lowest_change = 0
+            pronoun = ''
 
-            random_index = randint(0, count-1)
+            for portfolio in followed_portfolios:
+                chatbot_change = portfolio.chatbotNextChange
 
-            random_followed_portfolio = followed_portfolios[random_index]
-            profile = random_followed_portfolio.profile
+                if chatbot_change < lowest_change:
+                    lowest_change = chatbot_change
+                    lowest_changing_portfolio_name = portfolio.profile.name
 
-            message = "I think you should stop following " + profile.name + "."
+                    if portfolio.profile.gender == 'Male':
+                        pronoun = 'his'
+                    else:
+                        pronoun = 'her'
+
+            if lowest_changing_portfolio_name is not None:
+                message = "I think you should stop following " + lowest_changing_portfolio_name + ". I believe " + pronoun + " porfolio will decrease by " + str(round(abs(lowest_change))) + "% next month."
+            else:
+                message = "I don't think there is anyone you should stop following right now."
 
         dispatcher.utter_message(message)
 
-        return []
+        return [SlotSet("name", lowest_changing_portfolio_name)]
 
 
 class FetchPortfolio(Action):
@@ -105,7 +200,7 @@ class FetchPortfolio(Action):
                         amount = round(Decimal(e['value']), 2)
                         print('AMOUNT vvvvvvvvvv')
                         print(amount)
-                    except IndexError:
+                    except (IndexError, InvalidOperation):
                         amount_query = 'invalid'
                         print('INVALID AMOUNT')
 
@@ -134,6 +229,34 @@ class FetchPortfolio(Action):
         return [SlotSet("portfolio_query", portfolio_query), SlotSet("name", profile_name), SlotSet("amount_query", amount_query), SlotSet("amount", amount)]
 
 
+class AskAddAmount(Action):
+    def name(self) -> Text:
+        return "action_ask_add_amount"
+
+    def run(self, dispatcher, tracker, domain):
+        profile_name = tracker.get_slot('name')
+
+        message = "How much would you like to invest?"
+
+        dispatcher.utter_message(message)
+
+        return [SlotSet("name", profile_name)]
+
+
+class AskWithdrawAmount(Action):
+    def name(self) -> Text:
+        return "action_ask_withdraw_amount"
+
+    def run(self, dispatcher, tracker, domain):
+        profile_name = tracker.get_slot('name')
+
+        message = "How much would you like to withdraw?"
+
+        dispatcher.utter_message(message)
+
+        return [SlotSet("name", profile_name)]
+
+
 class Follow(Action):
     def name(self) -> Text:
         return "action_follow"
@@ -154,14 +277,19 @@ class Follow(Action):
             amount = tracker.get_slot('amount')
 
             if amount is None:
+                print('AMOUNT SLOT IS EMPTY')
+
                 try:
+                    print('TRYING TO SET AMOUNT FROM ENTITY')
                     amount = round(Decimal(tracker.latest_message['entities'][0]['value']), 2)
                     if amount > 0:
+                        print('AMOUNT ENTITY IS VALID')
                         amount_query = 'valid'
                     else:
+                        print('AMOUNT ENTITY IS INVALID')
                         amount_query = 'invalid'
                 except IndexError:
-                    print('INVALID AMOUNT')
+                    amount_query = 'invalid'
             else:
                 amount_query = 'valid'
 
@@ -196,18 +324,23 @@ class Unfollow(Action):
     def run(self, dispatcher, tracker, domain):
         profile_name = tracker.get_slot('name')
 
-        profile_object = Profile.objects.get(name__icontains=profile_name)
-        portfolio = Portfolio.objects.get(profile=profile_object.id)
+        message = ''
 
-        balance = Balance.objects.first()
-        balance.amount += portfolio.invested
-        balance.save()
+        if profile_name is None:
+            message = "Sorry, I can't find that portfolio. Have you spelt the name correctly?"
+        else:
+            profile_object = Profile.objects.get(name__icontains=profile_name)
+            portfolio = Portfolio.objects.get(profile=profile_object.id)
 
-        portfolio.followed = False
-        portfolio.invested = 0.00
-        portfolio.save()
+            balance = Balance.objects.first()
+            balance.amount += portfolio.invested
+            balance.save()
 
-        message = "You have stopped following " + profile_name.title() + "."
+            portfolio.followed = False
+            portfolio.invested = 0.00
+            portfolio.save()
+
+            message = "You have stopped following " + profile_name.title() + "."
 
         dispatcher.utter_message(message)
 
@@ -221,23 +354,41 @@ class AddAmount(Action):
     def run(self, dispatcher, tracker, domain):
         profile_name = tracker.get_slot('name')
 
-        profile_object = Profile.objects.get(name__icontains=profile_name)
-        portfolio = Portfolio.objects.get(profile=profile_object.id)
-
-        amount = round(Decimal(tracker.get_slot('amount')), 2)
-
-        balance = Balance.objects.first()
-        balance.amount -= amount
-
-        if balance.amount < 0:
-            message = "I'm afraid your current balance is not sufficient."
+        if profile_name is None:
+            message = "Sorry, I can't find that portfolio. Have you spelt the name correctly?"
         else:
-            balance.save()
+            profile_object = Profile.objects.get(name__icontains=profile_name)
+            portfolio = Portfolio.objects.get(profile=profile_object.id)
 
-            portfolio.invested += amount
-            portfolio.save()
+            amount = tracker.get_slot('amount')
 
-            message = "You have invested another £" + str(amount) + " in " + profile_name.title() + "."
+            if amount is None:
+                try:
+                    amount = tracker.latest_message['entities'][0]['value']
+
+                except IndexError:
+                    message = "That's not a valid amount."
+
+            if amount is not None:
+                amount = round(Decimal(amount), 2)
+
+                if amount > 0:
+                    balance = Balance.objects.first()
+                    balance.amount -= amount
+
+                    if balance.amount < 0:
+                        message = "I'm afraid your current balance is not sufficient."
+                    else:
+                        balance.save()
+
+                        portfolio.invested += amount
+                        portfolio.save()
+
+                        message = "You have invested another £" + str(amount) + " in " + profile_name.title() + "."
+                else:
+                    message = "That's not a valid amount."
+            else:
+                message = "That's not a valid amount."
 
         dispatcher.utter_message(message)
 
@@ -251,26 +402,42 @@ class WithdrawAmount(Action):
     def run(self, dispatcher, tracker, domain):
         profile_name = tracker.get_slot('name')
 
-        profile_object = Profile.objects.get(name__icontains=profile_name)
-        portfolio = Portfolio.objects.get(profile=profile_object.id)
-
-        amount = round(Decimal(tracker.get_slot('amount')), 2)
-
-        portfolio.invested -= amount
-
-        if portfolio.invested < 0:
-            message = "That's not a valid amount to withdraw."
+        if profile_name is None:
+            message = "Sorry, I can't find that portfolio. Have you spelt the name correctly?"
         else:
-            if portfolio.invested == 0:
-                portfolio.followed = False
+            profile_object = Profile.objects.get(name__icontains=profile_name)
+            portfolio = Portfolio.objects.get(profile=profile_object.id)
 
-            portfolio.save()
+            amount = tracker.get_slot('amount')
 
-            balance = Balance.objects.first()
-            balance.amount += amount
-            balance.save()
+            if amount is None:
+                try:
+                    amount = tracker.latest_message['entities'][0]['value']
 
-            message = "You have withdrawn £" + str(amount) + " from " + profile_name.title() + "."
+                except IndexError:
+                    message = "That's not a valid amount."
+
+            if amount is not None:
+                amount = round(Decimal(amount), 2)
+
+                portfolio.invested -= amount
+
+                if portfolio.invested < 0:
+                    message = "That's not a valid amount to withdraw."
+                else:
+                    balance = Balance.objects.first()
+                    balance.amount += amount
+                    balance.save()
+
+                    if portfolio.invested == 0:
+                        portfolio.followed = False
+                        message = "You have stopped following " + profile_name.title() + "."
+                    else:
+                        message = "You have withdrawn £" + str(amount) + " from " + profile_name.title() + "."
+
+                    portfolio.save()
+            else:
+                message = "That's not a valid amount."
 
         dispatcher.utter_message(message)
 
@@ -316,46 +483,95 @@ class ShouldIFollowAdvice(Action):
 
         profile_name = tracker.get_slot('name')
 
-        profile_object = Profile.objects.get(name__icontains=profile_name)
-        portfolio = Portfolio.objects.get(profile=profile_object.id)
-        newspost = Newspost.objects.get(profile=profile_object.id)
+        if profile_name is None:
+            profile_name = tracker.latest_message['entities'][0]['value']
+            print('PROFILE_NAME SLOT IS EMPTY, ENTITY = ' + profile_name)
 
-        next_change = portfolio.nextChange
-        fake_change = portfolio.fakeChange
-
-        change_to_consider = None
-
-        if not newspost.accurate:
-            change_to_consider = round(next_change)
+        if profile_name is None:
+            message = "Sorry, I can't find that portfolio. Have you spelt the name correctly?"
         else:
-            change_to_consider = round(fake_change)
+            profile_object = Profile.objects.get(name__icontains=profile_name)
+            portfolio = Portfolio.objects.get(profile=profile_object.id)
 
-        answer = ''
-        increase_or_decrease = ''
+            chatbot_change = round(portfolio.chatbotNextChange)
 
-        if change_to_consider >= 30:
-            answer = 'Definitely!'
-            increase_or_decrease = 'increase by ' + str(abs(change_to_consider)) + '%'
-        elif change_to_consider >= 10:
-            answer = 'Yes.'
-            increase_or_decrease = 'increase by ' + str(abs(change_to_consider)) + '%'
-        elif change_to_consider > 0:
-            answer = 'Not really.'
-            increase_or_decrease = 'only increase by ' + str(abs(change_to_consider)) + '%'
-        elif change_to_consider == 0:
-            answer = 'Not really.'
-            increase_or_decrease = 'not change'
-        elif change_to_consider > -10:
-            answer = 'Not really.'
-            increase_or_decrease = 'decrease by ' + str(abs(change_to_consider)) + '%'
-        elif change_to_consider > -30:
-            answer = 'No.'
-            increase_or_decrease = 'decrease by ' + str(abs(change_to_consider)) + '%'
+            answer = ''
+            increase_or_decrease = ''
+
+            if chatbot_change >= 30:
+                answer = 'Absolutely! '
+                increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
+            elif chatbot_change >= 10:
+                answer = 'Yes. '
+                increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
+            elif chatbot_change > 0:
+                increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
+            elif chatbot_change == 0:
+                answer = 'Not really. '
+                increase_or_decrease = 'not change'
+            elif chatbot_change > -10:
+                answer = 'Not really. '
+                increase_or_decrease = 'decrease by ' + str(abs(chatbot_change)) + '%'
+            elif chatbot_change > -30:
+                answer = 'No. '
+                increase_or_decrease = 'decrease by ' + str(abs(chatbot_change)) + '%'
+            else:
+                answer = 'Absolutely not! '
+                increase_or_decrease = 'decrease by ' + str(abs(chatbot_change)) + '%'
+
+            message = answer + 'I believe ' + profile_name.title() + '\'s portfolio will ' + increase_or_decrease + ' next month.'
+
+        dispatcher.utter_message(message)
+
+        return[]
+
+
+class ShouldIUnfollowAdvice(Action):
+    def name(self):
+        return 'action_should_i_unfollow_advice'
+
+    def run(self, dispatcher, tracker, domain):
+        message = ''
+
+        profile_name = tracker.get_slot('name')
+
+        if profile_name is None:
+            profile_name = tracker.latest_message['entities'][0]['value']
+            print('PROFILE_NAME SLOT IS EMPTY, ENTITY = ' + profile_name)
+
+        if profile_name is None:
+            message = "Sorry, I can't find that portfolio. Have you spelt the name correctly?"
         else:
-            answer = 'Definitely not!'
-            increase_or_decrease = 'decrease by ' + str(abs(change_to_consider)) + '%'
+            profile_object = Profile.objects.get(name__icontains=profile_name)
+            portfolio = Portfolio.objects.get(profile=profile_object.id)
 
-        message = answer + ' I believe ' + profile_name.title() + '\'s portfolio will ' + increase_or_decrease + ' next month.'
+            chatbot_change = round(portfolio.chatbotNextChange)
+
+            answer = ''
+            increase_or_decrease = ''
+
+            if chatbot_change >= 30:
+                answer = 'Absolutely not! '
+                increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
+            elif chatbot_change >= 10:
+                answer = 'No. '
+                increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
+            elif chatbot_change > 0:
+                answer = 'No.'
+                increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
+            elif chatbot_change == 0:
+                increase_or_decrease = 'not change'
+            elif chatbot_change > -10:
+                answer = 'Yes. '
+                increase_or_decrease = 'decrease by ' + str(abs(chatbot_change)) + '%'
+            elif chatbot_change > -30:
+                answer = 'Yes. '
+                increase_or_decrease = 'decrease by ' + str(abs(chatbot_change)) + '%'
+            else:
+                answer = 'Absolutely! '
+                increase_or_decrease = 'decrease by ' + str(abs(chatbot_change)) + '%'
+
+            message = answer + ' I believe ' + profile_name.title() + '\'s portfolio will ' + increase_or_decrease + ' next month.'
 
         dispatcher.utter_message(message)
 

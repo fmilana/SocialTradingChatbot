@@ -252,7 +252,7 @@ WantedBy=sockets.target""" % env
 @task
 def setup_rasa(c):
     # TODO: test this
-
+    # based on https://unix.stackexchange.com/questions/409609/how-to-run-a-command-inside-a-virtualenv-using-systemd
     rasaServiceConf = """
 [Unit]
 Description=rasa daemon for %(project_remote)s 
@@ -264,8 +264,9 @@ User=costanza
 Group=www-data
 RuntimeDirectory=rasa_%(project_remote)s
 WorkingDirectory=/srv/django-projects/%(project_remote)s/rasachat
-ExecStart=/srv/pve/%(project_remote)s/bin/rasa \
-         run -m models -p 5500 --enable-api
+ExecStart=/bin/bash -c 'source  /srv/pve/%(project_remote)s/bin/activate && \
+        /srv/pve/%(project_remote)s/bin/rasa \
+        run -m models -p 5500 --enable-api'
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s TERM $MAINPID
 PrivateTmp=true
@@ -294,8 +295,9 @@ User=costanza
 Group=www-data
 RuntimeDirectory=rasa_actions_%(project_remote)s
 WorkingDirectory=/srv/django-projects/%(project_remote)s/rasachat
-ExecStart=/srv/pve/%(project_remote)s/bin/rasa \
-        run actions
+ExecStart=/bin/bash -c 'source  /srv/pve/%(project_remote)s/bin/activate && \
+        /srv/pve/%(project_remote)s/bin/rasa \
+        run actions'
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s TERM $MAINPID
 PrivateTmp=true

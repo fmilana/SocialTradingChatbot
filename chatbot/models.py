@@ -22,8 +22,8 @@ class Portfolio(models.Model):
     risk = models.IntegerField(null=False)
     invested = models.DecimalField(max_digits=6, decimal_places=2)
     lastChange = models.DecimalField(max_digits=5, decimal_places=2)
-    nextChange = models.DecimalField(max_digits=5, decimal_places=2)
-    fakeChange = models.DecimalField(max_digits=5, decimal_places=2)
+    chatbotNextChange = models.DecimalField(max_digits=5, decimal_places=2)
+    newspostNextChange = models.DecimalField(max_digits=5, decimal_places=2)
 
     class Meta:
         verbose_name = 'Portfolio'
@@ -36,12 +36,10 @@ class Portfolio(models.Model):
 class Newspost(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     profile = models.ForeignKey('Profile', null=True, on_delete=models.PROTECT)
-    accurate = models.BooleanField(null=False)
 
     def asJson(self):
         return dict(
             profile=self.profile,
-            accurate=self.accurate,
             user=self.user)
 
     class Meta:
