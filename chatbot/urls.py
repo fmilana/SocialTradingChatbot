@@ -1,22 +1,6 @@
-"""chatbot URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/2.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
+# coding: utf-8
 from django.contrib import admin
-from django.conf.urls import url
 from django.urls import path, include
-
 
 from .views import (
     welcome_page,
@@ -26,22 +10,16 @@ from .views import (
     update_balances,
     get_next_changes,
     participants_view,
-    # update_followed,
-    # imagetagging_page,
     )
 
 urlpatterns = [
-    url(r'^$', welcome_page, name='welcome'),
-    url(r'^chatbot/$', chatbot_page, name='chatbot'),
-    url(r'^imagetagging/', include('imagetagging.urls'), name='imagetagging'),
-    url(r'^updatemonth/', update_month, name='updatemonth'),
-    url(r'^updateportfolios/', update_portfolios, name='updateportfolios'),
-    url(r'^updatebalances/', update_balances, name='updatebalances'),
-    url(r'^getnextchanges/', get_next_changes, name='getnextchanges'),
-    # url(r'^updatefollowed/', update_followed, name='updatefollowed'),
-    url(r'^admin/', admin.site.urls),
-
+    path('', welcome_page, name='welcome'),
+    path('chatbot/', chatbot_page, name='chatbot'),
+    path('imagetagging/', include('imagetagging.urls'), name='imagetagging'),
+    path('updatemonth/', update_month, name='updatemonth'),
+    path('updateportfolios/', update_portfolios, name='updateportfolios'),
+    path('updatebalances/', update_balances, name='updatebalances'),
+    path('getnextchanges/', get_next_changes, name='getnextchanges'),
     path('participants/', participants_view, name='participants-view'),
-    path('chatbotproxy/', include('chatbotproxy.urls')),
 
 ]

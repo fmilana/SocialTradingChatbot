@@ -21,7 +21,7 @@ project_dir, _ = os.path.split(here)
 sys.path.insert(0, project_dir) 
 
 import os, django
-os.environ["DJANGO_SETTINGS_MODULE"] = 'chatbot.settings'
+os.environ["DJANGO_SETTINGS_MODULE"] = 'investment_bot.settings'
 django.setup()
 from chatbot.models import Portfolio, Profile, Newspost, Balance, InvestedBalance
 

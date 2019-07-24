@@ -36,7 +36,6 @@ def participants_view(request):
     if username == "TEST":
         username = "TEST_USER__{}".format(datetime.strftime(datetime.now(), '%Y_%m_%d__%H_%M_%S'))
         is_test_user = True
-
     try:
         user = User.objects.create_user(username=username)
     except IntegrityError:
@@ -55,7 +54,7 @@ def participants_view(request):
     #     ).annotate(n_participants=Count('participant')
     #     ).order_by('n_participants')
     # participant.task_list = all_task_lists[0]
-
+    # participant.save()
     login(request, user)
 
     #data = json.dumps(to_dict(participant, transverse=True))

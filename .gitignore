@@ -1,3 +1,7 @@
 
 *.pyc
+rasachat/models/*.tar.gz
+db.sqlite3
+rasa_core.log
+investment_bot/privatesettings.py
 
