@@ -38,7 +38,24 @@ def participants_view(request):
         user = User.objects.create_user(username=username)
 
         for profile in Profile.objects.all():
-            portfolio = Portfolio(user=user, profile=profile, followed=False, risk=(randrange(9)+1), invested=0.00, lastChange=0.00, chatbotNextChange=0.00, newspostNextChange=0.00)
+            risk = randrange(9)+1
+
+            chatbot_change = gauss(0.0, risk*5)
+
+            if chatbot_change >= 100:
+                chatbot_change = 99
+            elif chatbot_change <= -100:
+                chatbot_change = -99
+
+            newspost_change = gauss(0.0, risk*5)
+
+            if newspost_change >= 100:
+                newspost_change = 99
+            elif newspost_change <= -100:
+                newspost_change = -99
+
+            portfolio = Portfolio(user=user, profile=profile, followed=False, risk=risk, invested=0.00, lastChange=0.00, chatbotNextChange=chatbot_change, newspostNextChange=newspost_change)
+
             newspost = Newspost(user=user, profile=profile)
 
             portfolio.save()
@@ -52,8 +69,6 @@ def participants_view(request):
 
         month = Month(user=user, number=1)
         month.save()
-
-        generate_next_portfolio_changes(request)
 
     except IntegrityError:
         error = {
@@ -181,6 +196,9 @@ def get_next_changes(request):
 
 @login_required
 def generate_next_portfolio_changes(request):
+    print('INSIDE GENERATE_NEXT_PORTFOLIO_CHANGES --------------------')
+
+
     user = request.user
     for portfolio in Portfolio.objects.filter(user=user):
 

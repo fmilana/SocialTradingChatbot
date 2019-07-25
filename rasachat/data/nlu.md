@@ -35,6 +35,22 @@
 - okay
 - cool
 
+## intent:why_did_you
+- why did you lie?
+- why did you say
+- why do you
+- why are you
+- are you lying
+
+## intent:newsfeed
+- why are news different
+- how do news work
+- newsfeed
+- are news reliable?
+- why do the news say
+- the news say that
+- news
+
 ## intent:affirm
 - yes
 - yeah

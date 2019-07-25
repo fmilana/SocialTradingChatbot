@@ -203,6 +203,9 @@ h5 {
   margin-bottom: 0rem;
 }
 
+.last-change {
+  display: none;
+}
 
 /* newsposts */
 

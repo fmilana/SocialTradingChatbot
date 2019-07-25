@@ -64,13 +64,14 @@ class Balance(models.Model):
 
 class InvestedBalance(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # amount = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
 
     @property
     def amount(self):
-        if not Portfolio.objects.filter(followed=True):
+        if not Portfolio.objects.filter(user=self.user, followed=True):
             return 0.0
         else:
-            return round(Portfolio.objects.filter(followed=True).aggregate(Sum('invested')).get('invested__sum'), 2)
+            return round(Portfolio.objects.filter(user=self.user, followed=True).aggregate(Sum('invested')).get('invested__sum'), 2)
 
     class Meta:
         verbose_name = 'Invested Balance'

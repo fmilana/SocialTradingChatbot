@@ -3,7 +3,7 @@ $(document).ready(function() {
 
   var isPaused = false;
 
-  var _seconds_left = 180;
+  var _seconds_left = 300;
 
   var newspostTimeout;
 
@@ -14,7 +14,7 @@ $(document).ready(function() {
           html;
       _seconds_left -= 1;
       if (_seconds_left < 1) {
-          _seconds_left = 180;
+          _seconds_left = 300;
 
           old_invested_amount = parseFloat($('#invested-balance-amount').text());
 
@@ -42,6 +42,8 @@ $(document).ready(function() {
                     $('#result_div').append('<row><p id="month-chat">Month: ' + response.month + '/5</p></row>')
                     $('#result_div').scrollTop($('#result_div')[0].scrollHeight);
                   }
+
+                  $('.last-change').show();
               }
           });
 
@@ -67,6 +69,7 @@ $(document).ready(function() {
                     } else {
                       $('#empty-not-followed-tag').show();
                     }
+
                   });
 
                   $('#invested-balance-amount').html((Math.round(response.invested_balance_amount * 100) / 100).toFixed(2));

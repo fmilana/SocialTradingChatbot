@@ -8,6 +8,8 @@ intents:
   - goodbye
   - thank_you: {triggers: utter_no_problem}
   - ok: {triggers: utter_cool}
+  - why_did_you: {triggers: utter_im_doing_my_best}
+  - newsfeed: {trigger: utter_newsfeed}
   - affirm
   - deny
   - mood_great
@@ -48,6 +50,7 @@ actions:
 - utter_okay
 - utter_no_problem
 - utter_cool
+- utter_im_doing_my_best
 - action_what_I_can_do
 - action_give_general_advice
 - action_give_following_advice
@@ -110,6 +113,12 @@ templates:
 
   utter_okay:
   - text: "Okay."
+
+  utter_im_doing_my_best:
+  - text: "I'm doing my best!"
+
+  utter_newsfeed:
+  - text: "The newsfeed shows news coming from external sources I'm not aware of."
 
 slots:
   portfolio_query:
