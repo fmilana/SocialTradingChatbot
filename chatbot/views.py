@@ -1,7 +1,7 @@
 # coding: utf-8
 import json
 import random
-from random import gauss
+from random import gauss, randrange
 import decimal
 
 from django.http import HttpResponse, HttpResponseBadRequest
@@ -12,6 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from django.contrib.auth.models import User
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 from django.utils.timezone import datetime
 from django.core import serializers
 from django.db import IntegrityError
@@ -21,10 +22,7 @@ from .djutils import to_dict
 from .models import Profile, Portfolio, Newspost, Balance, InvestedBalance, Month
 
 
-
 def welcome_page(request):
-    generate_next_portfolio_changes()
-
     return render(request, 'welcome.html')
 
 
@@ -38,6 +36,25 @@ def participants_view(request):
         is_test_user = True
     try:
         user = User.objects.create_user(username=username)
+
+        for profile in Profile.objects.all():
+            portfolio = Portfolio(user=user, profile=profile, followed=False, risk=(randrange(9)+1), invested=0.00, lastChange=0.00, chatbotNextChange=0.00, newspostNextChange=0.00)
+            newspost = Newspost(user=user, profile=profile)
+
+            portfolio.save()
+            newspost.save()
+
+        balance = Balance(user=user, amount=1000.00)
+        invested_balance = InvestedBalance(user=user)
+
+        balance.save()
+        invested_balance.save()
+
+        month = Month(user=user, number=1)
+        month.save()
+
+        generate_next_portfolio_changes(request)
+
     except IntegrityError:
         error = {
             "username": [{"message": "This field is duplicate.", "code": "duplicate"}]
@@ -61,8 +78,9 @@ def participants_view(request):
     data = json.dumps(to_dict(user, transverse=False))
     return HttpResponse(data, content_type='application/json')
 
-
+@login_required
 def chatbot_page(request):
+    user = request.user
     profiles = Profile.objects.all()
     image_names = []
 
@@ -70,30 +88,32 @@ def chatbot_page(request):
         image_names.append(profile.name.replace(' ', '-') + ".jpg")
 
     context = {
-        'month_number': Month.objects.first().number,
-        'available_balance_amount': format(Balance.objects.first().amount, '.2f'),
-        'invested_balance_amount': format(InvestedBalance.objects.first().amount, '.2f'),
+        'month_number': Month.objects.get(user=user).number,
+        'available_balance_amount': format(Balance.objects.get(user=user).amount, '.2f'),
+        'invested_balance_amount': format(InvestedBalance.objects.get(user=user).amount, '.2f'),
         'image_names': image_names,
         'profiles': serializers.serialize('json', Profile.objects.all()),
-        'followed_portfolios': Portfolio.objects.filter(followed=True),
-        'not_followed_portfolios': Portfolio.objects.filter(followed=False),
+        'followed_portfolios': Portfolio.objects.filter(user=user, followed=True),
+        'not_followed_portfolios': Portfolio.objects.filter(user=user, followed=False),
         'newsposts': serializers.serialize('json', Newspost.objects.all()),
         }
 
     return render(request, 'chatbot.html', context)
 
-
+@login_required
 def imagetagging_page(request):
+    user = request.user
     context = {
-        'available_balance_amount': Balance.objects.first().amount,
-        'invested_balance_amount': InvestedBalance.objects.first().amount,
+        'available_balance_amount': Balance.objects.get(user=user).amount,
+        'invested_balance_amount': InvestedBalance.objects.get(user=user).amount,
         }
 
     return render(request, 'imagetagging.html', context)
 
-
+@login_required
 def update_month(request):
-    month = Month.objects.first()
+    user = request.user
+    month = Month.objects.get(user=user)
 
     if month.number < 5:
         month.number += 1
@@ -105,12 +125,12 @@ def update_month(request):
 
     return HttpResponse(json.dumps(response), content_type="application/json")
 
-
+@login_required
 def update_portfolios(request):
-
+    user = request.user
     response = {}
 
-    for portfolio in Portfolio.objects.all():
+    for portfolio in Portfolio.objects.filter(user=user):
         next_change = random.choice([portfolio.chatbotNextChange, portfolio.newspostNextChange])
 
         portfolio.lastChange = round(next_change, 2)
@@ -124,19 +144,19 @@ def update_portfolios(request):
 
         portfolio.save()
 
-    response['invested_balance_amount'] = str(InvestedBalance.objects.first().amount)
-    response['available_balance_amount'] = str(Balance.objects.first().amount)
+    response['invested_balance_amount'] = str(InvestedBalance.objects.get(user=user).amount)
+    response['available_balance_amount'] = str(Balance.objects.get(user=user).amount)
 
-    generate_next_portfolio_changes()
+    generate_next_portfolio_changes(request)
 
     return HttpResponse(json.dumps(response), content_type="application/json")
 
-
+@login_required
 def update_balances(request):
-
+    user = request.user
     response = {}
-    response['available_balance_amount'] = str(Balance.objects.first().amount)
-    response['invested_balance_amount'] = str(InvestedBalance.objects.first().amount)
+    response['available_balance_amount'] = str(Balance.objects.get(user=user).amount)
+    response['invested_balance_amount'] = str(InvestedBalance.objects.get(user=user).amount)
 
     if response['available_balance_amount'] == '0.0':
         response['available_balance_amount'] = '0.00'
@@ -148,20 +168,21 @@ def update_balances(request):
 
     return HttpResponse(json.dumps(response), content_type="application/json")
 
-
+@login_required
 def get_next_changes(request):
+    user = request.user
     response = {}
 
-    for portfolio in Portfolio.objects.all():
+    for portfolio in Portfolio.objects.filter(user=user):
         response[portfolio.profile.name + '-chatbot-change'] = float(portfolio.chatbotNextChange)
         response[portfolio.profile.name + '-newspost-change'] = float(portfolio.newspostNextChange)
 
     return HttpResponse(json.dumps(response), content_type="application/json")
 
-
-def generate_next_portfolio_changes():
-
-    for portfolio in Portfolio.objects.all():
+@login_required
+def generate_next_portfolio_changes(request):
+    user = request.user
+    for portfolio in Portfolio.objects.filter(user=user):
 
         chatbot_change = gauss(0.0, portfolio.risk*5)
 

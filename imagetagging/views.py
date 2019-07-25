@@ -77,8 +77,8 @@ def tags(request):
     # check whether now the user has 3 correct tags for this image
     correct_count = Tag.objects.filter(image_task=tag.image_task, user=request.user, correct=True).count()
     if correct_count == 3:
-        reward_amount = Decimal('5.00')
-        balance = Balance.objects.first()
+        reward_amount = Decimal('50.00')
+        balance = Balance.objects.get(user=request.user)
 
         print(balance.amount)
 

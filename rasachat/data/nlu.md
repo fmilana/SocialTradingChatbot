@@ -24,6 +24,17 @@
 - see you around
 - see you later
 
+## intent:thank_you
+- thank you
+- thanks
+- ty
+- thx
+
+## intent:ok
+- ok
+- okay
+- cool
+
 ## intent:affirm
 - yes
 - yeah

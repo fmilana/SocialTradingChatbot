@@ -13,23 +13,24 @@
   - utter_greet
 * mood_unhappy
   - utter_cheer_up
-  - utter_did_that_help
-* affirm
-  - utter_happy
 
 ## sad path 2
 * greet
   - utter_greet
 * mood_unhappy
   - utter_cheer_up
-  - utter_did_that_help
-* deny
-  - utter_goodbye
 
 ## say goodbye
 * goodbye
   - utter_goodbye
 
+## thanks
+* thank_you
+  - utter_no_problem
+
+## ok
+* ok
+  - utter_cool
 
 
 ## give_general_advice_give_general_advice
@@ -247,7 +248,7 @@
 
 
 ## follow_successful
-* follow{"name":"aricka"}
+* follow
   - action_fetch_portfolio
   - slot{"portfolio_query":"not_followed","name":"Aricka Lewis"}
   - action_ask_add_amount
@@ -345,7 +346,7 @@
 ## add_amount_to_followed_successful
 * add_amount
   - action_fetch_portfolio
-  - slot{"portfolio_query":"followed","name":"Ralph Axelsen","amount_query":null,"amount":null}
+  - slot{"portfolio_query":"followed","name":"Andrzej Kraviec","amount_query":null,"amount":null}
   - action_ask_add_amount
 * amount
   - action_add_amount
@@ -420,7 +421,7 @@
 * withdraw_amount
   - action_fetch_portfolio
   - slot{"portfolio_query":"not_followed","name":"William Shore","amount_query":"valid","amount":"65.50"}
-  - utter_already_followed_portfolio
+  - utter_already_not_followed_portfolio
   - action_reset_slots
 
 

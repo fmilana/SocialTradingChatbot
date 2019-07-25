@@ -6,10 +6,12 @@ intents:
   - what_can_you_do: {triggers: action_what_I_can_do}
   - greet
   - goodbye
+  - thank_you: {triggers: utter_no_problem}
+  - ok: {triggers: utter_cool}
   - affirm
   - deny
-  - mood_great: {triggers: utter_happy}
-  - mood_unhappy: {triggers: utter_cheer_up}
+  - mood_great
+  - mood_unhappy
   - do_it
   - ask_general_advice: {triggers: action_give_general_advice}
   - ask_follow_advice: {triggers: action_give_following_advice}
@@ -35,7 +37,6 @@ intents:
 actions:
 - utter_greet
 - utter_cheer_up
-- utter_did_that_help
 - utter_happy
 - utter_goodbye
 - utter_invalid_portfolio
@@ -45,6 +46,8 @@ actions:
 - utter_are_you_sure_unfollow_everyone
 - utter_please_follow_one_portfolio_at_a_time
 - utter_okay
+- utter_no_problem
+- utter_cool
 - action_what_I_can_do
 - action_give_general_advice
 - action_give_following_advice
@@ -73,17 +76,19 @@ templates:
   - text: "Hey! How are you?"
 
   utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
+  - text: "Cheer up!"
 
   utter_happy:
   - text: "Great, carry on!"
 
   utter_goodbye:
   - text: "Bye"
+
+  utter_no_problem:
+  - text: "No problem!"
+
+  utter_cool:
+  - text: "Cool."
 
   utter_invalid_portfolio:
   - text: "Sorry, I can't find that portfolio. Have you spelt the name correctly?"

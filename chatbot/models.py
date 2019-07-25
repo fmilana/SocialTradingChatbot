@@ -30,7 +30,7 @@ class Portfolio(models.Model):
         verbose_name_plural = 'Portfolios'
 
     def __str__(self):
-        return self.profile.name
+        return self.user.username + "-" + self.profile.name
 
 
 class Newspost(models.Model):
@@ -47,7 +47,7 @@ class Newspost(models.Model):
         verbose_name_plural = 'Newsposts'
 
     def __str__(self):
-        return self.profile.name
+        return self.user.username + "-" + self.profile.name
 
 
 class Balance(models.Model):
@@ -59,7 +59,7 @@ class Balance(models.Model):
         verbose_name_plural = 'Balances'
 
     def __str__(self):
-        return str(self.amount)
+        return self.user.username
 
 
 class InvestedBalance(models.Model):
@@ -77,7 +77,7 @@ class InvestedBalance(models.Model):
         verbose_name_plural = 'Invested Balances'
 
     def __str__(self):
-        return str(self.amount)
+        return self.user.username
 
 
 class Month(models.Model):
@@ -89,4 +89,4 @@ class Month(models.Model):
         verbose_name_plural = 'Months'
 
     def __str__(self):
-        return str(self.number)
+        return self.user.username

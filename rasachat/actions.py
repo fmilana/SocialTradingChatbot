@@ -18,13 +18,13 @@ import sys, os
 here = os.path.dirname(__file__)
 project_dir, _ = os.path.split(here)
 #print('project_dir', project_dir)
-sys.path.insert(0, project_dir) 
+sys.path.insert(0, project_dir)
 
 import os, django
 os.environ["DJANGO_SETTINGS_MODULE"] = 'investment_bot.settings'
 django.setup()
 from chatbot.models import Portfolio, Profile, Newspost, Balance, InvestedBalance
-
+from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.aggregates import Count
 from random import randint
@@ -49,6 +49,12 @@ class GiveGeneralAdvice(Action):
         return "action_give_general_advice"
 
     def run(self, dispatcher, tracker, domain):
+        # print(tracker.current_state())
+        username = tracker.current_state()["sender_id"]
+        print('SENDER ID--------------->'+ username)
+
+        user = User.objects.get(username=username)
+
         highest_change = 10
         highest_pronoun = ''
         lowest_change = 0
@@ -57,7 +63,7 @@ class GiveGeneralAdvice(Action):
         highest_changing_portfolio_name = None
         lowest_changing_portfolio_name = None
 
-        for portfolio in Portfolio.objects.all():
+        for portfolio in Portfolio.objects.filter(user=user):
 
             chatbot_change = portfolio.chatbotNextChange
 
@@ -107,7 +113,12 @@ class GiveFollowingAdvice(Action):
         return "action_give_following_advice"
 
     def run(self, dispatcher, tracker, domain):
-        not_followed_portfolios = Portfolio.objects.filter(followed=False)
+        username = tracker.current_state()["sender_id"]
+        print('SENDER ID--------------->'+ username)
+
+        user = User.objects.get(username=username)
+
+        not_followed_portfolios = Portfolio.objects.filter(user=user, followed=False)
 
         highest_changing_portfolio_name = None
 
@@ -144,7 +155,12 @@ class GiveUnfollowingAdvice(Action):
         return "action_give_unfollowing_advice"
 
     def run(self, dispatcher, tracker, domain):
-        followed_portfolios = Portfolio.objects.filter(followed=True)
+        username = tracker.current_state()["sender_id"]
+        print('SENDER ID--------------->'+ username)
+
+        user = User.objects.get(username=username)
+
+        followed_portfolios = Portfolio.objects.filter(user=user, followed=True)
 
         lowest_changing_portfolio_name = None
 
@@ -181,6 +197,11 @@ class FetchPortfolio(Action):
         return "action_fetch_portfolio"
 
     def run(self, dispatcher, tracker, domain):
+        username = tracker.current_state()["sender_id"]
+        print('SENDER ID--------------->'+ username)
+
+        user = User.objects.get(username=username)
+
         profile_name = tracker.get_slot('name')
 
         amount = None
@@ -208,7 +229,7 @@ class FetchPortfolio(Action):
                 profile_object = Profile.objects.get(name__icontains=profile_name)
                 profile_name = profile_object.name
 
-                portfolio = Portfolio.objects.get(profile=profile_object.id)
+                portfolio = Portfolio.objects.get(user=user, profile=profile_object.id)
 
                 if portfolio.followed:
                     portfolio_query = "followed"
@@ -262,6 +283,13 @@ class Follow(Action):
         return "action_follow"
 
     def run(self, dispatcher, tracker, domain):
+        username = tracker.current_state()["sender_id"]
+        print('SENDER ID--------------->'+ username)
+
+        user = User.objects.get(username=username)
+
+        print(user.username)
+
         profile_name = tracker.get_slot('name')
 
         if profile_name is None:
@@ -271,7 +299,7 @@ class Follow(Action):
             print(profile_name)
 
             profile_object = Profile.objects.get(name__icontains=profile_name)
-            portfolio = Portfolio.objects.get(profile=profile_object.id)
+            portfolio = Portfolio.objects.get(user=user, profile=profile_object.id)
 
             amount_query = tracker.get_slot('amount_query')
             amount = tracker.get_slot('amount')
@@ -296,7 +324,7 @@ class Follow(Action):
             print('AMOUNT vvvvvvvvvvvvv')
 
             if amount_query == 'valid':
-                balance = Balance.objects.first()
+                balance = Balance.objects.get(user=user)
                 balance.amount -= round(Decimal(amount), 2)
 
                 if balance.amount < 0:
@@ -322,6 +350,8 @@ class Unfollow(Action):
         return "action_unfollow"
 
     def run(self, dispatcher, tracker, domain):
+        user = User.objects.get(username=(tracker.current_state())["sender_id"])
+
         profile_name = tracker.get_slot('name')
 
         message = ''
@@ -330,9 +360,9 @@ class Unfollow(Action):
             message = "Sorry, I can't find that portfolio. Have you spelt the name correctly?"
         else:
             profile_object = Profile.objects.get(name__icontains=profile_name)
-            portfolio = Portfolio.objects.get(profile=profile_object.id)
+            portfolio = Portfolio.objects.get(user=user, profile=profile_object.id)
 
-            balance = Balance.objects.first()
+            balance = Balance.objects.get(user=user)
             balance.amount += portfolio.invested
             balance.save()
 
@@ -352,13 +382,15 @@ class AddAmount(Action):
         return "action_add_amount"
 
     def run(self, dispatcher, tracker, domain):
+        user = User.objects.get(username=(tracker.current_state())["sender_id"])
+
         profile_name = tracker.get_slot('name')
 
         if profile_name is None:
             message = "Sorry, I can't find that portfolio. Have you spelt the name correctly?"
         else:
             profile_object = Profile.objects.get(name__icontains=profile_name)
-            portfolio = Portfolio.objects.get(profile=profile_object.id)
+            portfolio = Portfolio.objects.get(user=user, profile=profile_object.id)
 
             amount = tracker.get_slot('amount')
 
@@ -373,7 +405,7 @@ class AddAmount(Action):
                 amount = round(Decimal(amount), 2)
 
                 if amount > 0:
-                    balance = Balance.objects.first()
+                    balance = Balance.objects.get(user=user)
                     balance.amount -= amount
 
                     if balance.amount < 0:
@@ -400,13 +432,18 @@ class WithdrawAmount(Action):
         return "action_withdraw_amount"
 
     def run(self, dispatcher, tracker, domain):
+        username = tracker.current_state()["sender_id"]
+        print('SENDER ID--------------->'+ username)
+
+        user = User.objects.get(username=username)
+
         profile_name = tracker.get_slot('name')
 
         if profile_name is None:
             message = "Sorry, I can't find that portfolio. Have you spelt the name correctly?"
         else:
             profile_object = Profile.objects.get(name__icontains=profile_name)
-            portfolio = Portfolio.objects.get(profile=profile_object.id)
+            portfolio = Portfolio.objects.get(user=user, profile=profile_object.id)
 
             amount = tracker.get_slot('amount')
 
@@ -425,7 +462,7 @@ class WithdrawAmount(Action):
                 if portfolio.invested < 0:
                     message = "That's not a valid amount to withdraw."
                 else:
-                    balance = Balance.objects.first()
+                    balance = Balance.objects.get(user=user)
                     balance.amount += amount
                     balance.save()
 
@@ -449,13 +486,17 @@ class UnfollowEveryone(Action):
         return "action_unfollow_everyone"
 
     def run(self, dispatcher, tracker, domain):
+        username = tracker.current_state()["sender_id"]
+        print('SENDER ID--------------->'+ username)
 
-        followed_portfolios = Portfolio.objects.filter(followed=True)
+        user = User.objects.get(username=username)
+
+        followed_portfolios = Portfolio.objects.filter(user=user, followed=True)
 
         if not followed_portfolios:
             message = "You are not following anyone."
         else:
-            balance = Balance.objects.first()
+            balance = Balance.objects.get(user=user)
 
             for portfolio in followed_portfolios:
                 balance.amount += portfolio.invested
@@ -479,6 +520,10 @@ class ShouldIFollowAdvice(Action):
         return 'action_should_i_follow_advice'
 
     def run(self, dispatcher, tracker, domain):
+        username = tracker.current_state()["sender_id"]
+        print('SENDER ID--------------->'+ username)
+
+        user = User.objects.get(username=username)
         message = ''
 
         profile_name = tracker.get_slot('name')
@@ -491,7 +536,7 @@ class ShouldIFollowAdvice(Action):
             message = "Sorry, I can't find that portfolio. Have you spelt the name correctly?"
         else:
             profile_object = Profile.objects.get(name__icontains=profile_name)
-            portfolio = Portfolio.objects.get(profile=profile_object.id)
+            portfolio = Portfolio.objects.get(user=user, profile=profile_object.id)
 
             chatbot_change = round(portfolio.chatbotNextChange)
 
@@ -531,6 +576,11 @@ class ShouldIUnfollowAdvice(Action):
         return 'action_should_i_unfollow_advice'
 
     def run(self, dispatcher, tracker, domain):
+        username = tracker.current_state()["sender_id"]
+        print('SENDER ID--------------->'+ username)
+
+        user = User.objects.get(username=username)
+
         message = ''
 
         profile_name = tracker.get_slot('name')
@@ -543,7 +593,7 @@ class ShouldIUnfollowAdvice(Action):
             message = "Sorry, I can't find that portfolio. Have you spelt the name correctly?"
         else:
             profile_object = Profile.objects.get(name__icontains=profile_name)
-            portfolio = Portfolio.objects.get(profile=profile_object.id)
+            portfolio = Portfolio.objects.get(user=user, profile=profile_object.id)
 
             chatbot_change = round(portfolio.chatbotNextChange)
 
