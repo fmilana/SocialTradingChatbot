@@ -8516,7 +8516,7 @@ $(document).ready(function() {
       }
 
       suggestionRowHeight = $('.suggestion-row').height();
-      resultDivHeight = $(window).height() - (205 + suggestionRowHeight);
+      resultDivHeight = $(window).height() - (215 + suggestionRowHeight);
 
 			$('#result_div').css("height", resultDivHeight);
       $('#result_div').scrollTop($('#result_div')[0].scrollHeight);

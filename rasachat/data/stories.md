@@ -320,7 +320,7 @@
 ## add_amount_to_not_followed_successful
 * add_amount
   - action_fetch_portfolio
-  - slot{"portfolio_query":"not_followed","name":"Florianne Paget", "amount_query":"valid","amount":"50.00"}
+  - slot{"portfolio_query":"not_followed","name":"Florianne Paget","amount_query":"valid","amount":"50.00"}
   - action_follow
   - action_reset_slots
   - slot{"portfolio_query":null,"name":null,"amount_query":null,"amount":null}
@@ -400,6 +400,7 @@
   - slot{"portfolio_query":"followed","name":"Alois Reiter","amount_query":null,"amount":null}
   - action_ask_withdraw_amount
 * amount
+  - slot{"portfolio_query":"followed","name":"Alois Reiter","amount_query":null,"amount":null}
   - action_withdraw_amount
   - action_reset_slots
 
@@ -492,6 +493,17 @@
   - action_should_i_unfollow_advice
   - action_reset_slots
 
+## should_i_follow_should_i_unfollow
+* should_i_follow
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"followed","name":"Alois Reiter"}
+  - action_should_i_follow_advice
+* should_i_unfollow
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"followed","name":"Benjamin Parker"}
+  - action_should_i_unfollow_advice
+  - action_reset_slots
+
 ## should_i_follow_invalid
 * should_i_follow
   - action_fetch_portfolio
@@ -571,16 +583,29 @@
 ## should_i_follow_followed_with_add_amount
 * should_i_follow
   - action_fetch_portfolio
-  - slot{"portfolio_query":"followed","name":"Ralph Axelsen"}
+  - slot{"portfolio_query":"followed","name":"Ralph Axelsen","amount_query":null,"amount":null}
   - action_should_i_follow_advice
 * add_amount_to_him_her
+  - slot{"portfolio_query":"followed","name":"Ralph Axelsen","amount_query":null,"amount":null}
+  - action_add_amount
+  - action_reset_slots
+
+## should_i_follow_followed_with_add_to_him
+* should_i_follow
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"followed","name":"Benjamin Parker","amount_query":null,"amount":null}
+  - action_should_i_follow_advice
+* add_to_him_her
+  - slot{"portfolio_query":"followed","name":"Benjamin Parker","amount_query":null,"amount":null}
+  - action_ask_add_amount
+* amount
   - action_add_amount
   - action_reset_slots
 
 ## should_i_follow_not_followed_with_add_amount
 * should_i_follow
   - action_fetch_portfolio
-  - slot{"portfolio_query":"not_followed","name":"Masami Nishimura"}
+  - slot{"portfolio_query":"not_followed","name":"Masami Nishimura","amount_query":null,"amount":null}
   - action_should_i_follow_advice
 * add_amount_to_him_her
   - action_follow
@@ -595,12 +620,33 @@
   - action_withdraw_amount
   - action_reset_slots
 
+## should_i_follow_with_withdraw_from_him_followed
+* should_i_follow
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"followed","name":"Florianne Paget"}
+  - action_should_i_follow_advice
+* withdraw_from_him_her
+  - slot{"portfolio_query":"followed","name":"Florianne Paget"}
+  - action_ask_withdraw_amount
+* amount
+  - action_withdraw_amount
+  - action_reset_slots
+
 ## should_i_follow_with_withdraw_amount_not_followed
 * should_i_follow
   - action_fetch_portfolio
   - slot{"portfolio_query":"not_followed","name":"Florianne Paget"}
   - action_should_i_follow_advice
 * withdraw_amount_from_him_her
+  - utter_already_not_followed_portfolio
+  - action_reset_slots
+
+## should_i_follow_with_withdraw_from_him_her_not_followed
+* should_i_follow
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"not_followed","name":"Florianne Paget"}
+  - action_should_i_follow_advice
+* withdraw_from_him_her
   - utter_already_not_followed_portfolio
   - action_reset_slots
 
@@ -758,8 +804,8 @@
   - slot{"portfolio_query":"followed","name":"Kanya Bunnag"}
   - action_should_i_follow_advice
 * add_to_him_her
-  - action_ask_add_amount
   - slot{"portfolio_query":"followed","name":"Kanya Bunnag"}
+  - action_ask_add_amount
 * amount
   - action_add_amount
   - action_reset_slots

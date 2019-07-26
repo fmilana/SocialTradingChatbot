@@ -9,7 +9,7 @@ intents:
   - thank_you: {triggers: utter_no_problem}
   - ok: {triggers: utter_cool}
   - why_did_you: {triggers: utter_im_doing_my_best}
-  - newsfeed: {trigger: utter_newsfeed}
+  - newsfeed: {triggers: utter_newsfeed}
   - affirm
   - deny
   - mood_great
@@ -52,6 +52,7 @@ actions:
 - utter_no_problem
 - utter_cool
 - utter_im_doing_my_best
+- utter_newsfeed
 - action_what_I_can_do
 - action_give_general_advice
 - action_give_following_advice
@@ -70,11 +71,7 @@ actions:
 
 templates:
   utter_what_i_can_do:
-  - text: "You can tell me to follow/unfollow portfolios, \
-  add/withdraw amounts or ask me things like: \
-  \"Should I invest 50 in Ralph Axelsen?\" \
-  or \"Who should I unfollow?\". I'm here to give you \
-  accurate predictions!"
+  - text: "You can tell me to follow/unfollow portfolios, add/withdraw amounts or ask me things like: \"Should I invest 50 in Ralph Axelsen?\" or \"Who should I unfollow?\". I'm here to give you accurate predictions!"
     buttons:
       - title: "Give me some advice"
         payload: "Give me some advice"

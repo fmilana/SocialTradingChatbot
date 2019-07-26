@@ -272,7 +272,6 @@
 - put [603](CARDINAL)
 - invest [343](CARDINAL) on him
 - invest [23.54](CARDINAL) on her
-- invest [3.50](CARDINAL)
 - I want to add [30](CARDINAL) to him
 - I'd like to add [129.72](CARDINAL) to her
 - I want to add [54](CARDINAL)
@@ -292,7 +291,9 @@
 - put another [25](CARDINAL)
 - put another [178.39](CARDINAL) on him
 
-# intent:add_to_him_her
+## intent:add_to_him_her
+- Invest more on him
+- Invest more on her
 - add to him
 - add to her
 - add more money to him
@@ -304,7 +305,8 @@
 - invest
 - invest in him
 - invest in her
-- invest more
+- invest more on him
+- invest more on her
 - increase
 - increase him
 - increase her
@@ -409,7 +411,9 @@
 - get another [25](CARDINAL)
 - remove another [178.39](CARDINAL)
 
-# intent:withdraw_from_him_her
+## intent:withdraw_from_him_her
+- Withdraw from him
+- Withdraw from her
 - withdraw from him
 - withdraw from her
 - get more money from him
@@ -546,20 +550,20 @@
 
 ## intent:amount
 - [50](CARDINAL)
-- [4.00](CARDINAL)
+- £[4.00](CARDINAL)
 - [100.03](CARDINAL)
-- [10.00](CARDINAL)
+- £[10.00](CARDINAL)
 - [200](CARDINAL)
-- [41.32](CARDINAL)
+- £[41.32](CARDINAL)
 - [2](CARDINAL)
-- [73.94](CARDINAL)
+- £[73.94](CARDINAL)
 - [741.32](CARDINAL)
 - [34](CARDINAL)
-- [916](CARDINAL)
+- £[916](CARDINAL)
 - [81.79](CARDINAL)
-- [150.23](CARDINAL)
+- £[150.23](CARDINAL)
 - [409](CARDINAL)
-- [24.94](CARDINAL)
+- £[24.94](CARDINAL)
 
 ## lookup:name
 - Andrzej
