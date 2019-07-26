@@ -245,8 +245,8 @@ $(document).ready(function() {
 
 
   function setNewspostTimer() {
-    var min = 10;
-    var max = 20;
+    var min = 15;
+    var max = 30;
 
     var rand = Math.floor(Math.random() * (max - min + 1) + min);
 

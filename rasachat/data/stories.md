@@ -109,6 +109,7 @@
   - action_give_general_advice
   - slot{"name":"Aricka Lewis","portfolio_query":"not_followed"}
 * do_it
+  - slot{"name":"Aricka Lewis","portfolio_query":"not_followed"}
   - action_ask_add_amount
 * amount
   - action_follow
@@ -138,8 +139,19 @@
   - action_give_general_advice
   - slot{"name":"Paulinho Simoes","portfolio_query":"followed"}
 * do_it
+  - slot{"name":"Paulinho Simoes","portfolio_query":"followed"}
   - action_unfollow
   - action_reset_slots
+
+## give_general_advice_unfollow_do_it
+* ask_general_advice
+  - action_give_general_advice
+  - slot{"name":"Alois Reiter","portfolio_query":"followed"}
+* do_it
+  - slot{"name":"Alois Reiter","portfolio_query":"followed"}
+  - action_unfollow
+  - action_reset_slots
+
 
 
 
