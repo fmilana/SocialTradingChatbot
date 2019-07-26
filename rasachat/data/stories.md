@@ -424,6 +424,24 @@
   - utter_already_not_followed_portfolio
   - action_reset_slots
 
+## withdraw_from_successful
+* withdraw_from
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"followed","name":"Florianne Paget","amount_query":null,"amount":null}
+  - action_ask_withdraw_amount
+* amount
+  - action_withdraw_amount
+  - action_reset_slots
+
+## withdraw_from_successful
+* withdraw_from
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"followed","name":"Florianne Paget","amount_query":null,"amount":null}
+  - action_ask_withdraw_amount
+* amount
+  - action_withdraw_amount
+  - action_reset_slots
+
 
 
 ## unfollow_everyone_affirmed
@@ -536,15 +554,7 @@
   - slot{"portfolio_query":"followed","name":"Andrzej Kraviec"}
   - action_should_i_follow_advice
 * unfollow_him_her
-  - action_unfollow
-  - action_reset_slots
-
-## should_i_follow_with_unfollow_do_it_successful
-* should_i_follow
-  - action_fetch_portfolio
   - slot{"portfolio_query":"followed","name":"Andrzej Kraviec"}
-  - action_should_i_follow_advice
-* do_it
   - action_unfollow
   - action_reset_slots
 
@@ -554,15 +564,7 @@
   - slot{"portfolio_query":"not_followed","name":"Andrzej Kraviec"}
   - action_should_i_follow_advice
 * unfollow_him_her
-  - utter_already_not_followed_portfolio
-  - action_reset_slots
-
-## should_i_follow_with_unfollow_do_it_already_not_followed
-* should_i_follow
-  - action_fetch_portfolio
   - slot{"portfolio_query":"not_followed","name":"Andrzej Kraviec"}
-  - action_should_i_follow_advice
-* do_it
   - utter_already_not_followed_portfolio
   - action_reset_slots
 

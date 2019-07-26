@@ -32,6 +32,7 @@ intents:
   - should_i_withdraw_amount
   - withdraw_amount
   - withdraw_amount_from_him_her
+  - withdraw_from
   - withdraw_from_him_her
   - unfollow_everyone: {triggers: utter_are_you_sure_unfollow_everyone}
   - follow_everyone: {triggers: utter_please_follow_one_portfolio_at_a_time}
@@ -74,51 +75,159 @@ templates:
   \"Should I invest 50 in Ralph Axelsen?\" \
   or \"Who should I unfollow?\". I'm here to give you \
   accurate predictions!"
+    buttons:
+      - title: "Give me some advice"
+        payload: "Give me some advice"
+      - title: "Who should I follow?"
+        payload: "Who should I follow?"
+      - title: "Who should I stop following?"
+        payload: "Who should I stop following?"
 
   utter_greet:
   - text: "Hey! How are you?"
+    buttons:
+      - title: "Great!"
+        payload: "Great!"
+      - title: "Sad"
+        payload: "Sad"
 
   utter_cheer_up:
   - text: "Cheer up!"
+    buttons:
+      - title: "Give me some advice"
+        payload: "Give me some advice"
+      - title: "Who should I follow?"
+        payload: "Who should I follow?"
+      - title: "Who should I stop following?"
+        payload: "Who should I stop following?"
 
   utter_happy:
   - text: "Great, carry on!"
+    buttons:
+      - title: "Give me some advice"
+        payload: "Give me some advice"
+      - title: "Who should I follow?"
+        payload: "Who should I follow?"
+      - title: "Who should I stop following?"
+        payload: "Who should I stop following?"
 
   utter_goodbye:
   - text: "Bye"
+    buttons:
+      - title: "Give me some advice"
+        payload: "Give me some advice"
+      - title: "Who should I follow?"
+        payload: "Who should I follow?"
+      - title: "Who should I stop following?"
+        payload: "Who should I stop following?"
 
   utter_no_problem:
   - text: "No problem!"
+    buttons:
+      - title: "Give me some advice"
+        payload: "Give me some advice"
+      - title: "Who should I follow?"
+        payload: "Who should I follow?"
+      - title: "Who should I stop following?"
+        payload: "Who should I stop following?"
 
   utter_cool:
   - text: "Cool."
+    buttons:
+      - title: "Give me some advice"
+        payload: "Give me some advice"
+      - title: "Who should I follow?"
+        payload: "Who should I follow?"
+      - title: "Who should I stop following?"
+        payload: "Who should I stop following?"
 
   utter_invalid_portfolio:
   - text: "Sorry, I can't find that portfolio. Have you spelt the name correctly?"
+    buttons:
+      - title: "Give me some advice"
+        payload: "Give me some advice"
+      - title: "Who should I follow?"
+        payload: "Who should I follow?"
+      - title: "Who should I stop following?"
+        payload: "Who should I stop following?"
 
   utter_already_followed_portfolio:
   - text: "You are already following that portfolio."
+    buttons:
+      - title: "Give me some advice"
+        payload: "Give me some advice"
+      - title: "Who should I follow?"
+        payload: "Who should I follow?"
+      - title: "Who should I stop following?"
+        payload: "Who should I stop following?"
 
   utter_already_not_followed_portfolio:
   - text: "You are not following that portfolio."
+    buttons:
+      - title: "Give me some advice"
+        payload: "Give me some advice"
+      - title: "Who should I follow?"
+        payload: "Who should I follow?"
+      - title: "Who should I stop following?"
+        payload: "Who should I stop following?"
 
   utter_invalid_amount:
   - text: "That's not a valid amount."
+    buttons:
+      - title: "Give me some advice"
+        payload: "Give me some advice"
+      - title: "Who should I follow?"
+        payload: "Who should I follow?"
+      - title: "Who should I stop following?"
+        payload: "Who should I stop following?"
 
   utter_are_you_sure_unfollow_everyone:
   - text: "Are you sure you want to unfollow everyone?"
+    buttons:
+      - title: "Yes"
+        payload: "Yes"
+      - title: "Never mind"
+        payload: "Never mind"
 
   utter_please_follow_one_portfolio_at_a_time:
   - text: "Please follow one portfolio at a time so that you can set the amount to invest."
+    buttons:
+      - title: "Give me some advice"
+        payload: "Give me some advice"
+      - title: "Who should I follow?"
+        payload: "Who should I follow?"
+      - title: "Who should I stop following?"
+        payload: "Who should I stop following?"
 
   utter_okay:
   - text: "Okay."
+    buttons:
+      - title: "Give me some advice"
+        payload: "Give me some advice"
+      - title: "Who should I follow?"
+        payload: "Who should I follow?"
+      - title: "Who should I stop following?"
+        payload: "Who should I stop following?"
 
   utter_im_doing_my_best:
   - text: "I'm doing my best!"
+    buttons:
+      - title: "Give me some advice"
+        payload: "Give me some advice"
+      - title: "Who should I follow?"
+        payload: "Who should I follow?"
+      - title: "Who should I stop following?"
+        payload: "Who should I stop following?"
 
   utter_newsfeed:
   - text: "The newsfeed shows news coming from external sources I'm not aware of."
+    buttons:
+      - title: "Give me some advice"
+        payload: "Give me some advice"
+      - title: "Who should I follow?"
+        payload: "Who should I follow?"
+      - title: "Who should I stop following?"
+        payload: "Who should I stop following?"
 
 slots:
   portfolio_query:

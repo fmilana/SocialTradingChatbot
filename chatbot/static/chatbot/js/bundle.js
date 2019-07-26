@@ -8449,13 +8449,20 @@ module.exports = yeast;
 $(document).ready(function() {
 
 	function appendBotMessage(data) {
-		var message = data['text'];
+    var message = data['text'];
 
 		$('#result_div #typing-gif').remove();
 
 		$("#result_div").append("<p id='bot-message'>" + message + "</p><br>");
+
+    buttons = data['buttons'];
+
+		if (typeof buttons !== 'undefined') {
+			addSuggestion(buttons);
+		}
+
 		$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
-	}
+  }
 
 	// // console log when socket connects to port 5500
 	// socket.on('connect', function() {
@@ -8500,13 +8507,35 @@ $(document).ready(function() {
 		});
 	}
 
-	var sendMessage = function() {
-		const chatInput = $("#chat-input").val();
-		console.log(chatInput);
-		if (chatInput) {
+  function addSuggestion(suggestions) {
+    setTimeout(function () {
+      $('<div class="row suggestion-row"></div>').appendTo('#result_div');
+      // Loop through suggestions
+      for (i = 0; i < suggestions.length; i++) {
+        $('<p class="sugg-options">' + suggestions[i].title + '</p>').appendTo('.suggestion-row');
+      }
+
+      suggestionRowHeight = $('.suggestion-row').height();
+      resultDivHeight = $(window).height() - (205 + suggestionRowHeight);
+
+			$('#result_div').css("height", resultDivHeight);
+      $('#result_div').scrollTop($('#result_div')[0].scrollHeight);
+    }, 500);
+  }
+
+  // $('.sugg-options').click(function(event) {
+  //   var suggestionText = $(event.target).text();
+  //   console.log('suggestiontext = ' + suggestionText);
+  //
+  //   sendMessage(suggestionText);
+  // });
+
+	var sendMessage = function(message) {
+		console.log(message);
+		if (message) {
       //socket.emit('user_uttered', {'message': chatInput, 'sender': 'rasa'});
 			var post_url = server_url + '/chatbotproxy/';
-			var post_data = {'message': chatInput, 'sender': username};
+			var post_data = {'message': message, 'sender': username};
 			fetch(post_url, {
 				method: 'POST',
 				body: JSON.stringify(post_data),
@@ -8521,27 +8550,31 @@ $(document).ready(function() {
 				console.log('POST error:', error);
 			});
 
-			$("#result_div").append("<p id='user-message'> " + chatInput + "</p><br>");
+			$("#result_div").append("<p id='user-message'> " + message + "</p><br>");
 			$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
 			setTimeout(function(){
 				$('#result_div').append('<img id="typing-gif" src="' + staticUrl + 'chatbot/images/typing.svg">')
 				$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
 			}, 500);
 			$("#chat-input").val('');
+      $('.suggestion-row').remove();
+      $('#result_div').css("height", "calc(100vh - 220px)");
 		}
 	};
 
-	$("#send-button").click(sendMessage);
+  $(document).on("click", ".sugg-options", function(event) {
+    sendMessage($(event.target).text());
+  });
+
+  $("#send-button").click(function() {
+    sendMessage($("#chat-input").val());
+  });
 
 	$('#chat-input').keyup(function (e) {
     if (e.keyCode === 13) {
-			sendMessage();
+			sendMessage($("#chat-input").val());
     }
 	});
-
-
-
-
 
 });
 

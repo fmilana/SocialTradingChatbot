@@ -64,6 +64,7 @@
 - no
 - nah
 - never
+- never mind
 - I don't think so
 - don't like that
 - no way
@@ -357,6 +358,29 @@
 - I'd like to remove [55](CARDINAL) from [Alois Reiter](name)
 - get another [25](CARDINAL) on [andrzej kraviec](name)
 - remove another [178.39](CARDINAL) on [Paget](name)
+
+## intent:withdraw_from
+- withdraw from [andrzej kraviec](name)
+- withdraw from [Florianne](name)
+- get from [Nishimura](name)
+- get from [aricka lewis](name)
+- I want to withdraw from [alois](name)
+- I'd like to withdraw from [Paulinho Simoes](name)
+- remove from [benjamin](name)
+- decrease [ralph](name)'s portfolio
+- remove from [Shore](name)'s portfolio
+- subtract from [Kanya Bunnag](name)'s portfolio
+- decrease [andrzej](name)
+- get from [Masami Nishimura](name)
+- withdraw another from [reiter](name)
+- I'd like to get from [William Shore](name)
+- I'd like to withdraw from [Benjamin Parker](name)
+- I want to withdraw from [aricka](name)
+- I want to remove more from [ralph axelsen](name)
+- I'd like to decrease [Florianne Paget](name)'s portfolio
+- I'd like to remove from [Alois Reiter](name)
+- get more from [andrzej kraviec](name)
+- remove more from [Paget](name)
 
 ## intent:withdraw_amount_from_him_her
 - withdraw [57.00](CARDINAL) from him

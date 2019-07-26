@@ -54,7 +54,7 @@ $(function () {
 
     };
 
-    $('.btn-check-tag').click(function () {
+    var checkTag = function () {
         // check the tag for this task
         var tag_text = $('.input-tag').val(),
             url = server_url + '/imagetagging/tags/',
@@ -75,6 +75,7 @@ $(function () {
                     $('.input-tag').val('');
                 } else {
                     // TODO: blink incorrect
+                    console.log('show popover');
                     $('.input-tag').popover('show');
                 }
                 if (response.complete) {
@@ -83,7 +84,18 @@ $(function () {
                 }
             }
         });
+    };
+
+    $('.btn-check-tag').click(function() {
+      checkTag();
     });
+
+    $('.input-tag').keyup(function(e) {
+      if (e.keyCode === 13) {
+        console.log('PRESSED ENTER');
+  			checkTag();
+      }
+  	});
 
     $('.input-tag').keypress(function() {
         $('.input-tag').popover('hide');

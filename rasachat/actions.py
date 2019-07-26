@@ -92,18 +92,24 @@ class GiveGeneralAdvice(Action):
 
         higher_is_greater = (highest_change-10) >= abs(lowest_change)
 
+        buttons = []
+
         if highest_changing_portfolio_name is None and lowest_changing_portfolio_name is None:
             message = "You're doing great! I don't think you should follow or unfollow anyone else this month."
         elif lowest_changing_portfolio_name is None or higher_is_greater:
             message = "I think you should start following " + highest_changing_portfolio_name + ". I believe " + highest_pronoun + " porfolio will increase by " + str(round(highest_change)) + "% next month."
             profile_name = highest_changing_portfolio_name
             portfolio_query = "not_followed"
+            buttons.append({"title": "Do it", "payload": "Do it"})
         else:
             message = "I think you should stop following " + lowest_changing_portfolio_name + ". I believe " + lowest_pronoun + " porfolio will decrease by " + str(round(abs(lowest_change))) + "% next month."
             profile_name = lowest_changing_portfolio_name
             portfolio_query = "followed"
+            buttons.append({"title": "Do it", "payload": "Do it"})
 
-        dispatcher.utter_message(message)
+        # dispatcher.utter_message(message)
+
+        dispatcher.utter_button_message(message, buttons)
 
         return [SlotSet("name", profile_name), SlotSet("portfolio_query", portfolio_query)]
 
@@ -121,6 +127,8 @@ class GiveFollowingAdvice(Action):
         not_followed_portfolios = Portfolio.objects.filter(user=user, followed=False)
 
         highest_changing_portfolio_name = None
+
+        buttons = []
 
         if not not_followed_portfolios:
             message = "You are following everyone at the moment."
@@ -142,10 +150,11 @@ class GiveFollowingAdvice(Action):
 
             if highest_changing_portfolio_name is not None:
                 message = "I think you should start following " + highest_changing_portfolio_name + ". I believe " + pronoun + " porfolio will increase by " + str(round(abs(highest_change))) + "% next month."
+                buttons.append({"title": "Do it", "payload": "Do it"})
             else:
                 message = "I don't think there is anyone you should start following right now."
 
-        dispatcher.utter_message(message)
+        dispatcher.utter_button_message(message, buttons)
 
         return [SlotSet("name", highest_changing_portfolio_name)]
 
@@ -163,6 +172,8 @@ class GiveUnfollowingAdvice(Action):
         followed_portfolios = Portfolio.objects.filter(user=user, followed=True)
 
         lowest_changing_portfolio_name = None
+
+        buttons = []
 
         if not followed_portfolios:
             message = "You are not following anyone at the moment."
@@ -184,10 +195,11 @@ class GiveUnfollowingAdvice(Action):
 
             if lowest_changing_portfolio_name is not None:
                 message = "I think you should stop following " + lowest_changing_portfolio_name + ". I believe " + pronoun + " porfolio will decrease by " + str(round(abs(lowest_change))) + "% next month."
+                buttons.append({"title": "Do it", "payload": "Do it"})
             else:
                 message = "I don't think there is anyone you should stop following right now."
 
-        dispatcher.utter_message(message)
+        dispatcher.utter_button_message(message, buttons)
 
         return [SlotSet("name", lowest_changing_portfolio_name)]
 
@@ -255,11 +267,30 @@ class AskAddAmount(Action):
         return "action_ask_add_amount"
 
     def run(self, dispatcher, tracker, domain):
+        user = User.objects.get(username=(tracker.current_state())["sender_id"])
+
         profile_name = tracker.get_slot('name')
+
+        balance = Balance.objects.get(user=user)
+        balance_amount = balance.amount
 
         message = "How much would you like to invest?"
 
-        dispatcher.utter_message(message)
+        buttons = []
+        tenPercent = int(50 * round(float(balance_amount/10)/50))
+        twentyPercent = tenPercent*2
+        fourtyPercent = twentyPercent*2
+
+        if tenPercent > 0:
+            buttons.append({"title": "£" + str(tenPercent), "payload": "£" + str(tenPercent)})
+        if twentyPercent > 0 and twentyPercent != tenPercent:
+            buttons.append({"title": "£" + str(twentyPercent), "payload": "£" + str(twentyPercent)})
+        if fourtyPercent > 0 and fourtyPercent != twentyPercent:
+            buttons.append({"title": "£" + str(fourtyPercent), "payload": "£" + str(fourtyPercent)})
+
+        # dispatcher.utter_button_message(message)
+
+        dispatcher.utter_button_message(message, buttons)
 
         return [SlotSet("name", profile_name)]
 
@@ -269,11 +300,28 @@ class AskWithdrawAmount(Action):
         return "action_ask_withdraw_amount"
 
     def run(self, dispatcher, tracker, domain):
+        user = User.objects.get(username=(tracker.current_state())["sender_id"])
+
         profile_name = tracker.get_slot('name')
+
+        profile_object = Profile.objects.get(name__icontains=profile_name)
+        portfolio = Portfolio.objects.get(user=user, profile=profile_object.id)
+
+        buttons = []
+        tenPercent = int(10 * round(float(portfolio.invested/10)/10))
+        twentyPercent = tenPercent*2
+        fiftyPercent = tenPercent*5
+
+        if tenPercent > 0:
+            buttons.append({"title": "£" + str(tenPercent), "payload": "£" + str(tenPercent)})
+        if twentyPercent > 0 and twentyPercent != tenPercent:
+            buttons.append({"title": "£" + str(twentyPercent), "payload": "£" + str(twentyPercent)})
+        if fiftyPercent > 0 and fiftyPercent != twentyPercent:
+            buttons.append({"title": "£" + str(fiftyPercent), "payload": "£" + str(fiftyPercent)})
 
         message = "How much would you like to withdraw?"
 
-        dispatcher.utter_message(message)
+        dispatcher.utter_button_message(message, buttons)
 
         return [SlotSet("name", profile_name)]
 
@@ -340,7 +388,13 @@ class Follow(Action):
             else:
                 message = "That's not a valid amount."
 
-        dispatcher.utter_message(message)
+        buttons = []
+
+        buttons.append({"title": "Give me some advice", "payload": "Give me some advice"})
+        buttons.append({"title": "Who should I follow?", "payload": "Who should i follow?"})
+        buttons.append({"title": "Who should I stop following?", "payload": "Who should I stop following?"})
+
+        dispatcher.utter_button_message(message, buttons)
 
         return[]
 
@@ -372,7 +426,13 @@ class Unfollow(Action):
 
             message = "You have stopped following " + profile_name.title() + "."
 
-        dispatcher.utter_message(message)
+        buttons = []
+
+        buttons.append({"title": "Give me some advice", "payload": "Give me some advice"})
+        buttons.append({"title": "Who should I follow?", "payload": "Who should i follow?"})
+        buttons.append({"title": "Who should I stop following?", "payload": "Who should I stop following?"})
+
+        dispatcher.utter_button_message(message, buttons)
 
         return[]
 
@@ -385,6 +445,8 @@ class AddAmount(Action):
         user = User.objects.get(username=(tracker.current_state())["sender_id"])
 
         profile_name = tracker.get_slot('name')
+
+        buttons = []
 
         if profile_name is None:
             message = "Sorry, I can't find that portfolio. Have you spelt the name correctly?"
@@ -416,13 +478,24 @@ class AddAmount(Action):
                         portfolio.invested += amount
                         portfolio.save()
 
+                        tenPercent = int(50 * round(float(balance.amount/10)/50))
+                        twentyPercent = tenPercent*2
+                        fourtyPercent = twentyPercent*2
+
+                        if tenPercent > 0:
+                            buttons.append({"title": "£" + str(tenPercent), "payload": "£" + str(tenPercent)})
+                        if twentyPercent > 0 and twentyPercent != tenPercent:
+                            buttons.append({"title": "£" + str(twentyPercent), "payload": "£" + str(twentyPercent)})
+                        if fourtyPercent > 0 and fourtyPercent != twentyPercent:
+                            buttons.append({"title": "£" + str(fourtyPercent), "payload": "£" + str(fourtyPercent)})
+
                         message = "You have invested another £" + str(amount) + " in " + profile_name.title() + "."
                 else:
                     message = "That's not a valid amount."
             else:
                 message = "That's not a valid amount."
 
-        dispatcher.utter_message(message)
+        dispatcher.utter_button_message(message, buttons)
 
         return []
 
@@ -438,6 +511,8 @@ class WithdrawAmount(Action):
         user = User.objects.get(username=username)
 
         profile_name = tracker.get_slot('name')
+
+        buttons = []
 
         if profile_name is None:
             message = "Sorry, I can't find that portfolio. Have you spelt the name correctly?"
@@ -472,11 +547,25 @@ class WithdrawAmount(Action):
                     else:
                         message = "You have withdrawn £" + str(amount) + " from " + profile_name.title() + "."
 
+                    buttons = []
+                    tenPercent = int(10 * round(float(portfolio.invested/10)/10))
+                    twentyPercent = tenPercent*2
+                    fiftyPercent = tenPercent*5
+
+                    if tenPercent > 0:
+                        buttons.append({"title": "£" + str(tenPercent), "payload": "£" + str(tenPercent)})
+                    if twentyPercent > 0 and twentyPercent != tenPercent:
+                        buttons.append({"title": "£" + str(twentyPercent), "payload": "£" + str(twentyPercent)})
+                    if fiftyPercent > 0 and fiftyPercent != twentyPercent:
+                        buttons.append({"title": "£" + str(fiftyPercent), "payload": "£" + str(fiftyPercent)})
+
+                    message = "How much would you like to withdraw?"
+
                     portfolio.save()
             else:
                 message = "That's not a valid amount."
 
-        dispatcher.utter_message(message)
+        dispatcher.utter_button_message(message, buttons)
 
         return []
 
@@ -510,7 +599,13 @@ class UnfollowEveryone(Action):
 
             message = "You have unfollowed everyone."
 
-        dispatcher.utter_message(message)
+        buttons = []
+
+        buttons.append({"title": "Give me some advice", "payload": "Give me some advice"})
+        buttons.append({"title": "Who should I follow?", "payload": "Who should i follow?"})
+        buttons.append({"title": "Who should I stop following?", "payload": "Who should I stop following?"})
+
+        dispatcher.utter_button_message(message, buttons)
 
         return []
 
@@ -521,12 +616,13 @@ class ShouldIFollowAdvice(Action):
 
     def run(self, dispatcher, tracker, domain):
         username = tracker.current_state()["sender_id"]
-        print('SENDER ID--------------->'+ username)
 
         user = User.objects.get(username=username)
         message = ''
 
         profile_name = tracker.get_slot('name')
+
+        buttons = []
 
         if profile_name is None:
             profile_name = tracker.latest_message['entities'][0]['value']
@@ -546,29 +642,56 @@ class ShouldIFollowAdvice(Action):
             if chatbot_change >= 30:
                 answer = 'Absolutely! '
                 increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
+                self.appendButtons(True, portfolio.followed, profile_object.gender, buttons)
             elif chatbot_change >= 10:
                 answer = 'Yes. '
                 increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
+                self.appendButtons(True, portfolio.followed, profile_object.gender, buttons)
             elif chatbot_change > 0:
                 increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
+                self.appendButtons(True, portfolio.followed, profile_object.gender, buttons)
             elif chatbot_change == 0:
                 answer = 'Not really. '
                 increase_or_decrease = 'not change'
+                self.appendButtons(False, portfolio.followed, profile_object.gender, buttons)
             elif chatbot_change > -10:
                 answer = 'Not really. '
                 increase_or_decrease = 'decrease by ' + str(abs(chatbot_change)) + '%'
+                self.appendButtons(False, portfolio.followed, profile_object.gender, buttons)
             elif chatbot_change > -30:
                 answer = 'No. '
                 increase_or_decrease = 'decrease by ' + str(abs(chatbot_change)) + '%'
+                self.appendButtons(False, portfolio.followed, profile_object.gender, buttons)
             else:
                 answer = 'Absolutely not! '
                 increase_or_decrease = 'decrease by ' + str(abs(chatbot_change)) + '%'
+                self.appendButtons(False, portfolio.followed, profile_object.gender, buttons)
 
             message = answer + 'I believe ' + profile_name.title() + '\'s portfolio will ' + increase_or_decrease + ' next month.'
 
-        dispatcher.utter_message(message)
+        dispatcher.utter_button_message(message, buttons)
 
         return[]
+
+    def appendButtons(self, positive, followed, gender, buttons):
+        if positive and followed:
+            buttons.append({"title": "Give me some advice", "payload": "Give me some advice"})
+            buttons.append({"title": "Who should I follow?", "payload": "Who should i follow?"})
+            buttons.append({"title": "Who should I stop following?", "payload": "Who should I stop following?"})
+        elif positive and not followed:
+            buttons.append({"title": "Do it", "payload": "Do it"})
+        elif not positive and followed:
+            pronoun = ''
+            if gender == "Male":
+                pronoun = 'him'
+            else:
+                pronoun = 'her'
+
+            buttons.append({"title": "Unfollow " + pronoun, "payload": "Unfollow " + pronoun})
+        else:
+            buttons.append({"title": "Give me some advice", "payload": "Give me some advice"})
+            buttons.append({"title": "Who should I follow?", "payload": "Who should i follow?"})
+            buttons.append({"title": "Who should I stop following?", "payload": "Who should I stop following?"})
 
 
 class ShouldIUnfollowAdvice(Action):
@@ -585,6 +708,8 @@ class ShouldIUnfollowAdvice(Action):
 
         profile_name = tracker.get_slot('name')
 
+        buttons = []
+
         if profile_name is None:
             profile_name = tracker.latest_message['entities'][0]['value']
             print('PROFILE_NAME SLOT IS EMPTY, ENTITY = ' + profile_name)
@@ -603,27 +728,42 @@ class ShouldIUnfollowAdvice(Action):
             if chatbot_change >= 30:
                 answer = 'Absolutely not! '
                 increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
+                buttons.append({"title": "Give me some advice", "payload": "Give me some advice"})
+                buttons.append({"title": "Who should I follow?", "payload": "Who should i follow?"})
+                buttons.append({"title": "Who should I stop following?", "payload": "Who should I stop following?"})
             elif chatbot_change >= 10:
                 answer = 'No. '
                 increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
+                buttons.append({"title": "Give me some advice", "payload": "Give me some advice"})
+                buttons.append({"title": "Who should I follow?", "payload": "Who should i follow?"})
+                buttons.append({"title": "Who should I stop following?", "payload": "Who should I stop following?"})
             elif chatbot_change > 0:
                 answer = 'No.'
                 increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
+                buttons.append({"title": "Give me some advice", "payload": "Give me some advice"})
+                buttons.append({"title": "Who should I follow?", "payload": "Who should i follow?"})
+                buttons.append({"title": "Who should I stop following?", "payload": "Who should I stop following?"})
             elif chatbot_change == 0:
                 increase_or_decrease = 'not change'
+                buttons.append({"title": "Give me some advice", "payload": "Give me some advice"})
+                buttons.append({"title": "Who should I follow?", "payload": "Who should i follow?"})
+                buttons.append({"title": "Who should I stop following?", "payload": "Who should I stop following?"})
             elif chatbot_change > -10:
                 answer = 'Yes. '
                 increase_or_decrease = 'decrease by ' + str(abs(chatbot_change)) + '%'
+                buttons.append({"title": "Do it", "payload": "Do it"})
             elif chatbot_change > -30:
                 answer = 'Yes. '
                 increase_or_decrease = 'decrease by ' + str(abs(chatbot_change)) + '%'
+                buttons.append({"title": "Do it", "payload": "Do it"})
             else:
                 answer = 'Absolutely! '
                 increase_or_decrease = 'decrease by ' + str(abs(chatbot_change)) + '%'
+                buttons.append({"title": "Do it", "payload": "Do it"})
 
             message = answer + ' I believe ' + profile_name.title() + '\'s portfolio will ' + increase_or_decrease + ' next month.'
 
-        dispatcher.utter_message(message)
+        dispatcher.utter_button_message(message, buttons)
 
         return[]
 
