@@ -263,6 +263,16 @@ h5 {
   margin-left: 5px;
 }
 
+/*notification*/
+.notification {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 20px;
+  padding: 10px;
+}
+
 /* image tagging */
 #image-tagging-area {
   /* display: inline-block; */

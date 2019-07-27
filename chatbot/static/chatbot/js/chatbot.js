@@ -6,7 +6,7 @@ $(document).ready(function() {
 
   var isPaused = false;
 
-  var _seconds_left = 300;
+  var _seconds_left = 30;
 
   var newspostTimeout;
 
@@ -17,7 +17,7 @@ $(document).ready(function() {
           html;
       _seconds_left -= 1;
       if (_seconds_left < 1) {
-          _seconds_left = 300;
+          _seconds_left = 30;
 
           old_invested_amount = parseFloat($('#invested-balance-amount').text());
 
@@ -42,7 +42,6 @@ $(document).ready(function() {
             $('#result_div').append('<row><p id="month-chat">Month: ' + month + '/5</p></row>')
             $('#result_div').scrollTop($('#result_div')[0].scrollHeight);
           }
-
 
           $.ajax({
               type: "GET",
