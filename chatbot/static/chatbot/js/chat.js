@@ -2,6 +2,17 @@
 
 $(document).ready(function() {
 
+	var adviceCountdown = 30;
+
+	adviceCountdownInterval = setInterval(function() {
+		if (adviceCountdown > 0) {
+			adviceCountdown -= 1;
+		} else {
+			sendMessage("Give me some advice", false);
+			adviceCountdown = 30;
+		}
+	}, 1000);
+
 	function appendInitialBotMessages() {
 		setTimeout(function(){
 			$('#result_div').append('<img id="typing-gif" src="' + staticUrl + 'chatbot/images/typing.svg">');
@@ -25,7 +36,6 @@ $(document).ready(function() {
       $('<div class="row suggestion-row"></div>').appendTo('#result_div');
       $('<p class="sugg-options">Give me some advice</p>').appendTo('.suggestion-row');
 			$('<p class="sugg-options">Who should I follow?</p>').appendTo('.suggestion-row');
-			$('<p class="sugg-options">Who should I stop following?</p>').appendTo('.suggestion-row');
 
 			suggestionRowHeight = $('.suggestion-row').height();
       resultDivHeight = $(window).height() - (215 + suggestionRowHeight);
@@ -51,6 +61,8 @@ $(document).ready(function() {
 		}
 
 		$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
+
+		adviceCountdown = 30;
   }
 
 	// // console log when socket connects to port 5500
@@ -94,6 +106,8 @@ $(document).ready(function() {
 
 				}
 		});
+
+		adviceCountdown = 30;
 	}
 
   function addSuggestion(suggestions) {
@@ -119,7 +133,7 @@ $(document).ready(function() {
   //   sendMessage(suggestionText);
   // });
 
-	var sendMessage = function(message) {
+	var sendMessage = function(message, show) {
 		console.log(message);
 		if (message) {
       //socket.emit('user_uttered', {'message': chatInput, 'sender': 'rasa'});
@@ -139,8 +153,10 @@ $(document).ready(function() {
 				console.log('POST error:', error);
 			});
 
-			$("#result_div").append("<p id='user-message'> " + message + "</p><br>");
-			$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
+			if (show) {
+				$("#result_div").append("<p id='user-message'> " + message + "</p><br>");
+				$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
+			}
 			setTimeout(function(){
 				$('#result_div').append('<img id="typing-gif" src="' + staticUrl + 'chatbot/images/typing.svg">')
 				$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
@@ -149,19 +165,21 @@ $(document).ready(function() {
       $('.suggestion-row').remove();
       $('#result_div').css("height", "calc(100vh - 220px)");
 		}
+
+		adviceCountdown = 30;
 	};
 
   $(document).on("click", ".sugg-options", function(event) {
-    sendMessage($(event.target).text());
+    sendMessage($(event.target).text(), true);
   });
 
   $("#send-button").click(function() {
-    sendMessage($("#chat-input").val());
+    sendMessage($("#chat-input").val(), true);
   });
 
 	$('#chat-input').keyup(function (e) {
     if (e.keyCode === 13) {
-			sendMessage($("#chat-input").val());
+			sendMessage($("#chat-input").val(), true);
     }
 	});
 

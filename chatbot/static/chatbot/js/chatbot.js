@@ -1,6 +1,9 @@
 $(document).ready(function() {
   $('#parentheses').hide()
 
+  var month = 1;
+  $('#month-number').html(month);
+
   var isPaused = false;
 
   var _seconds_left = 300;
@@ -26,26 +29,20 @@ $(document).ready(function() {
             keyboard: false
           });
 
-          $.ajax({
-              type: "GET",
-              url: server_url + '/updatemonth/',
-              success: function (response) {
-                  console.log(response);
-                  if (response.increased) {
+          if (month < 5) {
+            month++;
 
-                    $('#month-number').html(response.month);
+            $('#month-number').html(month);
 
-                    $('#result_div').append('<row><p id="month-chat">Month: ' + response.month + '/5</p></row>')
-                    $('#result_div').scrollTop($('#result_div')[0].scrollHeight);
+            $('#result_div').append('<row><p id="month-chat">Month: ' + month + '/5</p></row>')
+            $('#result_div').scrollTop($('#result_div')[0].scrollHeight);
+          } else {
+            $('#month-number').html(month);
 
-                  } else {
-                    $('#result_div').append('<row><p id="month-chat">Month: ' + response.month + '/5</p></row>')
-                    $('#result_div').scrollTop($('#result_div')[0].scrollHeight);
-                  }
+            $('#result_div').append('<row><p id="month-chat">Month: ' + month + '/5</p></row>')
+            $('#result_div').scrollTop($('#result_div')[0].scrollHeight);
+          }
 
-                  $('.last-change').show();
-              }
-          });
 
           $.ajax({
               type: "GET",
@@ -163,8 +160,8 @@ $(document).ready(function() {
 
   $('.scrollable-newsposts').append('<img id="loading-gif" src="' + staticUrl + 'chatbot/images/loading.gif">');
 
-  newsposts = shuffle(JSON.parse(newsposts_list.replace(/&quot;/g, '"')));
-  profiles = JSON.parse(profiles_list.replace(/&quot;/g, '"'));
+  // newsposts = shuffle(JSON.parse(newsposts_list.replace(/&quot;/g, '"')));
+  profiles = shuffle(JSON.parse(profiles_list.replace(/&quot;/g, '"')));
 
   newspostCounter = 0;
 
@@ -177,8 +174,8 @@ $(document).ready(function() {
 
       $('#loading-gif').remove();
 
-      newspost = newsposts[newspostCounter];
-      profile = profiles[newspost.fields.profile - 1];
+      // newspost = newsposts[newspostCounter];
+      profile = profiles[newspostCounter];
       name = profile.fields.name;
 
       $.ajax({
@@ -187,27 +184,17 @@ $(document).ready(function() {
           success: function (response) {
 
             // chatbot_change = (Math.round(response[profile.fields.name + '-chatbot-change'] * 100) / 100).toFixed(2)
-            newspost_change = (Math.round(response[profile.fields.name + '-newspost-change'] * 100) / 100).toFixed(2)
+            newspost_change = (Math.round(response[name + '-newspost-change'] * 100) / 100).toFixed(2)
 
             text = '';
 
-            // var change_to_consider;
-            //
-            // if (newspost_accurate) {
-            //   change_to_consider = next_change;
-            // } else {
-            //   change_to_consider = fake_change;
-            // }
-
-            newspost_change = Math.abs(Math.round(newspost_change))
-
             // newspost text based on change value and accuracy
             if (newspost_change > 0) {
-              text = name + '\'s portfolio to increase by ~' + newspost_change + '%.';
+              text = name + '\'s portfolio to increase by ~' + Math.abs(Math.round(newspost_change)) + '%.';
             } else if (newspost_change == 0) {
               text = name + '\'s portfolio to stay the same.';
             } else {
-              text = name + '\'s portfolio to decrease by ~' + newspost_change + '%.';
+              text = name + '\'s portfolio to decrease by ~' + Math.abs(Math.round(newspost_change)) + '%.';
             }
 
             var div = '<div class="wrapper-newspost"> \
@@ -231,13 +218,11 @@ $(document).ready(function() {
 
             $('.scrollable-newsposts').scrollTop($('.scrollable-newsposts')[0].scrollHeight);
 
+            newspostCounter++;
 
-
-            if (newspostCounter < 9) {
+            if (newspostCounter < 10) {
               setNewspostTimer();
             }
-
-            newspostCounter++;
           }
       });
     }
@@ -245,7 +230,7 @@ $(document).ready(function() {
 
 
   function setNewspostTimer() {
-    var min = 15;
+    var min = 20;
     var max = 30;
 
     var rand = Math.floor(Math.random() * (max - min + 1) + min);

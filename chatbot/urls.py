@@ -5,7 +5,6 @@ from django.urls import path, include
 from .views import (
     welcome_page,
     chatbot_page,
-    update_month,
     update_portfolios,
     update_balances,
     get_next_changes,
@@ -16,7 +15,6 @@ urlpatterns = [
     path('', welcome_page, name='welcome'),
     path('chatbot/', chatbot_page, name='chatbot'),
     path('imagetagging/', include('imagetagging.urls'), name='imagetagging'),
-    path('updatemonth/', update_month, name='updatemonth'),
     path('updateportfolios/', update_portfolios, name='updateportfolios'),
     path('updatebalances/', update_balances, name='updatebalances'),
     path('getnextchanges/', get_next_changes, name='getnextchanges'),

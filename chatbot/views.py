@@ -19,7 +19,7 @@ from django.db import IntegrityError
 
 from .djutils import to_dict
 
-from .models import Profile, Portfolio, Newspost, Balance, InvestedBalance, Month
+from .models import Profile, Portfolio, Balance
 
 
 def welcome_page(request):
@@ -56,19 +56,11 @@ def participants_view(request):
 
             portfolio = Portfolio(user=user, profile=profile, followed=False, risk=risk, invested=0.00, lastChange=0.00, chatbotNextChange=chatbot_change, newspostNextChange=newspost_change)
 
-            newspost = Newspost(user=user, profile=profile)
-
             portfolio.save()
-            newspost.save()
 
-        balance = Balance(user=user, amount=1000.00)
-        invested_balance = InvestedBalance(user=user)
+        balance = Balance(user=user, available=1000.00)
 
         balance.save()
-        invested_balance.save()
-
-        month = Month(user=user, number=1)
-        month.save()
 
     except IntegrityError:
         error = {
@@ -93,6 +85,7 @@ def participants_view(request):
     data = json.dumps(to_dict(user, transverse=False))
     return HttpResponse(data, content_type='application/json')
 
+
 @login_required
 def chatbot_page(request):
     user = request.user
@@ -103,42 +96,28 @@ def chatbot_page(request):
         image_names.append(profile.name.replace(' ', '-') + ".jpg")
 
     context = {
-        'month_number': Month.objects.get(user=user).number,
-        'available_balance_amount': format(Balance.objects.get(user=user).amount, '.2f'),
-        'invested_balance_amount': format(InvestedBalance.objects.get(user=user).amount, '.2f'),
+        'available_balance_amount': format(Balance.objects.get(user=user).available, '.2f'),
+        'invested_balance_amount': format(Balance.objects.get(user=user).invested, '.2f'),
         'image_names': image_names,
         'profiles': serializers.serialize('json', Profile.objects.all()),
         'followed_portfolios': Portfolio.objects.filter(user=user, followed=True),
         'not_followed_portfolios': Portfolio.objects.filter(user=user, followed=False),
-        'newsposts': serializers.serialize('json', Newspost.objects.all()),
         }
 
     return render(request, 'chatbot.html', context)
 
+
 @login_required
 def imagetagging_page(request):
     user = request.user
+    balance = Balance.objects.get(user=user)
     context = {
-        'available_balance_amount': Balance.objects.get(user=user).amount,
-        'invested_balance_amount': InvestedBalance.objects.get(user=user).amount,
+        'available_balance_amount': balance.available,
+        'invested_balance_amount': balance.invested,
         }
 
     return render(request, 'imagetagging.html', context)
 
-@login_required
-def update_month(request):
-    user = request.user
-    month = Month.objects.get(user=user)
-
-    if month.number < 5:
-        month.number += 1
-        month.save()
-
-        response = {'increased': True, 'month': str(month.number)}
-    else:
-        response = {'increased': False}
-
-    return HttpResponse(json.dumps(response), content_type="application/json")
 
 @login_required
 def update_portfolios(request):
@@ -159,19 +138,25 @@ def update_portfolios(request):
 
         portfolio.save()
 
-    response['invested_balance_amount'] = str(InvestedBalance.objects.get(user=user).amount)
-    response['available_balance_amount'] = str(Balance.objects.get(user=user).amount)
+    balance = Balance.objects.get(user=user)
+
+    response['available_balance_amount'] = str(balance.available)
+    response['invested_balance_amount'] = str(balance.invested)
 
     generate_next_portfolio_changes(request)
 
     return HttpResponse(json.dumps(response), content_type="application/json")
 
+
 @login_required
 def update_balances(request):
     user = request.user
     response = {}
-    response['available_balance_amount'] = str(Balance.objects.get(user=user).amount)
-    response['invested_balance_amount'] = str(InvestedBalance.objects.get(user=user).amount)
+
+    balance = Balance.objects.get(user=user)
+
+    response['available_balance_amount'] = str(balance.available)
+    response['invested_balance_amount'] = str(balance.invested)
 
     if response['available_balance_amount'] == '0.0':
         response['available_balance_amount'] = '0.00'
@@ -182,6 +167,7 @@ def update_balances(request):
     print(response)
 
     return HttpResponse(json.dumps(response), content_type="application/json")
+
 
 @login_required
 def get_next_changes(request):
@@ -194,10 +180,9 @@ def get_next_changes(request):
 
     return HttpResponse(json.dumps(response), content_type="application/json")
 
+
 @login_required
 def generate_next_portfolio_changes(request):
-    print('INSIDE GENERATE_NEXT_PORTFOLIO_CHANGES --------------------')
-
 
     user = request.user
     for portfolio in Portfolio.objects.filter(user=user):

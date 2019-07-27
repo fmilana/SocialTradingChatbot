@@ -80,13 +80,13 @@ def tags(request):
         reward_amount = Decimal('50.00')
         balance = Balance.objects.get(user=request.user)
 
-        print(balance.amount)
+        print(balance.available)
 
-        balance.amount += reward_amount
+        balance.available += reward_amount
         balance.save()
 
         response['complete'] = True
-        response['balance'] = str(balance.amount)
+        response['balance'] = str(balance.available)
 
         # increment the participant's earned
         # participant = Participant.objects.get(user=request.user)
