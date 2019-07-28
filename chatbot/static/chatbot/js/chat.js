@@ -128,22 +128,45 @@ $(document).ready(function() {
 			$('<div class="row suggestion-row-notification"></div>').appendTo('#result_div_notification');
     	$('<div class="row suggestion-row"></div>').appendTo('#result_div');
 
+			var addSuggestions = true;
+
+			for (i = 0; i < suggestions.length; i++) {
+				if (suggestions[i].title == "Give me some advice") {
+					addSuggestions = false;
+					setTimeout(function() {
+						$('.notification').fadeOut("slow", function() {
+							//Stuff to do *after* the animation takes place
+						})
+					}, 500);
+				}
+			}
+
+			if (addSuggestions) {
+				console.log('before loop, addSuggestions is true');
+			} else {
+				console.log('before loop, addSuggestions is false');
+			}
+
       // Loop through suggestions
       for (i = 0; i < suggestions.length; i++) {
         $('<p class="sugg-options">' + suggestions[i].title + '</p>').appendTo('.suggestion-row');
-				$('<p class="sugg-options-notification">' + suggestions[i].title + '</p>').appendTo('.suggestion-row-notification');
+				if (addSuggestions) {
+					console.log('adding notifications');
+					$('<p class="sugg-options-notification">' + suggestions[i].title + '</p>').appendTo('.suggestion-row-notification');
+				}
 			}
 
-      suggestionRowNotificationHeight = $('.suggestion-row-notification').height();
 			suggestionRowHeight = $('.suggestion-row').height();
-
-			resultDivNotificationHeight = $('.notification').height() - (90 + suggestionRowNotificationHeight);
-			$('#result_div_notification').css("height", resultDivNotificationHeight);
-      $('#result_div_notification').scrollTop($('#result_div')[0].scrollHeight);
-
     	resultDivHeight = $(window).height() - (215 + suggestionRowHeight);
 			$('#result_div').css("height", resultDivHeight);
       $('#result_div').scrollTop($('#result_div')[0].scrollHeight);
+
+			if (addSuggestions) {
+				suggestionRowNotificationHeight = $('.suggestion-row-notification').height();
+				resultDivNotificationHeight = $('.notification').height() - (90 + suggestionRowNotificationHeight);
+				$('#result_div_notification').css("height", resultDivNotificationHeight);
+	      $('#result_div_notification').scrollTop($('#result_div')[0].scrollHeight);
+			}
     }, 500);
   }
 
