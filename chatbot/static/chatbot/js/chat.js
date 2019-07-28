@@ -141,12 +141,6 @@ $(document).ready(function() {
 				}
 			}
 
-			if (addSuggestions) {
-				console.log('before loop, addSuggestions is true');
-			} else {
-				console.log('before loop, addSuggestions is false');
-			}
-
       // Loop through suggestions
       for (i = 0; i < suggestions.length; i++) {
         $('<p class="sugg-options">' + suggestions[i].title + '</p>').appendTo('.suggestion-row');

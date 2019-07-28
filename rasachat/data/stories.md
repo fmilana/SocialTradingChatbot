@@ -36,6 +36,11 @@
 * ok
   - utter_cool
 
+## nevermind
+* deny
+  - utter_cool
+  - action_reset_slots
+  - slot{"portfolio_query":null,"name":null,"amount_query":null,"amount":null}
 
 ## give_general_advice_give_general_advice
 * ask_general_advice

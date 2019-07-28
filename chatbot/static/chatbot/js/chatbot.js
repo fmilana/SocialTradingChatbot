@@ -24,6 +24,8 @@ $(document).ready(function() {
           isPaused = true;
           clearTimeout(newspostTimeout);
 
+          $('.notification').hide();
+
           $('#myModal').modal({
             backdrop: 'static',
             keyboard: false

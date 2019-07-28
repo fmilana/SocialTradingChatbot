@@ -70,6 +70,7 @@
 - don't like that
 - no way
 - not really
+- nevermind
 
 ## intent:mood_great
 - perfect

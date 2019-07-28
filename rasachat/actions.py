@@ -51,7 +51,6 @@ class GiveGeneralAdvice(Action):
     def run(self, dispatcher, tracker, domain):
         # print(tracker.current_state())
         username = tracker.current_state()["sender_id"]
-        print('SENDER ID--------------->'+ username)
 
         user = User.objects.get(username=username)
 
@@ -106,11 +105,13 @@ class GiveGeneralAdvice(Action):
             profile_name = highest_changing_portfolio_name
             portfolio_query = "not_followed"
             buttons.append({"title": "Do it", "payload": "Do it"})
+            buttons.append({"title": "Never mind", "payload": "Never mind"})
         else:
             message = "I think you should stop following " + lowest_changing_portfolio_name + ". I believe " + lowest_pronoun + " porfolio will decrease by " + str(round(abs(lowest_change))) + "% next month."
             profile_name = lowest_changing_portfolio_name
             portfolio_query = "followed"
             buttons.append({"title": "Do it", "payload": "Do it"})
+            buttons.append({"title": "Never mind", "payload": "Never mind"})
 
         # dispatcher.utter_message(message)
 
@@ -125,7 +126,6 @@ class GiveFollowingAdvice(Action):
 
     def run(self, dispatcher, tracker, domain):
         username = tracker.current_state()["sender_id"]
-        print('SENDER ID--------------->'+ username)
 
         user = User.objects.get(username=username)
 
@@ -156,6 +156,7 @@ class GiveFollowingAdvice(Action):
             if highest_changing_portfolio_name is not None:
                 message = "I think you should start following " + highest_changing_portfolio_name + ". I believe " + pronoun + " porfolio will increase by " + str(round(abs(highest_change))) + "% next month."
                 buttons.append({"title": "Do it", "payload": "Do it"})
+                buttons.append({"title": "Never mind", "payload": "Never mind"})
             else:
                 message = "I don't think there is anyone you should start following right now."
                 buttons.append({"title": "Give me some advice", "payload": "Give me some advice"})
@@ -175,7 +176,6 @@ class GiveUnfollowingAdvice(Action):
 
     def run(self, dispatcher, tracker, domain):
         username = tracker.current_state()["sender_id"]
-        print('SENDER ID--------------->'+ username)
 
         user = User.objects.get(username=username)
 
@@ -211,6 +211,7 @@ class GiveUnfollowingAdvice(Action):
             if lowest_changing_portfolio_name is not None:
                 message = "I think you should stop following " + lowest_changing_portfolio_name + ". I believe " + pronoun + " porfolio will decrease by " + str(round(abs(lowest_change))) + "% next month."
                 buttons.append({"title": "Do it", "payload": "Do it"})
+                buttons.append({"title": "Never mind", "payload": "Never mind"})
             else:
                 message = "I don't think there is anyone you should stop following right now."
                 buttons.append({"title": "Give me some advice", "payload": "Give me some advice"})
@@ -230,7 +231,6 @@ class FetchPortfolio(Action):
 
     def run(self, dispatcher, tracker, domain):
         username = tracker.current_state()["sender_id"]
-        print('SENDER ID--------------->'+ username)
 
         user = User.objects.get(username=username)
 
@@ -245,17 +245,12 @@ class FetchPortfolio(Action):
             portfolio_query = None
 
             for e in tracker.latest_message['entities']:
-                print('E vvvvvvvvvvvvvvvvvvvvv')
-                print(e)
 
                 if e['entity'] == 'CARDINAL':
                     try:
                         amount = round(Decimal(e['value']), 2)
-                        print('AMOUNT vvvvvvvvvv')
-                        print(amount)
                     except (IndexError, InvalidOperation):
                         amount_query = 'invalid'
-                        print('INVALID AMOUNT')
 
             try:
                 profile_object = Profile.objects.get(name__icontains=profile_name)
@@ -274,7 +269,6 @@ class FetchPortfolio(Action):
                     amount_query = "invalid"
 
             except IndexError:
-                print("PORTFOLIO INDEX ERROR")
                 portfolio_query = "invalid"
 
         print("returning slots")
@@ -353,7 +347,6 @@ class Follow(Action):
 
     def run(self, dispatcher, tracker, domain):
         username = tracker.current_state()["sender_id"]
-        print('SENDER ID--------------->'+ username)
 
         user = User.objects.get(username=username)
 
@@ -371,23 +364,16 @@ class Follow(Action):
             amount = tracker.get_slot('amount')
 
             if amount is None:
-                print('AMOUNT SLOT IS EMPTY')
-
                 try:
-                    print('TRYING TO SET AMOUNT FROM ENTITY')
                     amount = round(Decimal(tracker.latest_message['entities'][0]['value']), 2)
                     if amount > 0:
-                        print('AMOUNT ENTITY IS VALID')
                         amount_query = 'valid'
                     else:
-                        print('AMOUNT ENTITY IS INVALID')
                         amount_query = 'invalid'
                 except IndexError:
                     amount_query = 'invalid'
             else:
                 amount_query = 'valid'
-
-            print('AMOUNT vvvvvvvvvvvvv')
 
             if amount_query == 'valid':
                 balance = Balance.objects.get(user=user)
@@ -524,7 +510,6 @@ class WithdrawAmount(Action):
 
     def run(self, dispatcher, tracker, domain):
         username = tracker.current_state()["sender_id"]
-        print('SENDER ID--------------->'+ username)
 
         user = User.objects.get(username=username)
 
@@ -639,7 +624,6 @@ class ShouldIFollowAdvice(Action):
 
         if profile_name is None:
             profile_name = tracker.latest_message['entities'][0]['value']
-            print('PROFILE_NAME SLOT IS EMPTY, ENTITY = ' + profile_name)
 
         if profile_name is None:
             message = "Sorry, I can't find that portfolio. Have you spelt the name correctly?"
@@ -698,17 +682,23 @@ class ShouldIFollowAdvice(Action):
         if positive and followed:
             if amount_query == 'valid':
                 buttons.append({"title": "Do it", "payload": "Do it"})
+                buttons.append({"title": "Never mind", "payload": "Never mind"})
             else:
                 buttons.append({"title": "Invest more on " + pronoun, "payload": "Invest more on " + pronoun})
+                buttons.append({"title": "Never mind", "payload": "Never mind"})
         elif positive and not followed:
             if amount_query == 'valid':
                 buttons.append({"title": "Do it", "payload": "Do it"})
+                buttons.append({"title": "Never mind", "payload": "Never mind"})
             else:
                 buttons.append({"title": "Follow " + pronoun, "payload": "Follow " + pronoun})
+                buttons.append({"title": "Never mind", "payload": "Never mind"})
         elif not positive and followed:
             buttons.append({"title": "Unfollow " + pronoun, "payload": "Unfollow " + pronoun})
             buttons.append({"title": "Withdraw from " + pronoun, "payload": "Withdraw from " + pronoun})
+            buttons.append({"title": "Never mind", "payload": "Never mind"})
         else:
+            buttons.append({"title": "Do it anyway", "payload": "Do it anyway"})
             buttons.append({"title": "Give me some advice", "payload": "Give me some advice"})
             if Portfolio.objects.filter(user=user, followed=False):
                 buttons.append({"title": "Who should I follow?", "payload": "Who should i follow?"})
@@ -722,7 +712,6 @@ class ShouldIUnfollowAdvice(Action):
 
     def run(self, dispatcher, tracker, domain):
         username = tracker.current_state()["sender_id"]
-        print('SENDER ID--------------->'+ username)
 
         user = User.objects.get(username=username)
 
@@ -740,7 +729,6 @@ class ShouldIUnfollowAdvice(Action):
 
         if profile_name is None:
             profile_name = tracker.latest_message['entities'][0]['value']
-            print('PROFILE_NAME SLOT IS EMPTY, ENTITY = ' + profile_name)
 
         if profile_name is None:
             message = "Sorry, I can't find that portfolio. Have you spelt the name correctly?"
@@ -756,11 +744,14 @@ class ShouldIUnfollowAdvice(Action):
             if chatbot_change >= 30:
                 answer = 'Absolutely not! '
                 increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
+                buttons.append({"title": "Do it anyway", "payload": "Do it anyway"})
             elif chatbot_change > 0:
                 answer = 'No.'
                 increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
+                buttons.append({"title": "Do it anyway", "payload": "Do it anyway"})
             elif chatbot_change == 0:
                 increase_or_decrease = 'not change'
+                buttons.append({"title": "Do it anyway", "payload": "Do it anyway"})
             elif chatbot_change > -10:
                 answer = 'Yes. '
                 increase_or_decrease = 'decrease by ' + str(abs(chatbot_change)) + '%'
@@ -791,10 +782,13 @@ class ShouldIUnfollowAdvice(Action):
         if positive:
             if amount_query == 'valid':
                 buttons.append({"title": "Do it", "payload": "Do it"})
+                buttons.append({"title": "Never mind", "payload": "Never mind"})
             else:
                 buttons.append({"title": "Unfollow " + pronoun, "payload": "Unfollow " + pronoun})
                 buttons.append({"title": "Withdraw from " + pronoun, "payload": "Withdraw from " + pronoun})
+                buttons.append({"title": "Never mind", "payload": "Never mind"})
         else:
+            buttons.append({"title": "Do it anyway", "payload": "Do it anyway"})
             buttons.append({"title": "Give me some advice", "payload": "Give me some advice"})
             if Portfolio.objects.filter(user=user, followed=False):
                 buttons.append({"title": "Who should I follow?", "payload": "Who should i follow?"})

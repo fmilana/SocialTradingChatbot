@@ -11,7 +11,7 @@ intents:
   - why_did_you: {triggers: utter_im_doing_my_best}
   - newsfeed: {triggers: utter_newsfeed}
   - affirm
-  - deny
+  - deny: {triggers: utter_cool}
   - mood_great
   - mood_unhappy
   - do_it
