@@ -174,7 +174,16 @@
 
 <!-- Notification -->
 <div class="card notification">
-  <h5>This is a notification</h5>
+  <div class="close-row">
+    <img id="close-button" src="{% static 'chatbot/images/close.svg'%}">
+  </div>
+  <div class="chatCont" id="chatContNotif">
+    <div id="result_div_notification" class="resultDiv"></div>
+    <div class="chatForm input-group" id="chat-div-notification">
+      <input type="text" class="col-10 form-control input-sm" id="chat-input-notification" autocomplete="off" placeholder="Type something...">
+      <button id="send-button-notification" class="col-2 btn btn-dark btn-sm">Send</button>
+    </div>
+  </div>
 </div>
 
 

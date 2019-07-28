@@ -14,7 +14,7 @@ $(function() {
       $(".content-container").css('opacity', '0');
       $(".content-container").css('height', '0');
       $('#image-tagging-area').css('display', 'inline-block');
-      $('.notification').css('display', 'inline-block');
+      // $('.notification').css('display', 'inline-block');
   });
 
   $("#investment-button").click(function () {

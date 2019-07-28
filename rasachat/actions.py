@@ -55,7 +55,7 @@ class GiveGeneralAdvice(Action):
 
         user = User.objects.get(username=username)
 
-        highest_change = 10
+        highest_change = 0
         highest_pronoun = ''
         lowest_change = 0
         lowest_pronoun = ''
@@ -90,7 +90,7 @@ class GiveGeneralAdvice(Action):
 
         portfolio_query = None
 
-        higher_is_greater = (highest_change-10) >= abs(lowest_change)
+        higher_is_greater = highest_change >= abs(lowest_change)
 
         buttons = []
 
@@ -138,7 +138,7 @@ class GiveFollowingAdvice(Action):
         if not not_followed_portfolios:
             message = "You are following everyone at the moment."
         else:
-            highest_change = 10
+            highest_change = 0
             pronoun = ''
 
             for portfolio in not_followed_portfolios:
@@ -320,7 +320,6 @@ class AskWithdrawAmount(Action):
         return "action_ask_withdraw_amount"
 
     def run(self, dispatcher, tracker, domain):
-        print('----------------------------ASK WITHDRAW AMOUNT ------------------------')
 
         user = User.objects.get(username=(tracker.current_state())["sender_id"])
 
@@ -365,9 +364,6 @@ class Follow(Action):
         if profile_name is None:
             message = "Sorry, I can't find that portfolio. Have you spelt the name correctly?"
         else:
-            print('NAME vvvvvvvvvvvvv')
-            print(profile_name)
-
             profile_object = Profile.objects.get(name__icontains=profile_name)
             portfolio = Portfolio.objects.get(user=user, profile=profile_object.id)
 
@@ -665,11 +661,8 @@ class ShouldIFollowAdvice(Action):
                 answer = 'Absolutely! '
                 increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
                 self.appendButtons(True, user, portfolio.followed, profile_object.gender, amount_query, buttons)
-            elif chatbot_change >= 10:
-                answer = 'Yes. '
-                increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
-                self.appendButtons(True, user, portfolio.followed, profile_object.gender, amount_query, buttons)
             elif chatbot_change > 0:
+                answer = 'Yes. '
                 increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
                 self.appendButtons(True, user, portfolio.followed, profile_object.gender, amount_query, buttons)
             elif chatbot_change == 0:
@@ -762,9 +755,6 @@ class ShouldIUnfollowAdvice(Action):
 
             if chatbot_change >= 30:
                 answer = 'Absolutely not! '
-                increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
-            elif chatbot_change >= 10:
-                answer = 'No. '
                 increase_or_decrease = 'increase by ' + str(abs(chatbot_change)) + '%'
             elif chatbot_change > 0:
                 answer = 'No.'

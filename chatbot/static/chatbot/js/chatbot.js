@@ -6,7 +6,7 @@ $(document).ready(function() {
 
   var isPaused = false;
 
-  var _seconds_left = 30;
+  var _seconds_left = 180;
 
   var newspostTimeout;
 
@@ -17,7 +17,7 @@ $(document).ready(function() {
           html;
       _seconds_left -= 1;
       if (_seconds_left < 1) {
-          _seconds_left = 30;
+          _seconds_left = 180;
 
           old_invested_amount = parseFloat($('#invested-balance-amount').text());
 
@@ -183,7 +183,7 @@ $(document).ready(function() {
           success: function (response) {
 
             // chatbot_change = (Math.round(response[profile.fields.name + '-chatbot-change'] * 100) / 100).toFixed(2)
-            newspost_change = (Math.round(response[name + '-newspost-change'] * 100) / 100).toFixed(2)
+            newspost_change = response[name + '-newspost-change']
 
             text = '';
 
@@ -229,8 +229,8 @@ $(document).ready(function() {
 
 
   function setNewspostTimer() {
-    var min = 20;
-    var max = 30;
+    var min = 10;
+    var max = 20;
 
     var rand = Math.floor(Math.random() * (max - min + 1) + min);
 

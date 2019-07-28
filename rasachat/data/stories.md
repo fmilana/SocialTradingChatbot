@@ -2,6 +2,10 @@
 * what_can_you_do
   - action_what_I_can_do
 
+## news
+* newsfeed
+  - utter_newsfeed
+
 ## happy path
 * greet
   - utter_greet

@@ -263,22 +263,77 @@ h5 {
   margin-left: 5px;
 }
 
+
+
+/* close icon */
+.close-row {
+  overflow: auto;
+  margin-bottom: 10px;
+}
+
+#close-button {
+  float: right;
+  height: 15px;
+  width: 15px;
+  margin-top: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
 /*notification*/
 .notification {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  margin: 20px;
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 400px;
+    height: 300px;
+    margin: 20px;
+    box-shadow:	0 0.125rem 0.5rem rgba(0, 0, 0, .3), 0 0.0625rem 0.125rem rgba(0, 0, 0, .2);
+}
+
+#chatContNotif {
+  height: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+}
+
+#result_div_notification {
+  overflow: auto;
+  /* height: calc(100vh - 270px); */
   padding: 10px;
 }
+
+.suggestion-row-notification {
+  width: 95%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 17%;
+  padding-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0px;
+}
+
+#chat-div-notification {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2.5%;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 
 /* image tagging */
 #image-tagging-area {
   /* display: inline-block; */
   display: none;
   position: relative;
-  width: 60%;
+  width: 50%;
 }
 
 .img-fluid {
@@ -366,6 +421,22 @@ h5 {
   box-shadow:	0 0.125rem 0.5rem rgba(0, 0, 0, .3), 0 0.0625rem 0.125rem rgba(0, 0, 0, .2);
 }
 
+.sugg-options-notification {
+  font-size: 0.8em;
+  display: inline-block;
+  cursor: pointer;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 20px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  background: #fff;
+  color: #343A40;
+  box-shadow:	0 0.125rem 0.5rem rgba(0, 0, 0, .3), 0 0.0625rem 0.125rem rgba(0, 0, 0, .2);
+}
+
 #chat-div {
   width: 70%;
   position: absolute;
@@ -390,11 +461,6 @@ h5 {
 #chat-input {
   display: inline-block;
   width: 75%;
-}
-
-#send-icon {
-  max-width: 200%;
-  height: auto;
 }
 
 /* bubbles */
@@ -422,6 +488,21 @@ h5 {
   margin-bottom: 10px;
   float: right;
   background: #fff;
+  text-align: left;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom-right-radius: 5px;
+}
+
+#user-message-notification {
+  display: inline-block;
+  word-wrap: break-word;
+  clear: both;
+  padding: 20px;
+  border-radius: 30px;
+  margin-bottom: 10px;
+  float: right;
+  background: #dedfe1;
   text-align: left;
   padding-top: 10px;
   padding-bottom: 10px;

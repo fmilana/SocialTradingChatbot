@@ -8,7 +8,7 @@ $(document).ready(function() {
 		if (adviceCountdown > 0) {
 			adviceCountdown -= 1;
 		} else {
-			sendMessage("Give me some advice", false);
+			sendMessage("Give me some advice", true);
 			adviceCountdown = 30;
 		}
 	}, 1000);
@@ -47,37 +47,49 @@ $(document).ready(function() {
 
 	appendInitialBotMessages();
 
-	function appendBotMessage(data) {
+	function appendBotMessage(data, periodicAdvice) {
     var message = data['text'];
 
-		$('#result_div #typing-gif').remove();
+		$('#typing-gif').remove();
 
-		$("#result_div").append("<p id='bot-message'>" + message + "</p><br>");
+		console.log('periodicAdvice = ' + periodicAdvice);
+		console.log('message = ' + message);
 
-    buttons = data['buttons'];
+		$('#result_div_notification #typing-gif').remove();
 
-		if (typeof buttons !== 'undefined') {
-			addSuggestion(buttons);
+		if (!periodicAdvice || message != "You're doing great! I don't think you should follow or unfollow anyone else this month.") {
+			if (periodicAdvice && $('#image-tagging-area').is(':visible')) {
+				$('.notification').hide();
+				$('#result_div_notification #bot-message').remove();
+				$('#result_div_notification #user-message-notification').remove();
+				$('#result_div_notification br').remove();
+				$('.notification').css('display', 'inline-block');
+			}
+
+			$("#result_div").append("<p id='bot-message'>" + message + "</p><br>");
+			$("#result_div_notification").append("<p id='bot-message'>" + message + "</p><br>");
+			$('#result_div_notification #typing-gif').remove();
+
+	    buttons = data['buttons'];
+
+			if (typeof buttons !== 'undefined') {
+				addSuggestion(buttons);
+			}
+
+			$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
+
+			$('#result_div_notification').scrollTop($('#result_div')[0].scrollHeight);
 		}
-
-		$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
 
 		adviceCountdown = 30;
   }
 
-	// // console log when socket connects to port 5500
-	// socket.on('connect', function() {
-	// 	console.log('connection established...')
-	// });
-
-	// socket.emit('user_uttered', {'message': 'hey', 'sender': 'rasa'});
-
   	// event when bot utters message
-	function process_response (data) {
+	function process_response(data, periodicAdvice) {
     data = data[0];
 		console.log(data);
 
-		appendBotMessage(data);
+		appendBotMessage(data, periodicAdvice);
 
 		$("#portfolios").load(location.href+" #portfolios>*","", function() {
 			if ($('#followed-portfolio-wrapper').length) {
@@ -92,8 +104,6 @@ $(document).ready(function() {
 				$('#empty-not-followed-tag').show();
 			}
 		});
-
-		console.log('portfolios html refreshed');
 
 		$.ajax({
 				type: "GET",
@@ -112,28 +122,32 @@ $(document).ready(function() {
 
   function addSuggestion(suggestions) {
     setTimeout(function () {
-      $('<div class="row suggestion-row"></div>').appendTo('#result_div');
+
+			$('.suggestion-row-notification').remove();
+
+			$('<div class="row suggestion-row-notification"></div>').appendTo('#result_div_notification');
+    	$('<div class="row suggestion-row"></div>').appendTo('#result_div');
+
       // Loop through suggestions
       for (i = 0; i < suggestions.length; i++) {
         $('<p class="sugg-options">' + suggestions[i].title + '</p>').appendTo('.suggestion-row');
-      }
+				$('<p class="sugg-options-notification">' + suggestions[i].title + '</p>').appendTo('.suggestion-row-notification');
+			}
 
-      suggestionRowHeight = $('.suggestion-row').height();
-      resultDivHeight = $(window).height() - (215 + suggestionRowHeight);
+      suggestionRowNotificationHeight = $('.suggestion-row-notification').height();
+			suggestionRowHeight = $('.suggestion-row').height();
 
+			resultDivNotificationHeight = $('.notification').height() - (90 + suggestionRowNotificationHeight);
+			$('#result_div_notification').css("height", resultDivNotificationHeight);
+      $('#result_div_notification').scrollTop($('#result_div')[0].scrollHeight);
+
+    	resultDivHeight = $(window).height() - (215 + suggestionRowHeight);
 			$('#result_div').css("height", resultDivHeight);
       $('#result_div').scrollTop($('#result_div')[0].scrollHeight);
     }, 500);
   }
 
-  // $('.sugg-options').click(function(event) {
-  //   var suggestionText = $(event.target).text();
-  //   console.log('suggestiontext = ' + suggestionText);
-  //
-  //   sendMessage(suggestionText);
-  // });
-
-	var sendMessage = function(message, show) {
+	var sendMessage = function(message, periodicAdvice) {
 		console.log(message);
 		if (message) {
       //socket.emit('user_uttered', {'message': chatInput, 'sender': 'rasa'});
@@ -148,39 +162,71 @@ $(document).ready(function() {
 				console.log('POST response:', response);
 				// window.location.replace(server_url + "/tasks/?order=" + next_task_order);
 				//window.location = server_url + "/tasks/?order=" + next_task_order;
-				process_response(response);
+				process_response(response, periodicAdvice);
 			}).catch(error => {
 				console.log('POST error:', error);
 			});
 
-			if (show) {
+			if (!periodicAdvice) {
 				$("#result_div").append("<p id='user-message'> " + message + "</p><br>");
 				$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
+				$("#chat-input").val('');
+
+				if ($("#result_div_notification").is(':visible')) {
+					$("#result_div_notification").append("<p id='user-message-notification'> " + message + "</p><br>");
+					$('#result_div_notification').scrollTop($('#result_div_notification')[0].scrollHeight);
+					$("#chat-input-notification").val('');
+				}
 			}
 			setTimeout(function(){
 				$('#result_div').append('<img id="typing-gif" src="' + staticUrl + 'chatbot/images/typing.svg">')
+				console.log('appending gif........');
 				$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
+
+				$('#result_div_notification').append('<img id="typing-gif" src="' + staticUrl + 'chatbot/images/typing.svg">')
+				$('#result_div_notification').scrollTop($('#result_div_notification')[0].scrollHeight);
 			}, 500);
-			$("#chat-input").val('');
+
       $('.suggestion-row').remove();
+			$('.suggestion-row-notification').remove();
+			$('#typing-gif').remove();
+
       $('#result_div').css("height", "calc(100vh - 220px)");
+			$('#result_div_notification').css("height", "220px");
 		}
 
 		adviceCountdown = 30;
 	};
 
   $(document).on("click", ".sugg-options", function(event) {
-    sendMessage($(event.target).text(), true);
+    sendMessage($(event.target).text(), false);
+  });
+
+	$(document).on("click", ".sugg-options-notification", function(event) {
+    sendMessage($(event.target).text(), false);
   });
 
   $("#send-button").click(function() {
-    sendMessage($("#chat-input").val(), true);
+    sendMessage($("#chat-input").val(), false);
+  });
+
+	$("#send-button-notification").click(function() {
+    sendMessage($("#chat-input-notification").val(), false);
   });
 
 	$('#chat-input').keyup(function (e) {
     if (e.keyCode === 13) {
-			sendMessage($("#chat-input").val(), true);
+			sendMessage($("#chat-input").val(), false);
     }
 	});
 
+	$('#chat-input-notification').keyup(function (e) {
+    if (e.keyCode === 13) {
+			sendMessage($("#chat-input-notification").val(), false);
+    }
+	});
+
+	$('#close-button').click(function() {
+		$('.notification').hide();
+	});
 });
