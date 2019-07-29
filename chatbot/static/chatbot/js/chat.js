@@ -13,40 +13,6 @@ $(document).ready(function() {
 		}
 	}, 1000);
 
-	function appendInitialBotMessages() {
-		setTimeout(function(){
-			$('#result_div').append('<img id="typing-gif" src="' + staticUrl + 'chatbot/images/typing.svg">');
-		}, 500);
-
-		setTimeout(function() {
-			$('#result_div #typing-gif').remove();
-			$('#result_div').append("<p id='bot-message'>Hi there!</p><br>");
-		}, 1500);
-
-		setTimeout(function() {
-			$('#result_div').append('<img id="typing-gif" src="' + staticUrl + 'chatbot/images/typing.svg">');
-		}, 2000);
-
-		setTimeout(function() {
-			$('#result_div #typing-gif').remove();
-			$('#result_div').append("<p id='bot-message'>You can tell me to follow or unfollow portfolios, add or withdraw amounts and ask me things like: \"Should I invest 50 in ralph?\" or \"Who should I unfollow?\". I'm here to give you accurate predictions!</p><br>");
-		}, 4000);
-
-		setTimeout(function () {
-      $('<div class="row suggestion-row"></div>').appendTo('#result_div');
-      $('<p class="sugg-options">Give me some advice</p>').appendTo('.suggestion-row');
-			$('<p class="sugg-options">Who should I follow?</p>').appendTo('.suggestion-row');
-
-			suggestionRowHeight = $('.suggestion-row').height();
-      resultDivHeight = $(window).height() - (215 + suggestionRowHeight);
-
-			$('#result_div').css("height", resultDivHeight);
-      $('#result_div').scrollTop($('#result_div')[0].scrollHeight);
-    }, 4500);
-	}
-
-	appendInitialBotMessages();
-
 	function appendBotMessage(data, periodicAdvice) {
     var message = data['text'];
 
@@ -72,7 +38,7 @@ $(document).ready(function() {
 
 	    buttons = data['buttons'];
 
-			if (typeof buttons !== 'undefined') {
+			if (conditionActive && typeof buttons !== 'undefined') {
 				addSuggestion(buttons);
 			}
 

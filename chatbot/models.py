@@ -3,9 +3,30 @@ from django.contrib.auth.models import User
 from django.db.models import Sum
 
 
+class Condition(models.Model):
+    active = models.BooleanField(default=True, null=False)
+
+    def __str__(self):
+        return "Condition"
+
+
+class Participant(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    condition_active = models.BooleanField(default=True, null=False)
+
+    class Meta:
+        verbose_name = 'Participant'
+        verbose_name_plural = 'Participants'
+
+    def __str__(self):
+        return self.user.username
+
+
 class Profile(models.Model):
-    name = models.TextField(null=False)
-    gender = models.TextField()
+    name = models.CharField(max_length=128, null=False)
+    gender = models.CharField(max_length=128, null=False)
 
     class Meta:
         verbose_name = 'Profile'
@@ -88,10 +109,10 @@ class UserAction(models.Model):
     month = models.IntegerField(null=False)
     available = models.DecimalField(max_digits=6, decimal_places=2, null=False)
     invested = models.DecimalField(max_digits=6, decimal_places=2, null=False)
-    portfolio = models.TextField(null=False)
+    portfolio = models.CharField(max_length=128, null=False)
     chatbot_change = models.DecimalField(max_digits=6, decimal_places=2, null=True)
     newspost_change = models.DecimalField(max_digits=6, decimal_places=2, null=True)
-    action = models.TextField(null=False)
+    action = models.CharField(max_length=128, null=False)
     amount = models.DecimalField(max_digits=6, decimal_places=2, null=True)
 
     class Meta:

@@ -19,7 +19,7 @@ from django.db import IntegrityError
 
 from .djutils import to_dict
 
-from .models import Profile, Portfolio, Balance, Month, Message
+from .models import Profile, Portfolio, Balance, Month, Message, Participant, Condition
 
 
 def welcome_page(request):
@@ -71,6 +71,19 @@ def participants_view(request):
         data = json.dumps(error)
         return HttpResponseBadRequest(data, content_type='application/json')
 
+    condition = Condition.objects.first()
+    condition_active = condition.active
+
+    participant = Participant(user=user, condition_active=condition_active)
+    participant.save()
+
+    if condition_active:
+        condition.active = False
+    else:
+        condition.active = True
+
+    condition.save()
+
     # # TODO: create participant
     # participant = Participant()
     # participant.user = user
@@ -86,6 +99,17 @@ def participants_view(request):
     #data = json.dumps(to_dict(participant, transverse=True))
     data = json.dumps(to_dict(user, transverse=False))
     return HttpResponse(data, content_type='application/json')
+
+
+@login_required
+def get_condition_active(request):
+    user = request.user
+
+    condition_active = Participant.objects.get(user=user).condition_active
+
+    response = {'condition_active': condition_active}
+
+    return HttpResponse(json.dumps(response), content_type="application/json")
 
 
 @login_required
