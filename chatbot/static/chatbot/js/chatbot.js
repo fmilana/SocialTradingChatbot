@@ -1,7 +1,8 @@
+var month = 1;
+
 $(document).ready(function() {
   $('#parentheses').hide()
 
-  var month = 1;
   $('#month-number').html(month);
 
   var isPaused = false;
@@ -33,8 +34,15 @@ $(document).ready(function() {
 
           if (month < 5) {
             month++;
-
             $('#month-number').html(month);
+
+            $.ajax({
+              type: "GET",
+              url: server_url + '/updatemonth/',
+              success: function (response) {
+                console.log(response);
+              }
+            });
 
             $('#result_div').append('<row><p id="month-chat">Month: ' + month + '/5</p></row>')
             $('#result_div').scrollTop($('#result_div')[0].scrollHeight);
@@ -43,6 +51,10 @@ $(document).ready(function() {
 
             $('#result_div').append('<row><p id="month-chat">Month: ' + month + '/5</p></row>')
             $('#result_div').scrollTop($('#result_div')[0].scrollHeight);
+
+
+
+            // RESULTS
           }
 
           $.ajax({

@@ -19,7 +19,7 @@ from django.db import IntegrityError
 
 from .djutils import to_dict
 
-from .models import Profile, Portfolio, Balance
+from .models import Profile, Portfolio, Balance, Month, Message
 
 
 def welcome_page(request):
@@ -36,6 +36,8 @@ def participants_view(request):
         is_test_user = True
     try:
         user = User.objects.create_user(username=username)
+        month = Month(user=user, number=1)
+        month.save()
 
         for profile in Profile.objects.all():
             risk = randrange(9)+1
@@ -169,6 +171,18 @@ def update_balances(request):
     return HttpResponse(json.dumps(response), content_type="application/json")
 
 
+@csrf_exempt
+@login_required
+def update_month(request):
+    user = request.user
+    month = Month.objects.get(user=user)
+
+    month.number += 1
+    month.save()
+
+    return HttpResponse("")
+
+
 @login_required
 def get_next_changes(request):
     user = request.user
@@ -179,6 +193,19 @@ def get_next_changes(request):
         response[portfolio.profile.name + '-newspost-change'] = float(portfolio.newspostNextChange)
 
     return HttpResponse(json.dumps(response), content_type="application/json")
+
+
+@csrf_exempt
+@login_required
+def store_bot_message(request):
+    user = request.user
+    month = request.POST['month']
+    text = request.POST['text']
+
+    message = Message(user=user, month=month, from_participant=False, from_notification=False, from_button=False, text=text)
+    message.save()
+
+    return HttpResponse("")
 
 
 @login_required

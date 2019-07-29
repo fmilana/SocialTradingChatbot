@@ -15,6 +15,18 @@ class Profile(models.Model):
         return self.name
 
 
+class Month(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    number = models.IntegerField(default=1, null=False)
+
+    class Meta:
+        verbose_name = 'Month'
+        verbose_name_plural = 'Months'
+
+    def __str__(self):
+        return self.user.username
+
+
 class Portfolio(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     profile = models.ForeignKey('Profile', null=True, on_delete=models.CASCADE)
@@ -50,3 +62,41 @@ class Balance(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class Message(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    month = models.IntegerField(null=False)
+    from_participant = models.BooleanField(null=False)
+    from_notification = models.BooleanField(null=False, default=False)
+    from_button = models.BooleanField(null=False, default=False)
+    text = models.TextField(null=False)
+
+    class Meta:
+        verbose_name = 'Message'
+        verbose_name_plural = 'Messages'
+
+    def __str__(self):
+        if self.from_participant:
+            return self.user.username + ': ' + self.text
+        else:
+            return self.user.username + ', Bot: ' + self.text
+
+
+class UserAction(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    month = models.IntegerField(null=False)
+    available = models.DecimalField(max_digits=6, decimal_places=2, null=False)
+    invested = models.DecimalField(max_digits=6, decimal_places=2, null=False)
+    portfolio = models.TextField(null=False)
+    chatbot_change = models.DecimalField(max_digits=6, decimal_places=2, null=True)
+    newspost_change = models.DecimalField(max_digits=6, decimal_places=2, null=True)
+    action = models.TextField(null=False)
+    amount = models.DecimalField(max_digits=6, decimal_places=2, null=True)
+
+    class Meta:
+        verbose_name = 'UserAction'
+        verbose_name_plural = 'UserActions'
+
+    def __str__(self):
+        return self.user.username + ': ' + self.action + " (" + str(self.amount) + ") " + self.portfolio

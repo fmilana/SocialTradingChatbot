@@ -8,7 +8,7 @@ $(document).ready(function() {
 		if (adviceCountdown > 0) {
 			adviceCountdown -= 1;
 		} else {
-			sendMessage("Give me some advice", true);
+			sendMessage("Give me some advice", true, false, false);
 			adviceCountdown = 30;
 		}
 	}, 1000);
@@ -89,7 +89,21 @@ $(document).ready(function() {
     data = data[0];
 		console.log(data);
 
-		appendBotMessage(data, periodicAdvice);
+		// appendBotMessage(data, periodicAdvice);
+
+		$.ajax({
+      type: "POST",
+      url: server_url + '/storebotmessage/',
+      data: {'text': data['text'], 'month': month},
+      success: function () {
+
+				appendBotMessage(data, periodicAdvice);
+
+      },
+      error: function(response) {
+        console.log(response);
+      }
+    });
 
 		$("#portfolios").load(location.href+" #portfolios>*","", function() {
 			if ($('#followed-portfolio-wrapper').length) {
@@ -164,12 +178,12 @@ $(document).ready(function() {
     }, 500);
   }
 
-	var sendMessage = function(message, periodicAdvice) {
+	var sendMessage = function(message, periodicAdvice, fromNotification, fromButton) {
 		console.log(message);
 		if (message) {
       //socket.emit('user_uttered', {'message': chatInput, 'sender': 'rasa'});
 			var post_url = server_url + '/chatbotproxy/';
-			var post_data = {'message': message, 'sender': username};
+			var post_data = {'message': message, 'sender': username, 'periodic_advice': periodicAdvice, 'month': month, 'from_participant': true, 'from_notification': fromNotification, 'from_button': fromButton};
 			fetch(post_url, {
 				method: 'POST',
 				body: JSON.stringify(post_data),
@@ -216,30 +230,30 @@ $(document).ready(function() {
 	};
 
   $(document).on("click", ".sugg-options", function(event) {
-    sendMessage($(event.target).text(), false);
+    sendMessage($(event.target).text(), false, false, true);
   });
 
 	$(document).on("click", ".sugg-options-notification", function(event) {
-    sendMessage($(event.target).text(), false);
+    sendMessage($(event.target).text(), false, true, true);
   });
 
   $("#send-button").click(function() {
-    sendMessage($("#chat-input").val(), false);
+    sendMessage($("#chat-input").val(), false, false, false);
   });
 
 	$("#send-button-notification").click(function() {
-    sendMessage($("#chat-input-notification").val(), false);
+    sendMessage($("#chat-input-notification").val(), false, true, false);
   });
 
 	$('#chat-input').keyup(function (e) {
     if (e.keyCode === 13) {
-			sendMessage($("#chat-input").val(), false);
+			sendMessage($("#chat-input").val(), false, false, false);
     }
 	});
 
 	$('#chat-input-notification').keyup(function (e) {
     if (e.keyCode === 13) {
-			sendMessage($("#chat-input-notification").val(), false);
+			sendMessage($("#chat-input-notification").val(), false, true, false);
     }
 	});
 

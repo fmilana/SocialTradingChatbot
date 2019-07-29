@@ -7,8 +7,10 @@ from .views import (
     chatbot_page,
     update_portfolios,
     update_balances,
+    update_month,
     get_next_changes,
     participants_view,
+    store_bot_message
     )
 
 urlpatterns = [
@@ -17,7 +19,8 @@ urlpatterns = [
     path('imagetagging/', include('imagetagging.urls'), name='imagetagging'),
     path('updateportfolios/', update_portfolios, name='updateportfolios'),
     path('updatebalances/', update_balances, name='updatebalances'),
+    path('updatemonth', update_month, name='updatemonth'),
     path('getnextchanges/', get_next_changes, name='getnextchanges'),
     path('participants/', participants_view, name='participants-view'),
-
+    path('storebotmessage/', store_bot_message, name='storebotmessage')
 ]

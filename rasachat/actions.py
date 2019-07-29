@@ -23,7 +23,7 @@ sys.path.insert(0, project_dir)
 import os, django
 os.environ["DJANGO_SETTINGS_MODULE"] = 'investment_bot.settings'
 django.setup()
-from chatbot.models import Portfolio, Profile, Balance
+from chatbot.models import Portfolio, Profile, Balance, Month, UserAction
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.aggregates import Count
@@ -377,6 +377,8 @@ class Follow(Action):
 
             if amount_query == 'valid':
                 balance = Balance.objects.get(user=user)
+                available_before = balance.available
+                invested_before = balance.invested
                 balance.available -= round(Decimal(amount), 2)
 
                 if balance.available < 0:
@@ -389,6 +391,19 @@ class Follow(Action):
                     portfolio.save()
                     print(Portfolio.objects.filter(followed=True).aggregate(Sum('invested')).get('invested__sum'))
                     message = "You are now following " + profile_name.title() + "."
+
+                    month = Month.objects.get(user=user).number
+
+                    user_action = UserAction(user=user,
+                     month=month,
+                     available=available_before,
+                     invested=invested_before,
+                     portfolio=profile_name.title(),
+                     chatbot_change=portfolio.chatbotNextChange,
+                     newspost_change=portfolio.newspostNextChange,
+                     action="Follow",
+                     amount=amount)
+                    user_action.save()
             else:
                 message = "That's not a valid amount."
 
@@ -423,12 +438,28 @@ class Unfollow(Action):
             portfolio = Portfolio.objects.get(user=user, profile=profile_object.id)
 
             balance = Balance.objects.get(user=user)
+            available_before = balance.available
+            invested_before = balance.invested
+            portfolio_invested_before = portfolio.invested
             balance.available += portfolio.invested
             balance.save()
 
             portfolio.followed = False
             portfolio.invested = 0.00
             portfolio.save()
+
+            month = Month.objects.get(user=user).number
+
+            user_action = UserAction(user=user,
+             month=month,
+             available=available_before,
+             invested=invested_before,
+             portfolio=profile_name.title(),
+             chatbot_change=portfolio.chatbotNextChange,
+             newspost_change=portfolio.newspostNextChange,
+             action="Unfollow",
+             amount=portfolio_invested_before)
+            user_action.save()
 
             message = "You have stopped following " + profile_name.title() + "."
 
@@ -477,6 +508,8 @@ class AddAmount(Action):
 
                 if amount > 0:
                     balance = Balance.objects.get(user=user)
+                    available_before = balance.available
+                    invested_before = balance.invested
                     balance.available -= amount
 
                     if balance.available < 0:
@@ -486,6 +519,19 @@ class AddAmount(Action):
 
                         portfolio.invested += amount
                         portfolio.save()
+
+                        month = Month.objects.get(user=user).number
+
+                        user_action = UserAction(user=user,
+                         month=month,
+                         available=available_before,
+                         invested=invested_before,
+                         portfolio=profile_name.title(),
+                         chatbot_change=portfolio.chatbotNextChange,
+                         newspost_change=portfolio.newspostNextChange,
+                         action="Add",
+                         amount=amount)
+                        user_action.save()
 
                         message = "You have invested another £" + str(amount) + " in " + profile_name.title() + "."
                 else:
@@ -542,6 +588,8 @@ class WithdrawAmount(Action):
                     message = "That's not a valid amount to withdraw."
                 else:
                     balance = Balance.objects.get(user=user)
+                    available_before = balance.available
+                    invested_before = balance.invested
                     balance.available += amount
                     balance.save()
 
@@ -552,6 +600,19 @@ class WithdrawAmount(Action):
                         message = "You have withdrawn £" + str(amount) + " from " + profile_name.title() + "."
 
                     portfolio.save()
+
+                    month = Month.objects.get(user=user).number
+
+                    user_action = UserAction(user=user,
+                     month=month,
+                     available=available_before,
+                     invested=invested_before,
+                     portfolio=profile_name.title(),
+                     chatbot_change=portfolio.chatbotNextChange,
+                     newspost_change=portfolio.newspostNextChange,
+                     action="Withdraw",
+                     amount=amount)
+                    user_action.save()
             else:
                 message = "That's not a valid amount."
 
@@ -583,12 +644,28 @@ class UnfollowEveryone(Action):
             balance = Balance.objects.get(user=user)
 
             for portfolio in followed_portfolios:
+                available_before = balance.available
+                invested_before = balance.invested
+                portfolio_invested_before = portfolio.invested
                 balance.available += portfolio.invested
 
                 portfolio.followed = False
                 portfolio.invested = 0.00
 
                 portfolio.save()
+
+                month = Month.objects.get(user=user).number
+
+                user_action = UserAction(user=user,
+                 month=month,
+                 available=available_before,
+                 invested=invested_before,
+                 portfolio=portfolio.profile.name.title(),
+                 chatbot_change=portfolio.chatbotNextChange,
+                 newspost_change=portfolio.newspostNextChange,
+                 action="Unfollow",
+                 amount=portfolio_invested_before)
+                user_action.save()
 
             balance.save()
 
