@@ -38,8 +38,8 @@ $(document).ready(function() {
 
 	    buttons = data['buttons'];
 
-			if (conditionActive && typeof buttons !== 'undefined') {
-				addSuggestion(buttons);
+			if (typeof buttons !== 'undefined') {
+				addSuggestions(buttons);
 			}
 
 			$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
@@ -100,19 +100,14 @@ $(document).ready(function() {
 		adviceCountdown = 30;
 	}
 
-  function addSuggestion(suggestions) {
+  function addSuggestions(suggestions) {
     setTimeout(function () {
 
-			$('.suggestion-row-notification').remove();
-
-			$('<div class="row suggestion-row-notification"></div>').appendTo('#result_div_notification');
-    	$('<div class="row suggestion-row"></div>').appendTo('#result_div');
-
-			var addSuggestions = true;
+			var addToNotification = true;
 
 			for (i = 0; i < suggestions.length; i++) {
 				if (suggestions[i].title == "Give me some advice") {
-					addSuggestions = false;
+					addToNotification = false;
 					setTimeout(function() {
 						$('.notification').fadeOut("slow", function() {
 							//Stuff to do *after* the animation takes place
@@ -121,25 +116,32 @@ $(document).ready(function() {
 				}
 			}
 
-      // Loop through suggestions
-      for (i = 0; i < suggestions.length; i++) {
-        $('<p class="sugg-options">' + suggestions[i].title + '</p>').appendTo('.suggestion-row');
-				if (addSuggestions) {
-					console.log('adding notifications');
-					$('<p class="sugg-options-notification">' + suggestions[i].title + '</p>').appendTo('.suggestion-row-notification');
+			if (conditionActive){
+				$('.suggestion-row-notification').remove();
+
+				$('<div class="row suggestion-row-notification"></div>').appendTo('#result_div_notification');
+	    	$('<div class="row suggestion-row"></div>').appendTo('#result_div');
+
+	      // Loop through suggestions
+	      for (i = 0; i < suggestions.length; i++) {
+	        $('<p class="sugg-options">' + suggestions[i].title + '</p>').appendTo('.suggestion-row');
+					if (addToNotification) {
+						console.log('adding notifications');
+						$('<p class="sugg-options-notification">' + suggestions[i].title + '</p>').appendTo('.suggestion-row-notification');
+					}
 				}
-			}
 
-			suggestionRowHeight = $('.suggestion-row').height();
-    	resultDivHeight = $(window).height() - (215 + suggestionRowHeight);
-			$('#result_div').css("height", resultDivHeight);
-      $('#result_div').scrollTop($('#result_div')[0].scrollHeight);
+				suggestionRowHeight = $('.suggestion-row').height();
+	    	resultDivHeight = $(window).height() - (215 + suggestionRowHeight);
+				$('#result_div').css("height", resultDivHeight);
+	      $('#result_div').scrollTop($('#result_div')[0].scrollHeight);
 
-			if (addSuggestions) {
-				suggestionRowNotificationHeight = $('.suggestion-row-notification').height();
-				resultDivNotificationHeight = $('.notification').height() - (90 + suggestionRowNotificationHeight);
-				$('#result_div_notification').css("height", resultDivNotificationHeight);
-	      $('#result_div_notification').scrollTop($('#result_div')[0].scrollHeight);
+				if (addToNotification) {
+					suggestionRowNotificationHeight = $('.suggestion-row-notification').height();
+					resultDivNotificationHeight = $('.notification').height() - (90 + suggestionRowNotificationHeight);
+					$('#result_div_notification').css("height", resultDivNotificationHeight);
+		      $('#result_div_notification').scrollTop($('#result_div')[0].scrollHeight);
+				}
 			}
     }, 500);
   }
