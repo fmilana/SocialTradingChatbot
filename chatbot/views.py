@@ -116,18 +116,18 @@ def participants_view(request):
         data = json.dumps(error)
         return HttpResponseBadRequest(data, content_type='application/json')
 
-    # condition = Condition.objects.first()
-    # condition_active = condition.active
+    condition = Condition.objects.first()
+    condition_active = condition.active
 
-    # participant = Participant(user=user, condition_active=condition_active)
-    # participant.save()
+    participant = Participant(user=user, condition_active=condition_active)
+    participant.save()
 
-    # if condition_active:
-    #     condition.active = False
-    # else:
-    #     condition.active = True
+    if condition_active:
+        condition.active = False
+    else:
+        condition.active = True
 
-    # condition.save()
+    condition.save()
 
     # # TODO: create participant
     # participant = Participant()
@@ -344,13 +344,14 @@ def generate_next_portfolio_changes(request):
 
         portfolio.save()
 
+
 @csrf_exempt
 @require_http_methods(['GET', 'POST'])
 @login_required
 def questionnaire_view(request):
     if request.method == 'GET':
         questionnaire = '''[
-    {'label': '<hr><h5>Please answer the following questions <u>based on your overall experience completing <font color="red">the grouping task in this study</font></u></h5><hr>'}, 
+    {'label': '<hr><h5>Please answer the following questions <u>based on your overall experience completing <font color="red">the grouping task in this study</font></u></h5><hr>'},
     {'question': '1. For this given task, which of these three visualizations do you think is the <strong>easiest</strong> to work with?', choices: ['Matrix', 'Dendrogram', 'Network']},
     {'question': '2. For this given task, which of these three visualizations do you think is the <strong>most difficult</strong> to work with?', choices: ['Matrix', 'Dendrogram', 'Network']},
     {'question': '3. If the task changes, and now you need to <strong>group all the items</strong>(i.e. divide them into several groups), which visualization will you prefer to use?', choices: ['Matrix', 'Dendrogram', 'Network']},
@@ -382,4 +383,3 @@ def questionnaire_view(request):
         completion_url = 'https://app.prolific.ac/submissions/complete?cc=' # https://app.prolific.ac/submissions/complete?cc=' + study_id
         return redirect(completion_url)
         # return HttpResponse('the end')
-
