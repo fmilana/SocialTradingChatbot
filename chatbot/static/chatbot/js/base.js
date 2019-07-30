@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  if (window.location.pathname == "/" || window.location.pathname == "/information/" || window.location.pathname == "/consent/") {
+  if (window.location.pathname == "/" || window.location.pathname == "/information/" || window.location.pathname == "/consent/" || window.location.pathname == "/results/") {
     $('.navbar').hide();
   }
 });

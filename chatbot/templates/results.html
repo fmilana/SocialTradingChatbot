@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load mathfilters %}
+
+{% block js_imports %}
+  <script src="{% static 'chatbot/js/result.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class='jumbotron text-center'>
+  <h1>Your Final Results!</h1>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="offset-3 col-6">
+            <p>The study is over. We hope you enjoyed it! Here is an overview of your performance on the social trading and image-tagging task:</p>
+            <div class="results">
+                <br>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td> </td>
+                            <td style="text-align:right">
+                                <span class="title">Total</span>
+                            </td>
+                            <td style="text-align:right">
+                                <span class="title">Profit</span>
+                            </td>
+                            <td style="text-align:right">
+                                <span class="title">Image Tagging</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Month 1</td>
+
+                            <td style="text-align:right">£{{ month_1_total }}</td>
+
+                            {% if month_1_profit >= 0 %}
+                              <td style="text-align:right"><span style="color:#41CE00">+£{{ month_1_profit }}</span></td>
+                            {% else %}
+                              <td style="text-align:right"><span style="color:#FF0000">-£{{ month_1_profit|abs }}</span></td>
+                            {% endif %}
+
+                            {% if month_1_images_tagged > 0 %}
+                              <td style="text-align:right"><span style="color:#41CE00">+£{{ month_1_images_tagged }}</span></td>
+                            {% else %}
+                              <td style="text-align:right">£{{ month_1_images_tagged }}0</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td>Month 2</td>
+
+                            <td style="text-align:right">£{{ month_2_total }}</td>
+
+                            {% if month_2_profit >= 0 %}
+                              <td style="text-align:right"><span style="color:#41CE00">+£{{ month_2_profit }}</span></td>
+                            {% else %}
+                              <td style="text-align:right"><span style="color:#FF0000">-£{{ month_2_profit|abs }}</span></td>
+                            {% endif %}
+
+                            {% if month_2_images_tagged > 0 %}
+                              <td style="text-align:right"><span style="color:#41CE00">+£{{ month_2_images_tagged }}</span></td>
+                            {% else %}
+                              <td style="text-align:right">£{{ month_2_images_tagged }}0</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td>Month 3</td>
+
+                            <td style="text-align:right">£{{ month_3_total }}</td>
+
+                            {% if month_3_profit >= 0 %}
+                              <td style="text-align:right"><span style="color:#41CE00">+£{{ month_3_profit }}</span></td>
+                            {% else %}
+                              <td style="text-align:right"><span style="color:#FF0000">-£{{ month_3_profit|abs }}</span></td>
+                            {% endif %}
+
+                            {% if month_3_images_tagged > 0 %}
+                              <td style="text-align:right"><span style="color:#41CE00">+£{{ month_3_images_tagged }}</span></td>
+                            {% else %}
+                              <td style="text-align:right">£{{ month_3_images_tagged }}0</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td>Month 4</td>
+
+                            <td style="text-align:right">£{{ month_4_total }}</td>
+
+                            {% if month_4_profit >= 0 %}
+                              <td style="text-align:right"><span style="color:#41CE00">+£{{ month_4_profit }}</span></td>
+                            {% else %}
+                              <td style="text-align:right"><span style="color:#FF0000">-£{{ month_4_profit|abs }}</span></td>
+                            {% endif %}
+
+                            {% if month_4_images_tagged > 0 %}
+                              <td style="text-align:right"><span style="color:#41CE00">+£{{ month_4_images_tagged }}</span></td>
+                            {% else %}
+                              <td style="text-align:right">£{{ month_4_images_tagged }}0</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td>Month 5</td>
+
+                            <td style="text-align:right">£{{ month_5_total }}</td>
+
+                            {% if month_5_profit >= 0 %}
+                              <td style="text-align:right"><span style="color:#41CE00">+£{{ month_5_profit }}</span></td>
+                            {% else %}
+                              <td style="text-align:right"><span style="color:#FF0000">-£{{ month_5_profit|abs }}</span></td>
+                            {% endif %}
+
+                            {% if month_5_images_tagged > 0 %}
+                              <td style="text-align:right"><span style="color:#41CE00">+£{{ month_5_images_tagged }}</span></td>
+                            {% else %}
+                              <td style="text-align:right">£{{ month_5_images_tagged }}0</td>
+                            {% endif %}
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br>
+                {% if final_score >= 0 %}
+                  <h5>Final score: <span style="color:#41CE00">+£{{ final_score }}</span></h5>
+                {% else %}
+                  <h5>Final score: <span style="color:#FF0000">-£{{ final_score|abs }}</span></h5>
+                {% endif %}
+                <br>
+                <p>Please click on the button below to continue with the questionnaire, the last part of the study.</p>
+                <br>
+                <a class="btn btn-primary" href="https://uclpsych.eu.qualtrics.com/jfe/form/SV_emkPt9VdAT1eD7D?PROLIFIC_PID={{ username }}" role="button">Proceed to the Survey</a>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

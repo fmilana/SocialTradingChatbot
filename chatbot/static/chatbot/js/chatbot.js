@@ -76,30 +76,6 @@ $(document).ready(function() {
             keyboard: false
           });
 
-          if (month < 5) {
-            month++;
-            $('#month-number').html(month);
-
-            $.ajax({
-              type: "GET",
-              url: server_url + '/updatemonth/',
-              success: function (response) {
-                console.log(response);
-              }
-            });
-
-            $('#result_div').append('<row><p id="month-chat">Month: ' + month + '/5</p></row>')
-            $('#result_div').scrollTop($('#result_div')[0].scrollHeight);
-          } else {
-            $('#month-number').html(month);
-
-            $('#result_div').append('<row><p id="month-chat">Month: ' + month + '/5</p></row>')
-            $('#result_div').scrollTop($('#result_div')[0].scrollHeight);
-
-
-
-            // RESULTS
-          }
 
           $.ajax({
               type: "GET",
@@ -135,6 +111,8 @@ $(document).ready(function() {
 
                   string = '';
 
+                  invested_balance_change = 0;
+
                   if (old_invested_amount == 0) {
                     string = '+0.00%';
                     span.removeClass('positive-change');
@@ -165,12 +143,46 @@ $(document).ready(function() {
                     }
                   }
 
-                  console.log('invested balance change string = ' + string);
+                  available_balance = parseFloat($('#available-balance-amount').text());
+                  profit = parseFloat(parseFloat(available_balance) + parseFloat(new_invested_amount)) - parseFloat(parseFloat(available_balance) + parseFloat(old_invested_amount))
+
+                  $.ajax({
+                    type: "POST",
+                    url: server_url + '/updateresults/',
+                    data: {'month': month, 'invested_change': profit, 'profit': parseFloat(profit), 'total': parseFloat(available_balance) + parseFloat(new_invested_amount)},
+                    success: function () {
+
+                      $.ajax({
+                        type: "GET",
+                        url: server_url + '/updatemonth/',
+                        success: function (response) {
+                          console.log(response);
+
+                          if (response['has_increased']) {
+                            month++;
+                            $('#month-number').html(month);
+                            $('#result_div').append('<row><p id="month-chat">Month: ' + month + '/5</p></row>')
+                            $('#result_div').scrollTop($('#result_div')[0].scrollHeight);
+                          } else {
+
+                            window.location.href = server_url + "/results";
+
+                          }
+                        }
+                      });
+
+                    },
+                    error: function() {}
+                  });
 
                   span.text(string);
                   $('#parentheses').show();
               }
           });
+
+
+
+
 
           $('.scrollable-newsposts').empty();
           newspostCounter = 0;

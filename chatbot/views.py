@@ -19,7 +19,7 @@ from django.db import IntegrityError
 
 from .djutils import to_dict
 
-from .models import Profile, Portfolio, Balance, Month, Message, Participant, Condition, DismissNotificationCount
+from .models import Profile, Portfolio, Balance, Month, Message, Participant, Condition, DismissNotificationCount, Result
 
 
 def welcome_page(request):
@@ -32,6 +32,37 @@ def information_page(request):
 
 def consent_page(request):
     return render(request, 'consent.html')
+
+
+@login_required
+def results_page(request):
+    user = request.user
+    result1 = Result.objects.get(user=user, month=1)
+    result2 = Result.objects.get(user=user, month=2)
+    result3 = Result.objects.get(user=user, month=3)
+    result4 = Result.objects.get(user=user, month=4)
+    result5 = Result.objects.get(user=user, month=5)
+
+    context = {
+        'month_1_total': result1.total,
+        'month_1_profit': result1.profit,
+        'month_1_images_tagged': float(result1.images_tagged*10),
+        'month_2_total': result2.total,
+        'month_2_profit': result2.profit,
+        'month_2_images_tagged': float(result2.images_tagged*10),
+        'month_3_total': result3.total,
+        'month_3_profit': result3.profit,
+        'month_3_images_tagged': float(result3.images_tagged*10),
+        'month_4_total': result4.total,
+        'month_4_profit': result4.profit,
+        'month_4_images_tagged': float(result4.images_tagged*10),
+        'month_5_total': result5.total,
+        'month_5_profit': result5.profit,
+        'month_5_images_tagged': float(result5.images_tagged*10),
+        'final_score': result5.total - 1000
+        }
+
+    return render(request, 'results.html', context)
 
 
 @csrf_exempt
@@ -70,6 +101,9 @@ def participants_view(request):
 
         balance = Balance(user=user, available=1000.00)
         balance.save()
+
+        result = Result(user=user, month=1, profit=0.00, images_tagged=0, total=1000.00)
+        result.save()
 
         dismiss_notification_count = DismissNotificationCount(user=user, count=0)
         dismiss_notification_count.save()
@@ -196,6 +230,26 @@ def update_portfolios(request):
     return HttpResponse(json.dumps(response), content_type="application/json")
 
 
+@csrf_exempt
+@login_required
+def update_results(request):
+    user = request.user
+    month = int(request.POST['month'])
+    profit = float(request.POST['profit'])
+    total = float(request.POST['total'])
+
+    print('GETTING RESULT OBJECT WITH MONTH = ' + str(month))
+    print('profit = ' + str(profit))
+    print('total = ' + str(total))
+
+    result = Result.objects.get(user=user, month=month)
+    result.profit = profit
+    result.total = total
+    result.save()
+
+    return HttpResponse("")
+
+
 @login_required
 def update_balances(request):
     user = request.user
@@ -223,10 +277,20 @@ def update_month(request):
     user = request.user
     month = Month.objects.get(user=user)
 
-    month.number += 1
-    month.save()
+    response = {}
 
-    return HttpResponse("")
+    if month.number < 5:
+        month.number += 1
+        month.save()
+
+        result = Result(user=user, month=month.number, profit=0.00, images_tagged=0, total=0.00)
+        result.save()
+
+        response['has_increased'] = True
+    else:
+        response['has_increased'] = False
+
+    return HttpResponse(json.dumps(response), content_type="application/json")
 
 
 @login_required

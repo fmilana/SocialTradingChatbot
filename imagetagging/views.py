@@ -11,7 +11,7 @@ from .forms import TagForm
 from .models import Tag, ImageTask
 # from study.models import Participant
 
-from chatbot.models import Balance
+from chatbot.models import Balance, Month, Result
 
 from decimal import Decimal
 
@@ -77,7 +77,7 @@ def tags(request):
     # check whether now the user has 3 correct tags for this image
     correct_count = Tag.objects.filter(image_task=tag.image_task, user=request.user, correct=True).count()
     if correct_count == 3:
-        reward_amount = Decimal('50.00')
+        reward_amount = Decimal('10.00')
         balance = Balance.objects.get(user=request.user)
 
         print(balance.available)
@@ -87,6 +87,12 @@ def tags(request):
 
         response['complete'] = True
         response['balance'] = str(balance.available)
+
+        month = Month.objects.get(user=tag.user)
+
+        result = Result.objects.get(user=tag.user, month=month.number)
+        result.images_tagged += 1
+        result.save()
 
         # increment the participant's earned
         # participant = Participant.objects.get(user=request.user)

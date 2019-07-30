@@ -4,10 +4,6 @@
 {% load static from staticfiles %}
 {% load static %}
 
-{% block js_imports %}
-  <script src="{% static 'chatbot/js/welcome.js' %}"></script>
-{% endblock %}
-
 {% block content %}
 <div class='jumbotron text-center'>
   <h1>Participant Information</h1>
@@ -26,7 +22,7 @@
 
             <p>In the investment task, you will be shown 10 portfolios, their risk factor and how much their value changed in the last month. By following a portfolio, you decide to invest a sum of money and copy that person's investment strategy. To follow, unfollow, add or withdraw from portfolios, you will need to <strong>interact with a chatbot</strong>, which can give you relevant advice on what to do. You will also see predictions (from external sources) on how much portfolios will change in the following month in the <strong>Newsfeed</strong> section of the page.</p>
 
-            <p>In the image-tagging task, you will be shown an image that you are asked to label with three keywords that best describe it. To successfully complete one task, the labels you provide must match the labels that we use for the image (based on the tags of a major image hosting/sharing service). There are 60 of these tasks available. Each successfully completed image-tagging task earns you <strong>£50.00</strong> in virtual money.</p>
+            <p>In the image-tagging task, you will be shown an image that you are asked to label with three keywords that best describe it. To successfully complete one task, the labels you provide must match the labels that we use for the image (based on the tags of a major image hosting/sharing service). There are 60 of these tasks available. Each successfully completed image-tagging task earns you <strong>£10.00</strong> in virtual money.</p>
 
             <p>Please note that the chatbot might notify of portfolios to follow/unfollow while you are performing the image-tagging task.</p>
 

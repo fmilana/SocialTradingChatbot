@@ -133,3 +133,18 @@ class DismissNotificationCount(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class Result(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    month = models.IntegerField(default=1, null=False)
+    profit = models.DecimalField(max_digits=6, decimal_places=2, null=False)
+    images_tagged = models.IntegerField(default=0, null=False)
+    total = models.DecimalField(max_digits=6, decimal_places=2, null=False)
+
+    class Meta:
+        verbose_name = 'Result'
+        verbose_name_plural = 'Results'
+
+    def __str__(self):
+        return self.user.username + ", Month: " + str(self.month)

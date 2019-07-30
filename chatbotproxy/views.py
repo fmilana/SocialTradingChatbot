@@ -15,7 +15,7 @@ def webhook_view(request):
     # localhost:5005/webhooks/rest/webhook
     url = "http://localhost:5500/webhooks/rest/webhook"
     # TODO: get json data from the request
-    print('client_data:', client_data)
+    # print('client_data:', client_data)
     json_data = json.dumps(client_data)
     # json_data = client_data
 
