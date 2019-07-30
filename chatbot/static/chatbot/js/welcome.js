@@ -2,12 +2,16 @@ $(function () {
 
   $('input#consentCheck').click(function () {
     $('button#startButton').prop('disabled', function(i, v) { return !v; });
-
   });
 
-  // $('button#startButton').click(function () {
-  //   window.location.href = "/chatbot";
-  // });
+  $('input#consentCheck').click(function () {
+      $('button#continueButton').prop('disabled', function(i, v) { return !v; });
+  });
+
+  $('button#continueButton').click(function () {
+      window.location.href = server_url + "/chatbot/";
+  });
+
 
   $('button#startButton').click(function () {
     // var username = $('#usernameInput').val();
@@ -21,8 +25,8 @@ $(function () {
       data: {'username': username},
       success: function () {
         console.log('username:', username);
-        // window.location.href = server_url + "/tasks/";
-        window.location.href = server_url + "/chatbot";
+        // window.location.href = server_url + "/chatbot";
+        window.location.href = server_url + "/information";
       },
       error: function (data, msg, reason) {
         console.log('error arguments', data.responseJSON);
