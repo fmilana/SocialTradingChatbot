@@ -27,6 +27,14 @@ def welcome_page(request):
     return render(request, 'welcome.html')
 
 
+def information_page(request):
+    return render(request, 'information.html')
+
+
+def consent_page(request):
+    return render(request, 'consent.html')
+
+
 @csrf_exempt
 @require_POST
 def participants_view(request):
