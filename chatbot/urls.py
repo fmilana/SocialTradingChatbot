@@ -12,7 +12,8 @@ from .views import (
     get_next_changes,
     participants_view,
     update_dismiss_notification_count,
-    store_bot_message
+    store_bot_message,
+    questionnaire_view,
     )
 
 urlpatterns = [
@@ -26,5 +27,7 @@ urlpatterns = [
     path('getnextchanges/', get_next_changes, name='getnextchanges'),
     path('participants/', participants_view, name='participants-view'),
     path('updatedismissnotificationcount/', update_dismiss_notification_count, name='updatedismissnotificationcount'),
-    path('storebotmessage/', store_bot_message, name='storebotmessage')
+    path('storebotmessage/', store_bot_message, name='storebotmessage'),
+    path('questionnaire/', questionnaire_view, name='questionnaire_view'),
+
 ]

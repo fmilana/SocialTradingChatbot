@@ -3,11 +3,12 @@ import json
 import random
 from random import gauss, randrange
 import decimal
+import os
 
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render
 from django.template.loader import get_template
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 
 from django.contrib.auth.models import User
@@ -73,18 +74,18 @@ def participants_view(request):
         data = json.dumps(error)
         return HttpResponseBadRequest(data, content_type='application/json')
 
-    condition = Condition.objects.first()
-    condition_active = condition.active
+    # condition = Condition.objects.first()
+    # condition_active = condition.active
 
-    participant = Participant(user=user, condition_active=condition_active)
-    participant.save()
+    # participant = Participant(user=user, condition_active=condition_active)
+    # participant.save()
 
-    if condition_active:
-        condition.active = False
-    else:
-        condition.active = True
+    # if condition_active:
+    #     condition.active = False
+    # else:
+    #     condition.active = True
 
-    condition.save()
+    # condition.save()
 
     # # TODO: create participant
     # participant = Participant()
@@ -270,3 +271,43 @@ def generate_next_portfolio_changes(request):
         portfolio.newspostNextChange = newspost_change
 
         portfolio.save()
+
+@csrf_exempt
+@require_http_methods(['GET', 'POST'])
+@login_required
+def questionnaire_view(request):
+    if request.method == 'GET':
+        questionnaire = '''[
+    {'label': '<hr><h5>Please answer the following questions <u>based on your overall experience completing <font color="red">the grouping task in this study</font></u></h5><hr>'}, 
+    {'question': '1. For this given task, which of these three visualizations do you think is the <strong>easiest</strong> to work with?', choices: ['Matrix', 'Dendrogram', 'Network']},
+    {'question': '2. For this given task, which of these three visualizations do you think is the <strong>most difficult</strong> to work with?', choices: ['Matrix', 'Dendrogram', 'Network']},
+    {'question': '3. If the task changes, and now you need to <strong>group all the items</strong>(i.e. divide them into several groups), which visualization will you prefer to use?', choices: ['Matrix', 'Dendrogram', 'Network']},
+    {'question': '4. Please specify your reasons for <strong>Question 3</strong>.'},
+    {'question': '<hr>Please leave your comments about the overall experience about this study, or your suggestions for improvement.'}
+        ]
+        '''
+        context = {
+            'questionnaire': questionnaire,
+        }
+        template_path = 'questionnaire.html'
+        return render(request, template_path, context=context)
+    elif request.method == 'POST':
+        # TODO: store the result(s) and render/redirect to the next page
+        post_data = json.loads(request.body.decode('utf-8'))
+        # questionnaire_response = QuestionnaireResponse(
+        #     participant = request.user.participant,
+        #     answer = post_data['groups'],
+        #     completion_time = post_data['task_completion_time'],
+        #     subtask_time = post_data['log']
+        # )
+        # task_response.save()
+
+        # TODO: redirect to some end page
+        # https://app.prolific.ac/submissions/complete?cc=J8OWBL27
+        #study_settings = StudySettings.load()
+        #study_id = study_settings.prolific_study_id
+        # TODO: Fix this url
+        completion_url = 'https://app.prolific.ac/submissions/complete?cc=' # https://app.prolific.ac/submissions/complete?cc=' + study_id
+        return redirect(completion_url)
+        # return HttpResponse('the end')
+
