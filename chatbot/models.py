@@ -106,7 +106,7 @@ class Message(models.Model):
 
 class UserAction(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    month = models.IntegerField(null=False)
+    month = models.IntegerField(default=1, null=False)
     available = models.DecimalField(max_digits=6, decimal_places=2, null=False)
     invested = models.DecimalField(max_digits=6, decimal_places=2, null=False)
     portfolio = models.CharField(max_length=128, null=False)
@@ -116,8 +116,20 @@ class UserAction(models.Model):
     amount = models.DecimalField(max_digits=6, decimal_places=2, null=True)
 
     class Meta:
-        verbose_name = 'UserAction'
-        verbose_name_plural = 'UserActions'
+        verbose_name = 'User Action'
+        verbose_name_plural = 'User Actions'
 
     def __str__(self):
         return self.user.username + ': ' + self.action + " (" + str(self.amount) + ") " + self.portfolio
+
+
+class DismissNotificationCount(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    count = models.IntegerField(default=0, null=False)
+
+    class Meta:
+        verbose_name = 'Dismiss Notification Count'
+        verbose_name_plural = 'Dismiss Notification Counts'
+
+    def __str__(self):
+        return self.user.username

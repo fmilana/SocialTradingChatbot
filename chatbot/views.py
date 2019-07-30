@@ -19,7 +19,7 @@ from django.db import IntegrityError
 
 from .djutils import to_dict
 
-from .models import Profile, Portfolio, Balance, Month, Message, Participant, Condition
+from .models import Profile, Portfolio, Balance, Month, Message, Participant, Condition, DismissNotificationCount
 
 
 def welcome_page(request):
@@ -61,8 +61,10 @@ def participants_view(request):
             portfolio.save()
 
         balance = Balance(user=user, available=1000.00)
-
         balance.save()
+
+        dismiss_notification_count = DismissNotificationCount(user=user, count=0)
+        dismiss_notification_count.save()
 
     except IntegrityError:
         error = {
@@ -110,6 +112,18 @@ def get_condition_active(request):
     response = {'condition_active': condition_active}
 
     return HttpResponse(json.dumps(response), content_type="application/json")
+
+
+@csrf_exempt
+@login_required
+def update_dismiss_notification_count(request):
+    user = request.user
+
+    dismiss_notification_count = DismissNotificationCount.objects.get(user=user)
+    dismiss_notification_count.count += 1
+    dismiss_notification_count.save()
+
+    return HttpResponse("")
 
 
 @login_required

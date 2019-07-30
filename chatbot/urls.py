@@ -11,6 +11,7 @@ from .views import (
     update_month,
     get_next_changes,
     participants_view,
+    update_dismiss_notification_count,
     store_bot_message
     )
 
@@ -24,5 +25,6 @@ urlpatterns = [
     path('updatemonth', update_month, name='updatemonth'),
     path('getnextchanges/', get_next_changes, name='getnextchanges'),
     path('participants/', participants_view, name='participants-view'),
+    path('updatedismissnotificationcount/', update_dismiss_notification_count, name='updatedismissnotificationcount'),
     path('storebotmessage/', store_bot_message, name='storebotmessage')
 ]

@@ -226,6 +226,12 @@ $(document).ready(function() {
 	});
 
 	$('#close-button').click(function() {
-		$('.notification').hide();
+		$.ajax({
+			type: "GET",
+			url: server_url + '/updatedismissnotificationcount/',
+			success: function(response) {
+				$('.notification').hide();
+			}
+		});
 	});
 });
