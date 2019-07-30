@@ -1,0 +1,65 @@
+{% extends "base.html" %} {% load i18n %}
+
+{% load staticfiles %}
+{% load static from staticfiles %}
+{% load static %}
+
+{% block js_imports %}
+  <script src="{% static 'chatbot/js/welcome.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class='jumbotron text-center'>
+  <h1>Participant Information</h1>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="offset-2 col-8">
+            <p>Project Title: Interacting with an investment chatbot: online study.</p>
+
+            <br>
+
+            <p>The purpose of this study is to inform the design of chatbots that aim to increase trust amonst users. The expected duration of the study is about <strong>20 minutes</strong>.</p>
+
+            <p>If you agree to participate, you will be asked to complete a series of computer-based tasks. There are two types of tasks available: <strong>(simulated) social trading/investment</strong> and <strong>image tagging</strong>. You can <strong>freely switch</strong> between the two tasks at any given time, however there is a <strong>time limit</strong> of 15 minutes split into five 3-minute "months", when the values of portfolios change.</p>
+
+            <p>In the investment task, you will be shown 10 portfolios, their risk factor and how much their value changed in the last month. By following a portfolio, you decide to invest a sum of money and copy that person's investment strategy. To follow, unfollow, add or withdraw from portfolios, you will need to <strong>interact with a chatbot</strong>, which can give you relevant advice on what to do. You will also see predictions (from external sources) on how much portfolios will change in the following month in the <strong>Newsfeed</strong> section of the page.</p>
+
+            <p>In the image-tagging task, you will be shown an image that you are asked to label with three keywords that best describe it. To successfully complete one task, the labels you provide must match the labels that we use for the image (based on the tags of a major image hosting/sharing service). There are 60 of these tasks available. Each successfully completed image-tagging task earns you <strong>£50.00</strong> in virtual money.</p>
+
+            <p>Please note that the chatbot might notify of portfolios to follow/unfollow while you are performing the image-tagging task.</p>
+
+            <p>You start the activity with an available balance of <strong>£1000.00</strong>. At the end of the activity, you will be provided with an overview of how much virtual money you earned or lost each month. The sum of virtual money you achieve reflects your performance/score on both tasks.</p>
+
+            <p>In the last part of the study, you will be asked a series of multiple choice questions about your experience of completing the tasks and using the agents which should not take more than a few minutes.</p>
+
+            <p>There are no particular risks associated with your participation other than those associated with the use of standard computer equipment.</p>
+            <br>
+
+            <h4>Data and Information.</h4>
+            <p>All data will be handled according to the Data Protection Act 1998 and will be kept anonymous. Only UCL researchers working with Dr. Enrico Costanza will analyse these data. </p>
+
+            <p>Any information that is obtained in connection with this study and that can be identified with you will remain confidential and will be disclosed only with your permission or as required by law. The information collected during the experiment will be kept separately from your personal identity. The information will be collected and stored in a password-protected computer. </p>
+            <br>
+
+            <h4>Withdrawing from the Study.</h4>
+            <p>If you decide you do not want the data to be recorded, or if you decide at a later date that you do not want these recordings to be kept in the form specified above, you may request that we delete the data from our dataset by contacting the principal investigator (e-mail e.costanza@ucl.ac.uk), within the next 20 days. After the next 20 days, any data will be fully anonymised (i.e. anything that may identify the data as yours will be removed) and may be made available to other researchers – as this can be helpful for other researchers working on similar topics.</p>
+
+            <p>You may withdraw at any time and for any reason during the study. You may access or withdraw your data at any time and for any reason within the next 20 days after the study ends when all the data is being anonymised or securely destroyed.</p>
+            <br>
+
+            <h4>Concerns or Complaints.</h4>
+            <p>Should you have any concern or complaint, you can ask in person the investigator conducting the study (ucjufmi@ucl.ac.uk) or contact at any point the principal investigator (e.costanza@ucl.ac.uk).</p>
+
+            <p>It is up to you to decide whether or not to take part. If you decide to take part you will be given this information sheet to keep and be asked to sign a consent form. If you decide to take part you are still free to withdraw at any time and without giving a reason. </p>
+            <br>
+
+            <button class="btn btn-primary" onclick="window.location.href = server_url + '/consent/'">Proceed to Consent Form</button>
+            <br>
+            <br>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
