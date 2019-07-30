@@ -138,7 +138,7 @@ class GiveFollowingAdvice(Action):
         if not not_followed_portfolios:
             message = "You are following everyone at the moment."
         else:
-            highest_change = 0
+            highest_change = 1
             pronoun = ''
 
             for portfolio in not_followed_portfolios:
@@ -193,7 +193,7 @@ class GiveUnfollowingAdvice(Action):
             if Portfolio.objects.filter(user=user, followed=True):
                 buttons.append({"title": "Who should I stop following?", "payload": "Who should I stop following?"})
         else:
-            lowest_change = 0
+            lowest_change = -1
             pronoun = ''
 
             for portfolio in followed_portfolios:
