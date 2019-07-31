@@ -11,7 +11,8 @@ from .models import (
     Participant,
     Condition,
     DismissNotificationCount,
-    Result
+    Result,
+    QuestionnaireResponse
     )
 
 admin.site.register(Profile)
@@ -23,3 +24,4 @@ admin.site.register(Participant)
 admin.site.register(Condition)
 admin.site.register(DismissNotificationCount)
 admin.site.register(Result)
+admin.site.register(QuestionnaireResponse)

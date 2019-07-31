@@ -6,7 +6,7 @@ import decimal
 import os
 
 from django.http import HttpResponse, HttpResponseBadRequest
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template.loader import get_template
 from django.views.decorators.http import require_POST, require_http_methods
 from django.views.decorators.csrf import csrf_exempt
@@ -20,7 +20,8 @@ from django.db import IntegrityError
 
 from .djutils import to_dict
 
-from .models import Profile, Portfolio, Balance, Month, Message, Participant, Condition, DismissNotificationCount, Result
+from .models import Profile, Portfolio, Balance, Month, Message, Participant, \
+    Condition, DismissNotificationCount, Result, QuestionnaireResponse
 
 
 def welcome_page(request):
@@ -367,19 +368,24 @@ def questionnaire_view(request):
     elif request.method == 'POST':
         # TODO: store the result(s) and render/redirect to the next page
         post_data = json.loads(request.body.decode('utf-8'))
-        # questionnaire_response = QuestionnaireResponse(
-        #     participant = request.user.participant,
-        #     answer = post_data['groups'],
-        #     completion_time = post_data['task_completion_time'],
-        #     subtask_time = post_data['log']
-        # )
-        # task_response.save()
+        questionnaire_response = QuestionnaireResponse(
+            user = request.user,
+            answer = post_data['groups'],
+            completion_time = post_data['task_completion_time'],
+            subtask_time = post_data['log']
+        )
+        questionnaire_response.save()
 
         # TODO: redirect to some end page
         # https://app.prolific.ac/submissions/complete?cc=J8OWBL27
         #study_settings = StudySettings.load()
         #study_id = study_settings.prolific_study_id
         # TODO: Fix this url
-        completion_url = 'https://app.prolific.ac/submissions/complete?cc=' # https://app.prolific.ac/submissions/complete?cc=' + study_id
-        return redirect(completion_url)
+        result = { 
+            'completion_url': 'https://app.prolific.ac/submissions/complete?cc=' 
+        }# https://app.prolific.ac/submissions/complete?cc=' + study_id
+        result_data = json.dumps(result)
+        return HttpResponse(result_data, content_type='application/json')
+
+        #return redirect(completion_url)
         # return HttpResponse('the end')

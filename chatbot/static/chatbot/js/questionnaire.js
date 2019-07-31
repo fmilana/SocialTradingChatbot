@@ -147,8 +147,7 @@ d3.select(window).on("load", function () {
 
         if (errors === false) {
             // post data to the server
-            var next_task_order = task_order + 1;
-            var post_url = server_url + "/tasks/?order=" + task_order;
+            var post_url = server_url + "/questionnaire/";
             var post_data = {
                 groups: results,
                 task_completion_time: task_completion_time,
@@ -161,9 +160,11 @@ d3.select(window).on("load", function () {
                 headers: {'Content-Type': 'application/json'}
             }).then(res => res.json()).then(response => {
                 console.log('POST response:', response);
+                console.log('POST response.headers:', response.headers);
                 // window.location.replace(server_url + "/tasks/?order=" + next_task_order);
-                window.location = server_url + "/tasks/?order=" + next_task_order;
-            }).error(err => {
+                // window.location = server_url + "/tasks/?order=" + next_task_order;
+                window.location = response.completion_url;
+            }).catch(err => {
                 console.log('POST error:', err);
             });
         }

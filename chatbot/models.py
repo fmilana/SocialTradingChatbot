@@ -1,3 +1,4 @@
+#coding:utf-8
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Sum
@@ -148,3 +149,11 @@ class Result(models.Model):
 
     def __str__(self):
         return self.user.username + ", Month: " + str(self.month)
+
+class QuestionnaireResponse(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    answer=models.TextField()
+    completion_time=models.FloatField()
+    subtask_time=models.TextField()
+    created_at=models.DateTimeField(auto_now_add=True)
+    updated_at=models.DateTimeField(auto_now=True)
