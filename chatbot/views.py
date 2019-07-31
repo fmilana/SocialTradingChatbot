@@ -382,7 +382,7 @@ def questionnaire_view(request):
         #study_id = study_settings.prolific_study_id
         # TODO: Fix this url
         result = { 
-            'completion_url': 'https://app.prolific.ac/submissions/complete?cc=' 
+            'completion_url': 'https://app.prolific.co/submissions/complete?cc=5E140EBC' 
         }# https://app.prolific.ac/submissions/complete?cc=' + study_id
         result_data = json.dumps(result)
         return HttpResponse(result_data, content_type='application/json')
