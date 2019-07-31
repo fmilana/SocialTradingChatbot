@@ -51,7 +51,7 @@ $(document).ready(function() {
 
   var isPaused = false;
 
-  var _seconds_left = 180;
+  var _seconds_left = 240;
 
   var newspostTimeout;
 
@@ -62,7 +62,7 @@ $(document).ready(function() {
           html;
       _seconds_left -= 1;
       if (_seconds_left < 1) {
-          _seconds_left = 180;
+          _seconds_left = 240;
 
           old_invested_amount = parseFloat($('#invested-balance-amount').text());
 
@@ -299,8 +299,8 @@ $(document).ready(function() {
 
 
   function setNewspostTimer() {
-    var min = 10;
-    var max = 20;
+    var min = 16;
+    var max = 26;
 
     var rand = Math.floor(Math.random() * (max - min + 1) + min);
 

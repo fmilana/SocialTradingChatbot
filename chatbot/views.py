@@ -352,11 +352,12 @@ def generate_next_portfolio_changes(request):
 def questionnaire_view(request):
     if request.method == 'GET':
         questionnaire = '''[
-    {'label': '<hr><h5>Please answer the following questions <u>based on your overall experience completing <font color="red">the grouping task in this study</font></u></h5><hr>'},
-    {'question': '1. For this given task, which of these three visualizations do you think is the <strong>easiest</strong> to work with?', choices: ['Matrix', 'Dendrogram', 'Network']},
-    {'question': '2. For this given task, which of these three visualizations do you think is the <strong>most difficult</strong> to work with?', choices: ['Matrix', 'Dendrogram', 'Network']},
-    {'question': '3. If the task changes, and now you need to <strong>group all the items</strong>(i.e. divide them into several groups), which visualization will you prefer to use?', choices: ['Matrix', 'Dendrogram', 'Network']},
-    {'question': '4. Please specify your reasons for <strong>Question 3</strong>.'},
+    {'label': '<hr><h5>Please answer the following questions <u>based on your overall experience</u> completing the study</h5><hr>'},
+    {'question': '1. From 1 to 5, how much did you trust the <strong>Chatbot</strong> by the end of the study?', choices: ['1', '2', '3', '4', '5']},
+    {'question': '2. From 1 to 5, how much did you trust the <strong>Newsfeed</strong> by the end of the study?', choices: ['1', '2', '3', '4', '5']},
+    {'question': '3. From 1 to 5, how useful were <strong>Chatbot notifications</strong>?', choices: ['1', '2', '3', '4', '5']},
+    {'question': '4. What would have made you trust the <strong>Chatbot</strong> more?'},
+    {'question': '5. Please leave your comments about your experience interacting with the <strong>Chatbot</strong>.'},
     {'question': '<hr>Please leave your comments about the overall experience about this study, or your suggestions for improvement.'}
         ]
         '''
@@ -381,8 +382,8 @@ def questionnaire_view(request):
         #study_settings = StudySettings.load()
         #study_id = study_settings.prolific_study_id
         # TODO: Fix this url
-        result = { 
-            'completion_url': 'https://app.prolific.co/submissions/complete?cc=5E140EBC' 
+        result = {
+            'completion_url': 'https://app.prolific.co/submissions/complete?cc=5E140EBC'
         }# https://app.prolific.ac/submissions/complete?cc=' + study_id
         result_data = json.dumps(result)
         return HttpResponse(result_data, content_type='application/json')
