@@ -1,5 +1,7 @@
 // var socket = require('socket.io-client')('http://localhost:5500');
 
+var botMessageAppended = false;
+
 $(document).ready(function() {
 
 	var adviceCountdown = 30;
@@ -31,6 +33,8 @@ $(document).ready(function() {
 				$('#result_div_notification br').remove();
 				$('.notification').css('display', 'inline-block');
 			}
+
+			botMessageAppended = true;
 
 			$("#result_div").append("<p id='bot-message'>" + message + "</p><br>");
 			$("#result_div_notification").append("<p id='bot-message'>" + message + "</p><br>");
@@ -147,6 +151,8 @@ $(document).ready(function() {
   }
 
 	var sendMessage = function(message, periodicAdvice, fromNotification, fromButton) {
+		botMessageAppended = false;
+
 		console.log(message);
 		if (message) {
       //socket.emit('user_uttered', {'message': chatInput, 'sender': 'rasa'});
@@ -178,12 +184,14 @@ $(document).ready(function() {
 				}
 			}
 			setTimeout(function(){
-				$('#result_div').append('<img id="typing-gif" src="' + staticUrl + 'chatbot/images/typing.svg">')
-				console.log('appending gif........');
-				$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
+				if (!botMessageAppended) {
+					$('#result_div').append('<img id="typing-gif" src="' + staticUrl + 'chatbot/images/typing.svg">')
+					console.log('appending gif........');
+					$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
 
-				$('#result_div_notification').append('<img id="typing-gif" src="' + staticUrl + 'chatbot/images/typing.svg">')
-				$('#result_div_notification').scrollTop($('#result_div_notification')[0].scrollHeight);
+					$('#result_div_notification').append('<img id="typing-gif" src="' + staticUrl + 'chatbot/images/typing.svg">')
+					$('#result_div_notification').scrollTop($('#result_div_notification')[0].scrollHeight);
+				}
 			}, 500);
 
       $('.suggestion-row').remove();
