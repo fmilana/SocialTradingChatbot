@@ -54,9 +54,9 @@ class GiveGeneralAdvice(Action):
 
         user = User.objects.get(username=username)
 
-        highest_change = 0
+        highest_change = 1
         highest_pronoun = ''
-        lowest_change = 0
+        lowest_change = -1
         lowest_pronoun = ''
 
         highest_changing_portfolio_name = None

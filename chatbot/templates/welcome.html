@@ -2,30 +2,34 @@
 
 <!-- {% load static %} -->
 {% load staticfiles %}
+{% load static from staticfiles %}
+{% load static %}
+
 {% block js_imports %}
     <script src="{% static 'chatbot/js/welcome.js' %}"></script>
 {% endblock %}
 
 {% block content %}
+<div class='jumbotron text-center'>
+  <h1>Welcome</h1>
+</div>
 
-    <div class='jumbotron text-center'>
-      <h1>Welcome</h1>
-    </div>
+<br>
+<p>Thank you for your interest in the study!</p>
 
-    <br>
-    <p>Thank you for your interest in the study!</p>
+<p>On the next page you will be presented with information about the study and what your participation involves.</p>
+<p>Please read the information carefully. You will only be able to proceed with the study if you consent to the participant information.</p>
 
-    <p>On the next page you will be presented with information about the study and what your participation involves.</p>
-    <p>Please read the information carefully. You will only be able to proceed with the study if you consent to the participant information.</p>
+<br>
 
-    <br>
+<p>When you are ready, press &quot;start&quot;.</p>
 
-    <p>When you are ready, press &quot;start&quot;.</p>
+<div class="form-group form-check">
+    <input type="checkbox" class="form-check-input" id="consentCheck">
+    <label class="form-check-label" for="consentCheck">I agree to the terms above</label>
+</div>
 
-    <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" id="consentCheck">
-        <label class="form-check-label" for="consentCheck">I agree to the terms above</label>
-    </div>
-
-    <button class="btn btn-primary" id="startButton" disabled>Start</button>
+<div id="button-div">
+  <button class="btn btn-primary" id="startButton" disabled>Start</button>
+</div>
 {% endblock %}

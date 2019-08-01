@@ -16,6 +16,9 @@ $(function () {
   $('button#startButton').click(function () {
     // var username = $('#usernameInput').val();
 
+    $('button#startButton').hide();
+    $('#button-div').append('<img id="typing-gif" src="' + staticUrl + 'chatbot/images/loading.gif" style="height:30px;">');
+
     searchParams = new URLSearchParams(window.location.search);
     username = searchParams.get('PROLIFIC_PID');
     console.log('username:', username);
