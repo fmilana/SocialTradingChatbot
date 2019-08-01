@@ -230,6 +230,7 @@
 - should i add [50](CARDINAL) to [aricka lewis](name)?
 - should I add [124.54](CARDINAL) on [ralph axelsen](name)
 - should i increase
+- should i add [20](CARDINAL) to [florianne](name)?
 - should I increase [Kanya](name)?
 - should i increase [william shore](name) by [5](CARDINAL)?
 - should I increase [Andrzej kraviec](name) by another [75](CARDINAL)
