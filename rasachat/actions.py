@@ -764,7 +764,6 @@ class ShouldIFollowAdvice(Action):
         if positive and followed:
             if amount_query == 'valid':
                 buttons.append({"title": "Do it", "payload": "Do it"})
-                buttons.append({"title": "Invest more on " + pronoun, "payload": "Invest more on " + pronoun})
                 buttons.append({"title": "Withdraw from " + pronoun, "payload": "Withdraw from " + pronoun})
                 buttons.append({"title": "Unfollow " + pronoun, "payload": "Unfollow " + pronoun})
                 buttons.append({"title": "Never mind", "payload": "Never mind"})
@@ -870,6 +869,7 @@ class ShouldIUnfollowAdvice(Action):
         if positive:
             if amount_query == 'valid':
                 buttons.append({"title": "Do it", "payload": "Do it"})
+                buttons.append({"title": "Invest more on " + pronoun, "payload": "Invest more on " + pronoun})
                 buttons.append({"title": "Never mind", "payload": "Never mind"})
             else:
                 buttons.append({"title": "Invest more on " + pronoun, "payload": "Invest more on " + pronoun})

@@ -4,14 +4,14 @@ var botMessageAppended = false;
 
 $(document).ready(function() {
 
-	var adviceCountdown = 30;
+	var adviceCountdown = 45;
 
 	adviceCountdownInterval = setInterval(function() {
 		if (adviceCountdown > 0) {
 			adviceCountdown -= 1;
 		} else {
 			sendMessage("Give me some advice", true, false, false);
-			adviceCountdown = 30;
+			adviceCountdown = 45;
 		}
 	}, 1000);
 
@@ -51,7 +51,7 @@ $(document).ready(function() {
 			$('#result_div_notification').scrollTop($('#result_div')[0].scrollHeight);
 		}
 
-		adviceCountdown = 30;
+		adviceCountdown = 45;
   }
 
   	// event when bot utters message
@@ -101,7 +101,7 @@ $(document).ready(function() {
 				}
 		});
 
-		adviceCountdown = 30;
+		adviceCountdown = 45;
 	}
 
   function addSuggestions(suggestions) {
@@ -202,7 +202,7 @@ $(document).ready(function() {
 			$('#result_div_notification').css("height", "220px");
 		}
 
-		adviceCountdown = 30;
+		adviceCountdown = 45;
 	};
 
   $(document).on("click", ".sugg-options", function(event) {

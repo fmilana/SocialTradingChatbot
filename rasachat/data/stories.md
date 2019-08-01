@@ -317,6 +317,13 @@
 * withdraw_amount
   - action_reset_slots
   - action_fetch_portfolio
+  - slot{"portfolio_query":"followed","name":"Benjamin Parker","amount_query":"valid","amount":"20"}
+  - action_withdraw_amount
+
+## withdraw_amount_successful
+* withdraw_amount
+  - action_reset_slots
+  - action_fetch_portfolio
   - slot{"portfolio_query":"followed","name":"Alois Reiter","amount_query":null,"amount":null}
   - action_ask_withdraw_amount
 * amount
@@ -692,6 +699,18 @@
   - slot{"portfolio_query":"followed","name":"Florianne Paget"}
 * amount
   - action_add_amount
+
+## should_i_add_amount_followed_with_withdraw_amount
+* should_i_add_amount
+  - action_reset_slots
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"followed","name":"Florianne Paget"}
+  - action_should_i_follow_advice
+* withdraw_from_him_her
+  - action_ask_withdraw_amount
+  - slot{"portfolio_query":"followed","name":"Florianne Paget"}
+* amount
+  - action_withdraw_amount
 
 ## should_i_add_amount_not_followed_with_add_successful
 * should_i_add_amount
