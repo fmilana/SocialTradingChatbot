@@ -71,7 +71,7 @@ actions:
 
 templates:
   utter_what_i_can_do:
-  - text: "You can tell me to follow or unfollow portfolios, add or withdraw amounts and ask me things like: \"Should I invest 50 in ralph?\" or \"Who should I unfollow?\". I'm here to give you accurate predictions!"
+  - text: "You can tell me to follow or unfollow portfolios, add or withdraw amounts and ask me things like:  \"Should I invest 50 in ralph?\", \"Who should I unfollow?\", \"Invest another 100 on Aricka\" or \"withdraw from alois\". I'm here to give you accurate predictions!"
     buttons:
       - title: "Give me some advice"
         payload: "Give me some advice"
