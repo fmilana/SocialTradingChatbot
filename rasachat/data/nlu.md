@@ -131,6 +131,8 @@
 - do you think I should follow anyone
 - should I follow some portfolios?
 - should I start following anyone
+- is there anyone I should follow
+- Is there anyone I should start following?
 
 ## intent:ask_unfollow_advice
 - who should I unfollow?
@@ -144,6 +146,8 @@
 - do you think I should stop following anyone?
 - should I unfollow someone
 - should i stop following someone?
+- is there anyone i should unfollow
+- is there anyone I should stop following?
 
 ## intent:should_i_follow
 - should i follow
