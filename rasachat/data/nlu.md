@@ -198,6 +198,9 @@
 - I would like to follow [william](name)
 - I want to start following [alois reiter](name)
 - I want to start following [kraviec](name)
+- invest in [ralph](name)
+- invest in [Masami](name)
+- invest in [Florianne Paget](name)
 
 ## intent:follow_him_her
 - follow
