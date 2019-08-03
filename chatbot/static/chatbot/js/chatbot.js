@@ -178,7 +178,7 @@ $(document).ready(function() {
                   }
 
                   available_balance = parseFloat($('#available-balance-amount').text());
-                  profit = parseFloat(parseFloat(available_balance) + parseFloat(new_invested_amount)) - parseFloat(parseFloat(available_balance) + parseFloat(old_invested_amount))
+                  profit = parseFloat(parseFloat(available_balance) + parseFloat(new_invested_amount)) - parseFloat(parseFloat(parseFloat(available_balance) + parseFloat(old_invested_amount)))
 
                   $.ajax({
                     type: "POST",
@@ -292,12 +292,12 @@ $(document).ready(function() {
             text = '';
 
             // newspost text based on change value and accuracy
-            if (newspost_change > 0) {
+            if (newspost_change >= 1) {
               text = name + '\'s portfolio to increase by ' + Math.abs(Math.round(newspost_change)) + '%.';
-            } else if (newspost_change == 0) {
-              text = name + '\'s portfolio to stay the same.';
-            } else {
+            } else if (newspost_change <= -1) {
               text = name + '\'s portfolio to decrease by ' + Math.abs(Math.round(newspost_change)) + '%.';
+            } else {
+              text = name + '\'s portfolio to stay the same.';
             }
 
             var div = '<div class="wrapper-newspost"> \
