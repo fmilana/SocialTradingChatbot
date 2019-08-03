@@ -56,7 +56,7 @@ def touch(c):
 def sync(c):
     rsync(c, './', "/srv/django-projects/" + env['project_remote'] + "/",
                    exclude=("fabfile.py", "*.pyc",".git*","*.db", "*.log", "venv",
-                            "uploads", 'media', '.tar.gz'),
+                            "uploads", 'media', '*.tar.gz'),
                    delete=False,
                    rsync_opts="",
                   )
