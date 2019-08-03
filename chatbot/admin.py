@@ -80,13 +80,23 @@ class UserActionAdmin(ExportActionModelAdmin):
     resource_class = UserActionResource
 
 
+class DismissNotificationCountResource(resources.ModelResource):
+    class Meta:
+        model = DismissNotificationCount
+        fields = ['user', 'count', 
+                    'user_username', 'user__participant__condition_active']
+
+class DismissNotificationCountAdmin(ExportActionModelAdmin):
+    list_display = ['__str__', 'count']
+    resource_class = DismissNotificationCountResource
+
 admin.site.register(Balance, BalanceAdmin)
 admin.site.register(Message, MessageAdmin)
 admin.site.register(Result, ResultAdmin)
 admin.site.register(UserAction, UserActionAdmin)
 admin.site.register(QuestionnaireResponse, QuestionnaireResponseAdmin)
+admin.site.register(DismissNotificationCount, DismissNotificationCountAdmin)
 admin.site.register(Profile)
 admin.site.register(Portfolio)
 admin.site.register(Participant)
 admin.site.register(Condition)
-admin.site.register(DismissNotificationCount)
