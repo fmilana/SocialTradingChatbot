@@ -285,7 +285,8 @@ h5 {
     display: none;
     position: fixed;
     bottom: 0;
-    right: 0;
+    /* right: 0; */
+    left: 0;
     width: 400px;
     height: 300px;
     margin: 20px;
@@ -333,7 +334,11 @@ h5 {
   /* display: inline-block; */
   display: none;
   position: relative;
-  width: 50%;
+  /* width: 50%; */
+  padding-left: 0px;
+  padding-right: 0px;
+  width: 150%;
+  max-width: 150%;
 }
 
 .img-fluid {

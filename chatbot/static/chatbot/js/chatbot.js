@@ -4,14 +4,32 @@ var month = 1;
 $(document).ready(function() {
 
   var contentHeight = $(".content-container").height();
+  // var portfolioWidth = $("#portfolios").width();
+  // var chatbotWidth = $("#chatbot").width();
 
   $(function() {
     $("#imagetagging-button").click(function () {
         $("#investment-button").removeClass('active');
         $(this).addClass('active');
-        // $(".content-container").hide();
-        $(".content-container").css('opacity', '0');
-        $(".content-container").css('height', '0');
+
+        //feed hidden//
+        // $(".content-container").css('opacity', '0');
+        // $(".content-container").css('height', '0');
+
+        //feed showing//
+        $("#portfolio-title-row").css('opacity','0');
+        $("#portfolio-title-row").css('height', '0');
+        $("#portfolio-title-row").css('width', '0');
+        $("#chatbot-title-row").css('opacity','0');
+        $("#chatbot-title-row").css('height', '0');
+        $("#chatbot-title-row").css('width', '0');
+        $("#portfolios").css('opacity','0');
+        $("#portfolios").css('height', '0');
+        $("#portfolios").css('width', '0');
+        $("#chatbot").css('opacity','0');
+        $("#chatbot").css('height', '0');
+        $("#chatbot").css('width', '0');
+
         $('#image-tagging-area').css('display', 'inline-block');
         // $('.notification').css('display', 'inline-block');
     });
@@ -21,9 +39,24 @@ $(document).ready(function() {
         $(this).addClass('active');
         $("#image-tagging-area").hide();
         $('.notification').hide();
-        // $(".content-container").show();
-        $(".content-container").css('opacity', '100');
-        $(".content-container").css('height', contentHeight);
+
+        // feed hidden //
+        // $(".content-container").css('opacity', '100');
+        // $(".content-container").css('height', contentHeight);
+
+        // feed showing //
+        $("#portfolio-title-row").css('opacity','100');
+        $("#portfolio-title-row").css('height', contentHeight);
+        $("#portfolio-title-row").css('width', '33%');
+        $("#chatbot-title-row").css('opacity','100');
+        $("#chatbot-title-row").css('height', contentHeight);
+        $("#chatbot-title-row").css('width', '33%');
+        $("#portfolios").css('opacity','100');
+        $("#portfolios").css('height', contentHeight);
+        $("#portfolios").css('width', '33%');
+        $("#chatbot").css('opacity','100');
+        $("#chatbot").css('height', contentHeight-20);
+        $("#chatbot").css('width', '33%');
     });
   });
 
