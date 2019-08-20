@@ -8,7 +8,7 @@ from django.views.decorators.http import require_GET, require_POST
 from django.db.utils import IntegrityError
 from .djutils import to_dict, log_request
 from .forms import TagForm
-from .models import Tag, ImageTask
+from .models import Tag, ImageTask, GroundTruthTag
 # from study.models import Participant
 
 from chatbot.models import Balance, Month, Result
@@ -50,7 +50,7 @@ def tags(request):
     tag.user = request.user
 
     # check whether the tag is in the groundtruth
-    master_tag_objects = Tag.objects.filter(user__is_superuser=True, image_task=tag.image_task)
+    master_tag_objects = GroundTruthTag.objects.filter(image_task=tag.image_task)
     master_tags = set(master_tag_objects.values_list('label', flat=True))
 
     if tag.label not in master_tags:

@@ -7,7 +7,7 @@ from django.db import transaction
 from django.contrib.auth.models import User
 # from django.core.files import File
 # from django.utils.timezone import make_aware
-from ...models import ImageTask, Tag
+from imagetagging.models import ImageTask, GroundTruthTag
 
 
 @transaction.atomic
@@ -21,7 +21,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.stdout.write("importing.. \n")
 
-        Tag.objects.all().delete()
+        GroundTruthTag.objects.all().delete()
         ImageTask.objects.all().delete()
 
         # if User.objects.filter(is_superuser=True).exists():
@@ -46,11 +46,10 @@ class Command(BaseCommand):
                 image_task.save()
 
                 # create tags
-                for t in tags:
-                    Tag.objects.create(
-                        user = superuser,
-                        label = t,
-                        image_task = image_task
+                for current_tag in tags:
+                    GroundTruthTag.objects.create(
+                        label=current_tag,
+                        image_task=image_task
                     )
 
             # link images
