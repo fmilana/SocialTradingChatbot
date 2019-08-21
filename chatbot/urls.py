@@ -1,11 +1,11 @@
 # coding: utf-8
-from django.contrib import admin
 from django.urls import path, include
 
 from .views import (
     welcome_page,
     information_page,
     consent_page,
+    instructions_page,
     chatbot_page,
     get_condition_active,
     update_portfolios,
@@ -24,7 +24,8 @@ urlpatterns = [
     path('', welcome_page, name='welcome'),
     path('information/', information_page, name='information'),
     path('consent/', consent_page, name='consent'),
-    path('chatbot/', chatbot_page, name='chatbot'),
+    path('instructions/', instructions_page, name='instructions'),
+    path('investment/', chatbot_page, name='chatbot'),
     path('imagetagging/', include('imagetagging.urls'), name='imagetagging'),
     path('getconditionactive/', get_condition_active, name='getconditionactive'),
     path('updateportfolios/', update_portfolios, name='updateportfolios'),

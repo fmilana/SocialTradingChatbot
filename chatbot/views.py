@@ -36,6 +36,10 @@ def consent_page(request):
     return render(request, 'consent.html')
 
 
+def instructions_page(request):
+    return render(request, 'instructions.html')
+
+
 @login_required
 def results_page(request):
     user = request.user

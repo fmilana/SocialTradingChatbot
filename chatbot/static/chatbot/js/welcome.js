@@ -1,21 +1,6 @@
 $(function () {
 
-  $('input#consentCheck').click(function () {
-    $('button#startButton').prop('disabled', function(i, v) { return !v; });
-  });
-
-  $('input#consentCheck').click(function () {
-      $('button#continueButton').prop('disabled', function(i, v) { return !v; });
-  });
-
-  $('button#continueButton').click(function () {
-      window.location.href = server_url + "/chatbot/";
-  });
-
-
   $('button#startButton').click(function () {
-    // var username = $('#usernameInput').val();
-
     $('button#startButton').hide();
     $('#button-div').append('<img id="typing-gif" src="' + staticUrl + 'chatbot/images/loading.gif" style="height:30px;">');
 
@@ -42,5 +27,41 @@ $(function () {
       }
     });
   });
+
+  $('input#consentCheck').click(function () {
+    $('button#startButton').prop('disabled', function(i, v) { return !v; });
+  });
+
+  $('input#consentCheck').click(function () {
+      $('button#continueButton').prop('disabled', function(i, v) { return !v; });
+  });
+
+  $('button#continueButton').click(function () {
+      // window.location.href = server_url + "/chatbot/";
+      window.location.href = server_url + "/instructions/";
+  });
+
+  $('.carousel').carousel({
+    wrap: false,
+    interval: false
+  }).on('slid.bs.carousel', function () {
+      curSlide = $('.active');
+    if (curSlide.is( ':last-child' )) {
+       $('.carousel-control-next').hide();
+       return;
+    } else {
+       $('.carousel-control-next').show();
+    }
+    if (curSlide.is( ':first-child' )) {
+        $('.carousel-control-prev').hide();
+        return;
+     } else {
+        $('.carousel-control-prev').show();
+     }
+   });
+
+   $('button#startStudyButton').click(function() {
+     window.location.href = server_url + "/investment/";
+   })
 
 });
