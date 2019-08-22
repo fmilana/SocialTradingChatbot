@@ -4,6 +4,19 @@ var month = 1;
 $(document).ready(function() {
 
   var contentHeight = $(".content-container").height();
+  var portfoliosHeight = $("#portfolios").height();
+  // var taggingHeight = $('.tagging').height();
+  // var cardHeaderHeight = $('.card-header').height();
+  // var cardBodyHeight = $('.card-body').height();
+
+  $("#image-tagging-area").css('opacity','0');
+  $("#image-tagging-area").css('height', '0');
+  $("#image-tagging-area").css('width', '0');
+  // $('.tagging').css('height','0');
+  // $('.card-header').css('height','0');
+  // $('.card-body').css('height','0');
+
+
   // var portfolioWidth = $("#portfolios").width();
   // var chatbotWidth = $("#chatbot").width();
 
@@ -12,51 +25,41 @@ $(document).ready(function() {
         $("#investment-button").removeClass('active');
         $(this).addClass('active');
 
-        //feed hidden//
-        // $(".content-container").css('opacity', '0');
-        // $(".content-container").css('height', '0');
-
         //feed showing//
-        $("#portfolio-title-row").css('opacity','0');
-        $("#portfolio-title-row").css('height', '0');
-        $("#portfolio-title-row").css('width', '0');
-        $("#chatbot-title-row").css('opacity','0');
-        $("#chatbot-title-row").css('height', '0');
-        $("#chatbot-title-row").css('width', '0');
+        $('#portfolio-title').html('Task');
+
         $("#portfolios").css('opacity','0');
         $("#portfolios").css('height', '0');
         $("#portfolios").css('width', '0');
-        $("#chatbot").css('opacity','0');
-        $("#chatbot").css('height', '0');
-        $("#chatbot").css('width', '0');
 
-        $('#image-tagging-area').css('display', 'inline-block');
+        $("#image-tagging-area").css('opacity','100');
+        $("#image-tagging-area").css('height', contentHeight);
+        $("#image-tagging-area").css('width', '33%');
+        // $('.tagging').css('height', taggingHeight);
+        // $('.card-header').css('height', cardHeaderHeight);
+        // $('.card-body').css('height', cardBodyHeight);
+
+        // $('#image-tagging-area').css('display', 'inline-block');
         // $('.notification').css('display', 'inline-block');
     });
 
     $("#investment-button").click(function () {
         $("#imagetagging-button").removeClass('active');
         $(this).addClass('active');
-        $("#image-tagging-area").hide();
+        // $("#image-tagging-area").css('display', 'none');
+        $("#image-tagging-area").css('opacity','0');
+        $("#image-tagging-area").css('height', '0');
+        $("#image-tagging-area").css('width', '0');
+        // $('.tagging').css('height','0');
+        // $('.card-header').css('height','0');
+        // $('.card-body').css('height','0');
+
         $('.notification').hide();
 
-        // feed hidden //
-        // $(".content-container").css('opacity', '100');
-        // $(".content-container").css('height', contentHeight);
-
-        // feed showing //
-        $("#portfolio-title-row").css('opacity','100');
-        $("#portfolio-title-row").css('height', contentHeight);
-        $("#portfolio-title-row").css('width', '33%');
-        $("#chatbot-title-row").css('opacity','100');
-        $("#chatbot-title-row").css('height', contentHeight);
-        $("#chatbot-title-row").css('width', '33%');
+        $('#portfolio-title').html('Portfolios');
         $("#portfolios").css('opacity','100');
-        $("#portfolios").css('height', contentHeight);
+        $("#portfolios").css('height', portfoliosHeight);
         $("#portfolios").css('width', '33%');
-        $("#chatbot").css('opacity','100');
-        $("#chatbot").css('height', contentHeight-20);
-        $("#chatbot").css('width', '33%');
     });
   });
 

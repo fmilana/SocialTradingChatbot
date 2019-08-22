@@ -31,7 +31,7 @@ $(document).ready(function() {
 				$('#result_div_notification #bot-message').remove();
 				$('#result_div_notification #user-message-notification').remove();
 				$('#result_div_notification br').remove();
-				$('.notification').css('display', 'inline-block');
+				// $('.notification').css('display', 'inline-block');
 			}
 
 			botMessageAppended = true;
@@ -67,7 +67,9 @@ $(document).ready(function() {
       data: {'text': data['text'], 'month': month},
       success: function () {
 
-				appendBotMessage(data, periodicAdvice);
+				setTimeout(function() {
+					appendBotMessage(data, periodicAdvice);
+				}, 1000);
 
       },
       error: function(response) {

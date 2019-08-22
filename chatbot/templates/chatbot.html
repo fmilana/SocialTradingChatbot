@@ -53,57 +53,94 @@
 </nav>
 
 <!-- Content -->
-<div class="content-container">
-  <div class="row" id="title-row">
-    <div class="col-4" id="portfolio-title-row">
-      <h2>Portfolios</h2>
-    </div>
-    <div class="col-4" id="chatbot-title-row">
-      <h2>Assistant</h2>
-    </div>
-    <div class="col-4" id="newsfeed-title-row">
-      <h2>Newsfeed</h2>
-      <h5>Predictions not always accurate</h5>
-    </div>
+<div class="row" id="title-row">
+  <div class="col-4" id="portfolio-title-row">
+    <h2 id='portfolio-title'>Portfolios</h2>
   </div>
-  <div class="row" id="content-row">
-    <div class="col-4" id="portfolios">
+  <div class="col-4" id="chatbot-title-row">
+    <h2>Assistant</h2>
+  </div>
+  <div class="col-4" id="newsfeed-title-row">
+    <h2>Newsfeed</h2>
+    <h5>Predictions not always accurate</h5>
+  </div>
+</div>
 
-      <!-- <link rel="stylesheet" href="{% static 'chatbot/css/style.css' %}"> -->
+<div class="row" id="content-row">
+  <div class="col-4" id="portfolios">
 
+    <!-- <link rel="stylesheet" href="{% static 'chatbot/css/style.css' %}"> -->
+    <h5 id="followed-title">Followed</h5>
 
-      <h5 id="followed-title">Followed</h5>
+    <b id="empty-followed-tag">You are not following any portfolios.</b>
 
-      <b id="empty-followed-tag">You are not following any portfolios.</b>
+    <div class="row row-portfolio" id='row-followed'>
+      {% for followed_portfolio in followed_portfolios %}
+        <div class="wrapper-portfolio" id="followed-portfolio-wrapper">
+          <div class="container-portfolio">
+            <div class="img-container-portfolio">
 
-      <div class="row row-portfolio" id='row-followed'>
-        {% for followed_portfolio in followed_portfolios %}
-          <div class="wrapper-portfolio" id="followed-portfolio-wrapper">
+              {% with index=followed_portfolio.profile.id|subtract %}
+
+              <img class="card-img"
+              src= "{% static 'chatbot/images/profiles/'%}{{ image_names|get_at_index:index }}"
+              alt="{{ followed_portfolio.profile.name }} image">
+
+              {% endwith %}
+            </div>
+
+            <div class="content-portfolio">
+              <div class="head-portfolio">
+                  <p>{{ followed_portfolio.profile.name }}</p>
+              </div>
+              <div class="data">
+                <div class="inner-data">
+                  {% if followed_portfolio.lastChange >= 0 %}
+                    <p class="last-change"><span class="last-change" style="color: #41CE00"><b>+{{ followed_portfolio.lastChange }}%</b></span> last month.</p>
+                  {% else %}
+                    <p class="last-change"><span class="last-change" style="color: #FF0000"><b>{{ followed_portfolio.lastChange }}%</b></span> last month.</p>
+                  {% endif %}
+                  <p class="risk">Risk: {{ followed_portfolio.risk }}</p>
+                  <p class="amount">Amount: £{{ followed_portfolio.invested}} </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <h5>Not followed</h5>
+
+    <b id="empty-not-followed-tag">There are no more portfolios to follow.</b>
+
+      <div class="row row-portfolio" id="row-not-followed">
+        {% for not_followed_portfolio in not_followed_portfolios %}
+          <div class="wrapper-portfolio" id="not-followed-portfolio-wrapper">
             <div class="container-portfolio">
               <div class="img-container-portfolio">
 
-                {% with index=followed_portfolio.profile.id|subtract %}
+                {% with index=not_followed_portfolio.profile.id|subtract %}
 
                 <img class="card-img"
                 src= "{% static 'chatbot/images/profiles/'%}{{ image_names|get_at_index:index }}"
-                alt="{{ followed_portfolio.profile.name }} image">
+                alt="{{ not_followed_portfolio.profile.name }} image">
 
                 {% endwith %}
               </div>
 
               <div class="content-portfolio">
                 <div class="head-portfolio">
-                    <p>{{ followed_portfolio.profile.name }}</p>
+                    <p>{{ not_followed_portfolio.profile.name }}</p>
                 </div>
                 <div class="data">
                   <div class="inner-data">
-                    {% if followed_portfolio.lastChange >= 0 %}
-                      <p class="last-change"><span class="last-change" style="color: #41CE00"><b>+{{ followed_portfolio.lastChange }}%</b></span> last month.</p>
+                    {% if not_followed_portfolio.lastChange >= 0 %}
+                      <p class="last-change"><span class="last-change" style="color: #41CE00"><b>+{{ not_followed_portfolio.lastChange }}%</b></span> last month.</p>
                     {% else %}
-                      <p class="last-change"><span class="last-change" style="color: #FF0000"><b>{{ followed_portfolio.lastChange }}%</b></span> last month.</p>
+                      <p class="last-change"><span class="last-change" style="color: #FF0000"><b>{{ not_followed_portfolio.lastChange }}%</b></span> last month.</p>
                     {% endif %}
-                    <p class="risk">Risk: {{ followed_portfolio.risk }}</p>
-                    <p class="amount">Amount: £{{ followed_portfolio.invested}} </p>
+                    <p class="risk">Risk: {{ not_followed_portfolio.risk }}</p>
                   </div>
                 </div>
               </div>
@@ -111,96 +148,56 @@
           </div>
         {% endfor %}
       </div>
+  </div>
 
-      <h5>Not followed</h5>
-
-      <b id="empty-not-followed-tag">There are no more portfolios to follow.</b>
-
-        <div class="row row-portfolio" id="row-not-followed">
-          {% for not_followed_portfolio in not_followed_portfolios %}
-            <div class="wrapper-portfolio" id="not-followed-portfolio-wrapper">
-              <div class="container-portfolio">
-                <div class="img-container-portfolio">
-
-                  {% with index=not_followed_portfolio.profile.id|subtract %}
-
-                  <img class="card-img"
-                  src= "{% static 'chatbot/images/profiles/'%}{{ image_names|get_at_index:index }}"
-                  alt="{{ not_followed_portfolio.profile.name }} image">
-
-                  {% endwith %}
-                </div>
-
-                <div class="content-portfolio">
-                  <div class="head-portfolio">
-                      <p>{{ not_followed_portfolio.profile.name }}</p>
-                  </div>
-                  <div class="data">
-                    <div class="inner-data">
-                      {% if not_followed_portfolio.lastChange >= 0 %}
-                        <p class="last-change"><span class="last-change" style="color: #41CE00"><b>+{{ not_followed_portfolio.lastChange }}%</b></span> last month.</p>
-                      {% else %}
-                        <p class="last-change"><span class="last-change" style="color: #FF0000"><b>{{ not_followed_portfolio.lastChange }}%</b></span> last month.</p>
-                      {% endif %}
-                      <p class="risk">Risk: {{ not_followed_portfolio.risk }}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          {% endfor %}
-        </div>
-    </div>
-
-    <div class="col-4" id="chatbot">
-      <div class="container-chatbot">
-        <mybot></mybot>
+  <div class="col-4" id="image-tagging-area">
+    <div class="card tagging">
+      <div class="card-header">
+        <h5>Please provide 3 unique tags for the image below.</h5>
       </div>
-    </div>
-
-    <div id="image-tagging-area" class="col-11">
-      <div class="card tagging">
-        <div class="card-header">
-          <h5>Please provide 3 unique tags for the image below.</h5>
-        </div>
-        <div class="card-body">
-            <div class="row">
-              <img class="img-fluid" src="">
+      <div class="card-body">
+          <div class="row">
+            <img class="img-fluid" src="">
+          </div>
+          <div class="row">
+            <div class="card-text">
+              <p id="tags-text">Tags found:
+              <span class="found-tags-list">
+                <span class="found-tag">example tag.</span>
+              </span></p>
             </div>
-            <div class="row">
-              <div class="card-text">
-                <p id="tags-text">Tags found:
-                <span class="found-tags-list">
-                  <span class="found-tag">example tag.</span>
-                </span></p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-group">
-                <input type="text" class="form-control input-tag" placeholder="please enter a tag" data-container="body" data-toggle="popover"
-                  data-placement="left" data-content="incorrect tag" data-trigger="focus">
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-warning btn-check-tag">Check Tag</button>
-                </span>
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-dark btn-next-image">Next image</button>
-                </span>
-              </div>
+          </div>
+          <div class="row">
+            <div class="input-group">
+              <input type="text" class="form-control input-tag" placeholder="please enter a tag" data-container="body" data-toggle="popover"
+                data-placement="left" data-content="incorrect tag" data-trigger="focus">
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-warning btn-check-tag">Check Tag</button>
+              </span>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-dark btn-next-image">Next image</button>
+              </span>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="col-4" id="newsfeed">
-      <div class="scrollable-newsposts">
+  <div class="col-4" id="chatbot">
+    <div class="container-chatbot">
+      <mybot></mybot>
+    </div>
+  </div>
 
-        <script>
-          var profiles_list = '{{ profiles }}';
-          // var newsposts_list = '{{ newsposts }}';
+  <div class="col-4" id="newsfeed">
+    <div class="scrollable-newsposts">
 
-        </script>
-      </div>
+      <script>
+        var profiles_list = '{{ profiles }}';
+        // var newsposts_list = '{{ newsposts }}';
+
+      </script>
     </div>
   </div>
 </div>

@@ -364,13 +364,20 @@ h5 {
 /* image tagging */
 #image-tagging-area {
   /* display: inline-block; */
-  display: none;
-  position: relative;
+  overflow-y: scroll;
+  position: absolute;
+  top: 140px;
+  bottom: 0;
+  left: 0;
+  width: 33%;
+  height: calc(100vh - 160px)!important;
   /* width: 50%; */
   padding-left: 0px;
   padding-right: 0px;
-  width: 50%;
-  max-width: 80%;
+}
+
+.tagging {
+  margin-left: 25px;
 }
 
 .card-body {
