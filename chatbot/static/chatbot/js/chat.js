@@ -74,9 +74,7 @@ $(document).ready(function() {
 				if (periodicAdvice && data['text']==lastBotMessage) {
 					$('#typing-gif').remove();
 				} else {
-					setTimeout(function() {
-						appendBotMessage(data, periodicAdvice);
-					}, 1000);
+					appendBotMessage(data, periodicAdvice);
 				}
       },
       error: function(response) {
@@ -164,22 +162,24 @@ $(document).ready(function() {
 
 		console.log(message);
 		if (message) {
-      //socket.emit('user_uttered', {'message': chatInput, 'sender': 'rasa'});
-			var post_url = server_url + '/chatbotproxy/';
-			var post_data = {'message': message, 'sender': username, 'periodic_advice': periodicAdvice, 'month': month, 'from_participant': true, 'from_notification': fromNotification, 'from_button': fromButton};
-			fetch(post_url, {
-				method: 'POST',
-				body: JSON.stringify(post_data),
-				credentials: 'include',
-				headers: {'Content-Type': 'application/json'}
-			}).then(res => res.json()).then(response => {
-				console.log('POST response:', response);
-				// window.location.replace(server_url + "/tasks/?order=" + next_task_order);
-				//window.location = server_url + "/tasks/?order=" + next_task_order;
-				process_response(response, periodicAdvice);
-			}).catch(error => {
-				console.log('POST error:', error);
-			});
+			setTimeout(function(){
+	      //socket.emit('user_uttered', {'message': chatInput, 'sender': 'rasa'});
+				var post_url = server_url + '/chatbotproxy/';
+				var post_data = {'message': message, 'sender': username, 'periodic_advice': periodicAdvice, 'month': month, 'from_participant': true, 'from_notification': fromNotification, 'from_button': fromButton};
+				fetch(post_url, {
+					method: 'POST',
+					body: JSON.stringify(post_data),
+					credentials: 'include',
+					headers: {'Content-Type': 'application/json'}
+				}).then(res => res.json()).then(response => {
+					console.log('POST response:', response);
+					// window.location.replace(server_url + "/tasks/?order=" + next_task_order);
+					//window.location = server_url + "/tasks/?order=" + next_task_order;
+					process_response(response, periodicAdvice);
+				}).catch(error => {
+					console.log('POST error:', error);
+				});
+			}, 1000);
 
 			if (!periodicAdvice) {
 				$("#result_div").append("<p id='user-message'> " + message + "</p><br>");
