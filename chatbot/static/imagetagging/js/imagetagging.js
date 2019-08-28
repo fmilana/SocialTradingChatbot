@@ -8,9 +8,10 @@ $(function () {
         console.log('IMAGE URL = ' + image_url);
 
         console.log(image_url);
-        $('.tagging img').hide()
         $('.tagging img').attr("src", image_url);
-        $(function () {$('.tagging img').show();});
+        $(function () {
+            $('.tagging img').show();
+        });
         $('.found-tags-list').empty();
         _task.tags.forEach(element => {
             $('.found-tags-list').append(element + '; ');
@@ -43,6 +44,8 @@ $(function () {
         }
 
         console.log('url:', url);
+
+        $('.tagging img').hide()
 
         $.ajax({
             type: "GET",
