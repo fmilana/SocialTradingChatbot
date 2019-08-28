@@ -2,7 +2,6 @@ from django.contrib import admin
 from import_export import resources
 from import_export.admin import ExportActionModelAdmin
 
-
 from .models import (
     Profile,
     Portfolio,
@@ -11,16 +10,19 @@ from .models import (
     UserAction,
     Participant,
     Condition,
-    DismissNotificationCount,
+    # DismissNotificationCount,
     Result,
-    QuestionnaireResponse
+    QuestionnaireResponse,
+    FallbackCount
     )
+
 
 class BalanceResource(resources.ModelResource):
     class Meta:
         model = Balance
-        fields = ['user', 'available', 'invested', 
+        fields = ['user', 'available', 'invested',
                     'user_username', 'user__participant__condition_active']
+
 
 class BalanceAdmin(ExportActionModelAdmin):
     list_display = ['__str__', 'available', 'invested']
@@ -30,10 +32,11 @@ class BalanceAdmin(ExportActionModelAdmin):
 class MessageResource(resources.ModelResource):
     class Meta:
         model = Message
-        fields = ['user', 'month', 'from_participant', 
-                    'from_notification', 'from_button', 
+        fields = ['user', 'month', 'from_participant',
+                    'from_notification', 'from_button',
                     'text', 'user_username', 'user__participant__condition_active']
-        
+
+
 class MessageAdmin(ExportActionModelAdmin):
     #list_display = ['participant', 'participant__user__username', 'task', 'task__task_list__name']
     #list_display = ['__str__', 'user__participant__condition_active']
@@ -44,8 +47,9 @@ class MessageAdmin(ExportActionModelAdmin):
 class ResultResource(resources.ModelResource):
     class Meta:
         model = Result
-        fields = ['month', 'profit', 'images_tagged', 'total', 
+        fields = ['month', 'profit', 'images_tagged', 'total',
                     'user_username', 'user__participant__condition_active']
+
 
 class ResultAdmin(ExportActionModelAdmin):
     #list_display = ['participant', 'participant__user__username', 'task', 'task__task_list__name']
@@ -56,9 +60,10 @@ class ResultAdmin(ExportActionModelAdmin):
 class QuestionnaireResponseResource(resources.ModelResource):
     class Meta:
         model = QuestionnaireResponse
-        fields = ['user', 'answer', 'completion_time', 'subtask_time', 
-                    'created_at', 'updated_at', 
+        fields = ['user', 'answer', 'completion_time', 'subtask_time',
+                    'created_at', 'updated_at',
                     'user_username', 'user__participant__condition_active']
+
 
 class QuestionnaireResponseAdmin(ExportActionModelAdmin):
     #list_display = ['participant', 'participant__user__username', 'task', 'task__task_list__name']
@@ -66,13 +71,25 @@ class QuestionnaireResponseAdmin(ExportActionModelAdmin):
     resource_class = QuestionnaireResponseResource
 
 
+class FallbackCountResource(resources.ModelResource):
+    class Meta:
+        model = FallbackCount
+        fields = ['user', 'count']
+
+
+class FallbackCountAdmin(ExportActionModelAdmin):
+    list_display = ['__str__', 'user']
+    resource_class = FallbackCountResource
+
+
 class UserActionResource(resources.ModelResource):
     class Meta:
         model = UserAction
-        fields = ['user', 'month', 'available', 'invested', 
-                    'portfolio', 'chatbot_change', 'newspost_change', 
+        fields = ['user', 'month', 'available', 'invested',
+                    'portfolio', 'chatbot_change', 'newspost_change',
                     'action', 'amount',
                     'user_username', 'user__participant__condition_active']
+
 
 class UserActionAdmin(ExportActionModelAdmin):
     #list_display = ['participant', 'participant__user__username', 'task', 'task__task_list__name']
@@ -80,22 +97,23 @@ class UserActionAdmin(ExportActionModelAdmin):
     resource_class = UserActionResource
 
 
-class DismissNotificationCountResource(resources.ModelResource):
-    class Meta:
-        model = DismissNotificationCount
-        fields = ['user', 'count', 
-                    'user_username', 'user__participant__condition_active']
+# class DismissNotificationCountResource(resources.ModelResource):
+#     class Meta:
+#         model = DismissNotificationCount
+#         fields = ['user', 'count',
+#                     'user_username', 'user__participant__condition_active']
 
-class DismissNotificationCountAdmin(ExportActionModelAdmin):
-    list_display = ['__str__', 'count']
-    resource_class = DismissNotificationCountResource
+# class DismissNotificationCountAdmin(ExportActionModelAdmin):
+#     list_display = ['__str__', 'count']
+#     resource_class = DismissNotificationCountResource
 
 admin.site.register(Balance, BalanceAdmin)
 admin.site.register(Message, MessageAdmin)
 admin.site.register(Result, ResultAdmin)
 admin.site.register(UserAction, UserActionAdmin)
 admin.site.register(QuestionnaireResponse, QuestionnaireResponseAdmin)
-admin.site.register(DismissNotificationCount, DismissNotificationCountAdmin)
+admin.site.register(FallbackCount, FallbackCountAdmin)
+# admin.site.register(DismissNotificationCount, DismissNotificationCountAdmin)
 admin.site.register(Profile)
 admin.site.register(Portfolio)
 admin.site.register(Participant)

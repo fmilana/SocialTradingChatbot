@@ -68,6 +68,7 @@ actions:
 - action_withdraw_amount
 - action_unfollow_everyone
 - action_reset_slots
+- action_fallback
 
 templates:
   utter_what_i_can_do:

@@ -21,7 +21,7 @@ from django.db import IntegrityError
 from .djutils import to_dict
 
 from .models import Profile, Portfolio, Balance, Month, Message, Participant, \
-    Condition, DismissNotificationCount, Result, QuestionnaireResponse
+    Condition, Result, QuestionnaireResponse, FallbackCount
 
 
 def welcome_page(request):
@@ -111,8 +111,11 @@ def participants_view(request):
         result = Result(user=user, month=1, profit=0.00, images_tagged=0, total=1000.00)
         result.save()
 
-        dismiss_notification_count = DismissNotificationCount(user=user, count=0)
-        dismiss_notification_count.save()
+        # dismiss_notification_count = DismissNotificationCount(user=user, count=0)
+        # dismiss_notification_count.save()
+
+        fallback_count = FallbackCount(user=user, count=0)
+        fallback_count.save()
 
     except IntegrityError:
         error = {
@@ -162,16 +165,16 @@ def get_condition_active(request):
     return HttpResponse(json.dumps(response), content_type="application/json")
 
 
-@csrf_exempt
-@login_required
-def update_dismiss_notification_count(request):
-    user = request.user
-
-    dismiss_notification_count = DismissNotificationCount.objects.get(user=user)
-    dismiss_notification_count.count += 1
-    dismiss_notification_count.save()
-
-    return HttpResponse("")
+# @csrf_exempt
+# @login_required
+# def update_dismiss_notification_count(request):
+#     user = request.user
+#
+#     dismiss_notification_count = DismissNotificationCount.objects.get(user=user)
+#     dismiss_notification_count.count += 1
+#     dismiss_notification_count.save()
+#
+#     return HttpResponse("")
 
 
 @login_required
@@ -357,11 +360,11 @@ def questionnaire_view(request):
     if request.method == 'GET':
         questionnaire = '''[
     {'label': '<hr><h5>Please answer the following questions <u>based on your overall experience</u> completing the study</h5><hr>'},
-    {'question': '1. From 1 to 5, how much did you trust the <strong>Chatbot</strong> by the end of the study?', choices: ['1', '2', '3', '4', '5']},
+    {'question': '1. From 1 to 5, how much did you trust the <strong>Assistant</strong> by the end of the study?', choices: ['1', '2', '3', '4', '5']},
     {'question': '2. From 1 to 5, how much did you trust the <strong>Newsfeed</strong> by the end of the study?', choices: ['1', '2', '3', '4', '5']},
-    {'question': '3. From 1 to 5, how useful were <strong>Chatbot notifications</strong>?', choices: ['1', '2', '3', '4', '5']},
-    {'question': '4. What would have made you trust the <strong>Chatbot</strong> more?'},
-    {'question': '5. Please leave your comments about your experience interacting with the <strong>Chatbot</strong>.'},
+    {'question': '3. From 1 to 5, how often did the <strong>Assistant</strong> understand what you said?', choices: ['1', '2', '3', '4', '5']},
+    {'question': '4. What would have made you trust the <strong>Assistant</strong> more?'},
+    {'question': '5. Please leave your comments about your experience interacting with the <strong>Assistant</strong>.'},
     {'question': '<hr>Please leave your comments about the overall experience about this study, or your suggestions for improvement.'}
         ]
         '''

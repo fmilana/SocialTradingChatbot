@@ -1,6 +1,7 @@
 // var socket = require('socket.io-client')('http://localhost:5500');
 
 var botMessageAppended = false;
+var lastBotMessage = '';
 
 $(document).ready(function() {
 
@@ -49,6 +50,8 @@ $(document).ready(function() {
 			$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
 
 			$('#result_div_notification').scrollTop($('#result_div')[0].scrollHeight);
+
+			lastBotMessage = message;
 		}
 
 		adviceCountdown = 45;
@@ -67,10 +70,14 @@ $(document).ready(function() {
       data: {'text': data['text'], 'month': month},
       success: function () {
 
-				setTimeout(function() {
-					appendBotMessage(data, periodicAdvice);
-				}, 1000);
-
+				// dont repeat periodic advice
+				if (periodicAdvice && data['text']==lastBotMessage) {
+					$('#typing-gif').remove();
+				} else {
+					setTimeout(function() {
+						appendBotMessage(data, periodicAdvice);
+					}, 1000);
+				}
       },
       error: function(response) {
         console.log(response);
@@ -235,13 +242,13 @@ $(document).ready(function() {
     }
 	});
 
-	$('#close-button').click(function() {
-		$.ajax({
-			type: "GET",
-			url: server_url + '/updatedismissnotificationcount/',
-			success: function(response) {
-				$('.notification').hide();
-			}
-		});
-	});
+	// $('#close-button').click(function() {
+	// 	$.ajax({
+	// 		type: "GET",
+	// 		url: server_url + '/updatedismissnotificationcount/',
+	// 		success: function(response) {
+	// 			$('.notification').hide();
+	// 		}
+	// 	});
+	// });
 });

@@ -11,7 +11,7 @@ from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
-from rasa_sdk.events import SlotSet
+from rasa_sdk.events import SlotSet, UserUtteranceReverted
 
 import sys, os
 #sys.path.insert(0, 'C:\\Users\\feder\\chatbot')
@@ -23,10 +23,11 @@ sys.path.insert(0, project_dir)
 import os, django
 os.environ["DJANGO_SETTINGS_MODULE"] = 'investment_bot.settings'
 django.setup()
-from chatbot.models import Portfolio, Profile, Balance, Month, UserAction
+from chatbot.models import Portfolio, Profile, Balance, Month, UserAction, FallbackCount
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.aggregates import Count
+from django.core.exceptions import MultipleObjectsReturned
 from random import randint
 from django.db.models import Sum
 from decimal import Decimal, InvalidOperation
@@ -273,7 +274,7 @@ class FetchPortfolio(Action):
                 elif amount is not None and amount <= 0:
                     amount_query = "invalid"
 
-            except IndexError:
+            except (IndexError, MultipleObjectsReturned):
                 portfolio_query = "invalid"
 
         print("returning slots")
@@ -891,3 +892,23 @@ class ResetSlots(Action):
 
     def run(self, dispatcher, tracker, domain):
         return [SlotSet("portfolio_query", None), SlotSet("name", None), SlotSet("amount_query", None), SlotSet("amount", None)]
+
+
+class FallbackAction(Action):
+    def name(self):
+        return "action_fallback"
+
+    def run(self, dispatcher, tracker, domain):
+        username = tracker.current_state()["sender_id"]
+
+        user = User.objects.get(username=username)
+
+        fallback_count = FallbackCount.objects.get(user=user)
+        fallback_count.count += 1
+        fallback_count.save()
+
+        message = "Sorry, I didn't quite catch that."
+
+        dispatcher.utter_message(message)
+
+        return [UserUtteranceReverted()]

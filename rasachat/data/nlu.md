@@ -50,7 +50,6 @@
 - are news reliable?
 - why do the news say
 - the news say that
-- news
 
 ## intent:affirm
 - yes

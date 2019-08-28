@@ -124,16 +124,16 @@ class UserAction(models.Model):
         return self.user.username + ': ' + self.action + " (" + str(self.amount) + ") " + self.portfolio
 
 
-class DismissNotificationCount(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    count = models.IntegerField(default=0, null=False)
-
-    class Meta:
-        verbose_name = 'Dismiss Notification Count'
-        verbose_name_plural = 'Dismiss Notification Counts'
-
-    def __str__(self):
-        return self.user.username
+# class DismissNotificationCount(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     count = models.IntegerField(default=0, null=False)
+#
+#     class Meta:
+#         verbose_name = 'Dismiss Notification Count'
+#         verbose_name_plural = 'Dismiss Notification Counts'
+#
+#     def __str__(self):
+#         return self.user.username
 
 
 class Result(models.Model):
@@ -158,3 +158,15 @@ class QuestionnaireResponse(models.Model):
     subtask_time = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+class FallbackCount(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    count = models.IntegerField(default=0, null=False)
+
+    class Meta:
+        verbose_name = 'Fallback Count'
+        verbose_name_plural = 'Fallback Counts'
+
+    def __str__(self):
+        return self.user.username
