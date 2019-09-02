@@ -14,10 +14,16 @@ from .views import (
     update_results,
     get_next_changes,
     participants_view,
-    # update_dismiss_notification_count,
     store_bot_message,
     results_page,
-    questionnaire_view
+    questionnaire_view,
+    get_portfolios_view,
+    get_profiles_view,
+    get_balance_view,
+    follow_unfollow_portfolio,
+    add_withdraw_amount,
+    increase_fallback_count,
+    create_user_action
     )
 
 urlpatterns = [
@@ -34,8 +40,14 @@ urlpatterns = [
     path('updateresults/', update_results, name='updateresults'),
     path('getnextchanges/', get_next_changes, name='getnextchanges'),
     path('participants/', participants_view, name='participants-view'),
-    # path('updatedismissnotificationcount/', update_dismiss_notification_count, name='updatedismissnotificationcount'),
     path('storebotmessage/', store_bot_message, name='storebotmessage'),
     path('results/', results_page, name='resultspage'),
     path('questionnaire/', questionnaire_view, name='questionnaire_view'),
+    path('getportfolios/', get_portfolios_view, name='getportfoliosview'),
+    path('getprofiles/', get_profiles_view, name='getprofiles'),
+    path('getbalance/', get_balance_view, name='getbalance'),
+    path('followunfollowportfolio/', follow_unfollow_portfolio, name='followunfollowportfolio'),
+    path('addwithdrawamount/', add_withdraw_amount, name='addwithdrawamount'),
+    path('increasefallbackcount/', increase_fallback_count, name='increasefallbackcount'),
+    path('createuseraction/', create_user_action, name='createuseraction')
 ]

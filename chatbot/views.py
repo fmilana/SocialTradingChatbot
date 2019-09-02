@@ -5,11 +5,13 @@ from random import gauss, randrange
 import decimal
 import os
 
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import render, redirect
 from django.template.loader import get_template
 from django.views.decorators.http import require_POST, require_http_methods
 from django.views.decorators.csrf import csrf_exempt
+from django.forms.models import model_to_dict
+from django.db.models.query_utils import DeferredAttribute
 
 from django.contrib.auth.models import User
 from django.contrib.auth import login
@@ -21,7 +23,7 @@ from django.db import IntegrityError
 from .djutils import to_dict
 
 from .models import Profile, Portfolio, Balance, Month, Message, Participant, \
-    Condition, Result, QuestionnaireResponse, FallbackCount
+    Condition, Result, QuestionnaireResponse, FallbackCount, UserAction
 
 
 def welcome_page(request):
@@ -397,3 +399,102 @@ def questionnaire_view(request):
 
         #return redirect(completion_url)
         # return HttpResponse('the end')
+
+
+@csrf_exempt
+def get_portfolios_view(request):
+    portfolios = Portfolio.objects.filter(user__username=request.POST['username'])
+    return JsonResponse(list(portfolios.values()), safe=False)
+
+
+@csrf_exempt
+def get_profiles_view(request):
+    profiles = Profile.objects.all()
+    return JsonResponse(list(profiles.values()), safe=False)
+
+
+@csrf_exempt
+def get_balance_view(request):
+    balance = Balance.objects.get(user__username=request.POST['username'])
+
+    balance_dict = {}
+    for k in dir(balance):
+        try:
+            if isinstance(getattr(balance.__class__, k), DeferredAttribute) or isinstance(getattr(balance.__class__, k), property):
+                balance_dict[k] = getattr(balance, k)
+        except Exception as e:
+            print(e)
+
+    return JsonResponse(balance_dict, safe=False)
+
+
+@csrf_exempt
+def follow_unfollow_portfolio(request):
+    username = request.POST['username']
+
+    portfolio = Portfolio.objects.get(user__username=username, profile__name=request.POST['name'])
+    balance = Balance.objects.get(user__username=username)
+
+    if request.POST['action'] == 'Follow':
+        portfolio.followed = True
+        portfolio.invested = float(request.POST['amount'])
+        balance.available -= decimal.Decimal(request.POST['amount'])
+    else:
+        portfolio.followed = False
+        balance.available += portfolio.invested
+        portfolio.invested = 0.00
+
+    portfolio.save()
+    balance.save()
+
+    return HttpResponse('')
+
+
+@csrf_exempt
+def add_withdraw_amount(request):
+    username = request.POST['username']
+    amount = decimal.Decimal(request.POST['amount'])
+
+    portfolio = Portfolio.objects.get(user__username=username, profile__name=request.POST['name'])
+    balance = Balance.objects.get(user__username=username)
+
+    if request.POST['action'] == 'Add':
+        portfolio.invested += amount
+        balance.available -= amount
+    else:
+        portfolio.invested -= amount
+        balance.available += amount
+
+        if portfolio.invested == 0.00:
+            portfolio.followed = False
+
+    portfolio.save()
+    balance.save()
+
+    return HttpResponse('')
+
+
+@csrf_exempt
+def increase_fallback_count(request):
+    user = User.objects.get(username=request.POST['username'])
+    fallback_count = FallbackCount.objects.get(user=user)
+    fallback_count.count += 1
+    fallback_count.save()
+    return HttpResponse('')
+
+
+@csrf_exempt
+def create_user_action(request):
+    user = User.objects.get(username=request.POST['username'])
+    month = Month.objects.get(user=user).number
+    user_action = UserAction(user=user,
+     month=month,
+     available=request.POST['available_before'],
+     invested=request.POST['invested_before'],
+     portfolio=request.POST['profile_name'],
+     chatbot_change=request.POST['chatbot_next_change'],
+     newspost_change=request.POST['newspost_next_change'],
+     action=request.POST['action'],
+     amount=request.POST['amount'])
+    user_action.save()
+    return HttpResponse('')
