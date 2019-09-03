@@ -29,6 +29,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.aggregates import Count
 from django.core.exceptions import MultipleObjectsReturned
 from random import randint
+from django.db import connection
 from django.db.models import Sum
 from decimal import Decimal, InvalidOperation
 import random
@@ -53,6 +54,7 @@ class GiveGeneralAdvice(Action):
         # print(tracker.current_state())
         username = tracker.current_state()["sender_id"]
 
+        connection.close()
         user = User.objects.get(username=username)
 
         highest_change = 1
@@ -128,6 +130,7 @@ class GiveFollowingAdvice(Action):
     def run(self, dispatcher, tracker, domain):
         username = tracker.current_state()["sender_id"]
 
+        connection.close()
         user = User.objects.get(username=username)
 
         not_followed_portfolios = Portfolio.objects.filter(user=user, followed=False)
@@ -178,6 +181,7 @@ class GiveUnfollowingAdvice(Action):
     def run(self, dispatcher, tracker, domain):
         username = tracker.current_state()["sender_id"]
 
+        connection.close()
         user = User.objects.get(username=username)
 
         followed_portfolios = Portfolio.objects.filter(user=user, followed=True)
@@ -233,6 +237,7 @@ class FetchPortfolio(Action):
     def run(self, dispatcher, tracker, domain):
         username = tracker.current_state()["sender_id"]
 
+        connection.close()
         user = User.objects.get(username=username)
 
         # profile_name = tracker.get_slot('name')
@@ -287,6 +292,7 @@ class AskAddAmount(Action):
         return "action_ask_add_amount"
 
     def run(self, dispatcher, tracker, domain):
+        connection.close()
         user = User.objects.get(username=(tracker.current_state())["sender_id"])
 
         profile_name = tracker.get_slot('name')
@@ -321,6 +327,7 @@ class AskWithdrawAmount(Action):
 
     def run(self, dispatcher, tracker, domain):
 
+        connection.close()
         user = User.objects.get(username=(tracker.current_state())["sender_id"])
 
         profile_name = tracker.get_slot('name')
@@ -354,6 +361,7 @@ class Follow(Action):
     def run(self, dispatcher, tracker, domain):
         username = tracker.current_state()["sender_id"]
 
+        connection.close()
         user = User.objects.get(username=username)
 
         print(user.username)
@@ -431,6 +439,7 @@ class Unfollow(Action):
         return "action_unfollow"
 
     def run(self, dispatcher, tracker, domain):
+        connection.close()
         user = User.objects.get(username=(tracker.current_state())["sender_id"])
 
         profile_name = tracker.get_slot('name')
@@ -487,6 +496,7 @@ class AddAmount(Action):
         return "action_add_amount"
 
     def run(self, dispatcher, tracker, domain):
+        connection.close()
         user = User.objects.get(username=(tracker.current_state())["sender_id"])
 
         profile_name = tracker.get_slot('name')
@@ -563,6 +573,7 @@ class WithdrawAmount(Action):
     def run(self, dispatcher, tracker, domain):
         username = tracker.current_state()["sender_id"]
 
+        connection.close()
         user = User.objects.get(username=username)
 
         profile_name = tracker.get_slot('name')
@@ -640,6 +651,7 @@ class UnfollowEveryone(Action):
     def run(self, dispatcher, tracker, domain):
         username = tracker.current_state()["sender_id"]
 
+        connection.close()
         user = User.objects.get(username=username)
 
         followed_portfolios = Portfolio.objects.filter(user=user, followed=True)
@@ -697,6 +709,7 @@ class ShouldIFollowAdvice(Action):
     def run(self, dispatcher, tracker, domain):
         username = tracker.current_state()["sender_id"]
 
+        connection.close()
         user = User.objects.get(username=username)
         message = ''
 
@@ -807,6 +820,7 @@ class ShouldIUnfollowAdvice(Action):
     def run(self, dispatcher, tracker, domain):
         username = tracker.current_state()["sender_id"]
 
+        connection.close()
         user = User.objects.get(username=username)
 
         message = ''
@@ -901,6 +915,7 @@ class FallbackAction(Action):
     def run(self, dispatcher, tracker, domain):
         username = tracker.current_state()["sender_id"]
 
+        connection.close()
         user = User.objects.get(username=username)
 
         fallback_count = FallbackCount.objects.get(user=user)
