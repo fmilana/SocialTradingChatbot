@@ -33,8 +33,7 @@ class MessageResource(resources.ModelResource):
     class Meta:
         model = Message
         fields = ['user', 'month', 'from_participant',
-                    'from_notification', 'from_button',
-                    'text', 'user_username', 'user__participant__condition_active']
+                    'from_button', 'created_at', 'text', 'user_username', 'user__participant__condition_active']
 
 
 class MessageAdmin(ExportActionModelAdmin):

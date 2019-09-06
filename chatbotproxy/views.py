@@ -29,7 +29,7 @@ def webhook_view(request):
         from_button = client_data["from_button"]
         text = client_data["message"]
 
-        message = Message(user=user, month=month, from_participant=True, from_notification=from_notification, from_button=from_button, text=text)
+        message = Message(user=user, month=month, from_participant=True, from_button=from_button, text=text)
         message.save()
 
     proxy_response = requests.post(url, data=json_data)

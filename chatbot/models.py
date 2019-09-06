@@ -90,9 +90,10 @@ class Message(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     month = models.IntegerField(null=False)
     from_participant = models.BooleanField(null=False)
-    from_notification = models.BooleanField(null=False, default=False)
+    # from_notification = models.BooleanField(null=False, default=False)
     from_button = models.BooleanField(null=False, default=False)
     text = models.TextField(null=False)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True)
 
     class Meta:
         verbose_name = 'Message'

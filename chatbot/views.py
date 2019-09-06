@@ -321,7 +321,7 @@ def store_bot_message(request):
     month = request.POST['month']
     text = request.POST['text']
 
-    message = Message(user=user, month=month, from_participant=False, from_notification=False, from_button=False, text=text)
+    message = Message(user=user, month=month, from_participant=False, from_button=False, text=text)
     message.save()
 
     return HttpResponse("")
