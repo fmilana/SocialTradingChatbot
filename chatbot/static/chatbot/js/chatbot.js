@@ -85,7 +85,7 @@ $(document).ready(function() {
 
   		setTimeout(function() {
   			$('#result_div #typing-gif').remove();
-  			$('#result_div').append("<p id='bot-message'>You can tell me to follow or unfollow portfolios, add or withdraw amounts and ask me things like: \"Should I invest 50 in ralph?\", \"Who should I unfollow?\", \"Invest another 100 on Aricka\" or \"withdraw from alois\". I'm here to give you accurate predictions!</p><br>");
+  			$('#result_div').append("<p id='bot-message'>You can tell me to follow or unfollow portfolios, add or withdraw amounts and ask me things like: \"Should I invest 50 in ralph?\", \"Who should I unfollow?\", \"Invest another 100 on Aricka\" or \"withdraw from alois\".</p><br>");
   		}, 4000);
 
       setTimeout(function() {

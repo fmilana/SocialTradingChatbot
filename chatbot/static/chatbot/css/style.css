@@ -136,7 +136,7 @@ body {
 
 #newsfeed {
   position: absolute;
-  top: 170px;
+  top: 125px;
   bottom: 0;
   right: 0;
   width: 33%%;
@@ -242,7 +242,7 @@ h5 {
   flex-direction: column;
   margin-top: 20px;
   /* height: 560px; */
-  height: calc(100vh - 220px);
+  height: calc(100vh - 165px);
   overflow: auto;
   padding: 5px;
 }
