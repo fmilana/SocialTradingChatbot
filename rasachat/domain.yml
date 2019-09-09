@@ -1,6 +1,6 @@
 entities:
   - name
-  - CARDINAL
+  - amount
 
 intents:
   - what_can_you_do: {triggers: action_what_I_can_do}

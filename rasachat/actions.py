@@ -257,9 +257,9 @@ class FetchPortfolio(Action):
 
             for e in tracker.latest_message['entities']:
 
-                if e['entity'] == 'CARDINAL':
+                if e['entity'] == 'amount':
                     try:
-                        amount = round(Decimal(e['value']), 2)
+                        amount = round(Decimal(e['value'].replace('£','')), 2)
                     except (IndexError, InvalidOperation):
                         amount_query = 'invalid'
 
@@ -379,7 +379,9 @@ class Follow(Action):
 
             if amount is None:
                 try:
-                    amount = round(Decimal(tracker.latest_message['entities'][0]['value']), 2)
+                    print('AMOUNT BEFORE FILTERING = ' + str(tracker.latest_message['entities'][0]['value']))
+                    print('AMOUNT AFTER FILTERING = ' + str(tracker.latest_message['entities'][0]['value']).replace('£',''))
+                    amount = round(Decimal(tracker.latest_message['entities'][0]['value'].replace('£','')), 2)
                     if amount > 0:
                         amount_query = 'valid'
                     else:
@@ -390,6 +392,7 @@ class Follow(Action):
                 amount_query = 'valid'
 
             if amount_query == 'valid':
+                amount = amount.replace('£','')
                 balance = Balance.objects.get(user=user)
                 available_before = balance.available
                 invested_before = balance.invested
@@ -514,12 +517,13 @@ class AddAmount(Action):
 
             if amount is None:
                 try:
-                    amount = tracker.latest_message['entities'][0]['value']
+                    amount = tracker.latest_message['entities'][0]['value'].replace('£','')
 
                 except IndexError:
                     message = "That's not a valid amount."
 
             if amount is not None:
+                amount = str(amount).replace('£','')
                 amount = round(Decimal(amount), 2)
 
                 if amount > 0:
@@ -591,12 +595,13 @@ class WithdrawAmount(Action):
 
             if amount is None:
                 try:
-                    amount = tracker.latest_message['entities'][0]['value']
+                    amount = tracker.latest_message['entities'][0]['value'].replace('£','')
 
                 except IndexError:
                     message = "That's not a valid amount."
 
             if amount is not None:
+                amount = str(amount).replace('£','')
                 amount = round(Decimal(amount), 2)
 
                 portfolio.invested -= amount
