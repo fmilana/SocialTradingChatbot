@@ -392,7 +392,7 @@ class Follow(Action):
                 amount_query = 'valid'
 
             if amount_query == 'valid':
-                amount = amount.replace('£','')
+                amount = str(amount).replace('£','')
                 balance = Balance.objects.get(user=user)
                 available_before = balance.available
                 invested_before = balance.invested
