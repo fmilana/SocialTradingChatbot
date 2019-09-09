@@ -233,72 +233,82 @@
 ## intent:should_i_add_amount
 - should i add
 - should i put
-- should i add [50](CARDINAL) to [aricka lewis](name)?
-- should I add [124.54](CARDINAL) on [ralph axelsen](name)
+- should i add [50](amount) to [aricka lewis](name)?
+- should I add [124.54](amount) on [ralph axelsen](name)
 - should i increase
-- should i add [20](CARDINAL) to [florianne](name)?
+- should i add [20](amount) to [florianne](name)?
 - should I increase [Kanya](name)?
-- should i increase [william shore](name) by [5](CARDINAL)?
-- should I increase [Andrzej kraviec](name) by another [75](CARDINAL)
-- should I put [34.59](CARDINAL) on [masami nishimura](name)?
+- should i increase [william shore](name) by [5](amount)?
+- should I increase [Andrzej kraviec](name) by another [75](amount)
+- should I put [34.59](amount) on [masami nishimura](name)?
 - should i put money on [alois](name)
 - would you put
 - would you increase
 - would you add to [florianne paget](name)?
 - do you think I should put more money on [paulinho](name)
-- do you think I should increase [kanya bunnag](name) by [159](CARDINAL)?
-- do I want to add [5](CARDINAL) to [William](name)?
+- do you think I should increase [kanya bunnag](name) by [159](amount)?
+- do I want to add [5](amount) to [William](name)?
 - do I want to invest in [paulinho](name)?
-- do you think investing [315.00](CARDINAL) in [alois reiter](name) is a good idea?
+- do you think investing [315.00](amount) in [alois reiter](name) is a good idea?
 - would you recommend adding to [andrzej](name)
 
 ## intent:add_amount
-- put [10.00](CARDINAL) on [andrzej kraviec](name)
-- put [603](CARDINAL) on [andrzej](name)
-- invest [343](CARDINAL) on [aricka](name)
-- invest [23.54](CARDINAL) on [alois reiter](name)
-- I want to add [30](CARDINAL) to [Florianne Paget](name)
-- I'd like to add [129.72](CARDINAL) to [paulinho simoes](name)
-- increase [72.80](CARDINAL) on [Benjamin Parker](name)
-- increase by [43](CARDINAL) [benjamin](name)'s portfolio
-- add [3](CARDINAL) to [paulinho](name)'s portfolio
-- add [13.16](CARDINAL) to [benjamin parker](name)'s portfolio
-- add [50](CARDINAL) to [William Shore](name)
-- add another [2.39](CARDINAL) to [ralph axelsen](name)
-- add another [75](CARDINAL) to [Kanya Bunnag](name)
-- I'd like to put [134](CARDINAL) on [william](name)
-- I'd like to put [63.24](CARDINAL) on [Florianne](name)
-- I want to invest another [200.34](CARDINAL) on [masami nishimura](name)
-- I want to invest another [12](CARDINAL) on [Ralph](name)
-- I'd like to increase by [159.16](CARDINAL) [alois](name)
-- I'd like to increase by [65](CARDINAL) [Kanya Bunnag](name)
-- put another [25](CARDINAL) on [kanya bunnag](name)
-- put another [178.39](CARDINAL) on [Aricka Lewis](name)
+- put [10.00](amount) on [andrzej kraviec](name)
+- put [603](amount) on [andrzej](name)
+- invest [£343](amount) on [aricka](name)
+- invest [23.54](amount) on [alois reiter](name)
+- I want to add [30](amount) to [Florianne Paget](name)
+- I'd like to add [£129.72](amount) to [paulinho simoes](name)
+- increase [72.80](amount) on [Benjamin Parker](name)
+- increase by [43](amount) [benjamin](name)'s portfolio
+- add [£3](amount) to [paulinho](name)'s portfolio
+- add [13.16](amount) to [benjamin parker](name)'s portfolio
+- add [50](amount) to [William Shore](name)
+- add [£10](amount) to [florianne](name)
+- add another [2.39](amount) to [ralph axelsen](name)
+- add another [£75](amount) to [Kanya Bunnag](name)
+- I'd like to put [134](amount) on [william](name)
+- I'd like to put [63.24](amount) on [Florianne](name)
+- I want to invest another [£200.34](amount) on [masami nishimura](name)
+- I want to invest another [12](amount) on [Ralph](name)
+- I'd like to increase by [159.16](amount) [alois](name)
+- I'd like to increase by [£65](amount) [Kanya Bunnag](name)
+- put another [25](amount) on [kanya bunnag](name)
+- put another [178.39](amount) on [Aricka Lewis](name)
+- add to [ralph](name)
+- add to [Aricka Lewis](name)
+- put more on [Florianne](name)
+- put more on [alois](name)
+- increase ['paulinho Simoes'](name)
+- invest more on ['Kanya'](name)
+- invest more on ['Benjamin parker'](name)
+- add more on ['william'](name)
+- add more to ['andrzej'](name)
 
 ## intent:add_amount_to_him_her
-- put [10.00](CARDINAL) on him
-- put [9](CARDINAL) on her
-- put [603](CARDINAL)
-- invest [343](CARDINAL) on him
-- invest [23.54](CARDINAL) on her
-- I want to add [30](CARDINAL) to him
-- I'd like to add [129.72](CARDINAL) to her
-- I want to add [54](CARDINAL)
-- increase [72.80](CARDINAL) on him
-- increase by [43](CARDINAL)
-- add [3](CARDINAL) on him
-- add [13.16](CARDINAL) on her portfolio
-- add [50](CARDINAL)
-- add another [2.39](CARDINAL)
-- add another [75](CARDINAL) on her
-- I'd like to put [134](CARDINAL)
-- I'd like to put [63.24](CARDINAL) on him
-- I want to invest another [200.34](CARDINAL)
-- I want to invest another [12](CARDINAL) on her
-- I'd like to increase by [159.16](CARDINAL)
-- I'd like to increase by [65](CARDINAL) on his portfolio
-- put another [25](CARDINAL)
-- put another [178.39](CARDINAL) on him
+- put [10.00](amount) on him
+- put [9](amount) on her
+- put [603](amount)
+- invest [343](amount) on him
+- invest [23.54](amount) on her
+- I want to add [£30](amount) to him
+- I'd like to add [129.72](amount) to her
+- I want to add [54](amount)
+- increase [£72.80](amount) on him
+- increase by [43](amount)
+- add [3](amount) on him
+- add [13.16](amount) on her portfolio
+- add [50](amount)
+- add another [£2.39](amount)
+- add another [75](amount) on her
+- I'd like to put [134](amount)
+- I'd like to put [63.24](amount) on him
+- I want to invest another [200.34](amount)
+- I want to invest another [£12](amount) on her
+- I'd like to increase by [159.16](amount)
+- I'd like to increase by [65](amount) on his portfolio
+- put another [25](amount)
+- put another [£178.39](amount) on him
 
 ## intent:add_to_him_her
 - Invest more on him
@@ -329,46 +339,46 @@
 ## intent:should_i_withdraw_amount
 - should i withdraw
 - should i withdraw
-- should i withdraw [50](CARDINAL) from [aricka lewis](name)?
-- should I withdraw [124.54](CARDINAL) from [Ralph Axelsen](name)
+- should i withdraw [50](amount) from [aricka lewis](name)?
+- should I withdraw [£124.54](amount) from [Ralph Axelsen](name)
 - should i decrease
 - should I decrease [kanya](name)?
-- should i decrease [William Shore](name) by [5](CARDINAL)?
-- should I decrease [andrzej kraviec](name) by another [75](CARDINAL)
-- should I get [34.59](CARDINAL) from [masami nishimura](name)?
+- should i decrease [William Shore](name) by [5](amount)?
+- should I decrease [andrzej kraviec](name) by another [75](amount)
+- should I get [34.59](amount) from [masami nishimura](name)?
 - should i get money from [Alois](name)
 - would you get
 - would you withdraw
 - would you withdraw from [florianne paget](name)?
 - do you think I should withdraw more money from [Paulinho Simoes](name)
-- do you think I should decrease [Kanya Bunnag](name) by [159](CARDINAL)?
-- do I want to withdraw [5](CARDINAL) from [william](name)?
+- do you think I should decrease [Kanya Bunnag](name) by [159](amount)?
+- do I want to withdraw [5](amount) from [william](name)?
 - do I want to decrease [paulinho simoes](name)?
-- do you think withdrawing [315.00](CARDINAL) from [Alois Reiter](name) is a good idea?
+- do you think withdrawing [315.00](amount) from [Alois Reiter](name) is a good idea?
 - would you recommend getting from [andrzej](name)
 
 ## intent:withdraw_amount
-- withdraw [57.00](CARDINAL) from [andrzej kraviec](name)
-- withdraw [486](CARDINAL) from [Florianne](name)
-- get [100](CARDINAL) from [Nishimura](name)
-- get [63.34](CARDINAL) from [aricka lewis](name)
-- I want to withdraw [80](CARDINAL) from [alois](name)
-- I'd like to withdraw [283.58](CARDINAL) from [Paulinho Simoes](name)
-- remove [47.30](CARDINAL) from [benjamin](name)
-- decrease by [85](CARDINAL) [ralph](name)'s portfolio
-- remove [5](CARDINAL) from [Shore](name)'s portfolio
-- subtract [13.50](CARDINAL) from [Kanya Bunnag](name)'s portfolio
-- decrease [70](CARDINAL) [andrzej](name)
-- get [2.39](CARDINAL) from [Masami Nishimura](name)
-- withdraw another [59](CARDINAL) from [reiter](name)
-- I'd like to get [120](CARDINAL) from [William Shore](name)
-- I'd like to withdraw [98.00](CARDINAL) from [Benjamin Parker](name)
-- I want to withdraw [200](CARDINAL) from [aricka](name)
-- I want to remove another [25.32](CARDINAL) from [ralph axelsen](name)
-- I'd like to decrease by [160.50](CARDINAL) [Florianne Paget](name)'s portfolio
-- I'd like to remove [55](CARDINAL) from [Alois Reiter](name)
-- get another [25](CARDINAL) on [andrzej kraviec](name)
-- remove another [178.39](CARDINAL) on [Paget](name)
+- withdraw [57.00](amount) from [andrzej kraviec](name)
+- withdraw [486](amount) from [Florianne](name)
+- get [100](amount) from [Nishimura](name)
+- get [63.34](amount) from [aricka lewis](name)
+- I want to withdraw [80](amount) from [alois](name)
+- I'd like to withdraw [283.58](amount) from [Paulinho Simoes](name)
+- remove [£47.30](amount) from [benjamin](name)
+- decrease by [85](amount) [ralph](name)'s portfolio
+- remove [5](amount) from [Shore](name)'s portfolio
+- subtract [13.50](amount) from [Kanya Bunnag](name)'s portfolio
+- decrease [70](amount) [andrzej](name)
+- get [2.39](amount) from [Masami Nishimura](name)
+- withdraw another [59](amount) from [reiter](name)
+- I'd like to get [120](amount) from [William Shore](name)
+- I'd like to withdraw [£98.00](amount) from [Benjamin Parker](name)
+- I want to withdraw [200](amount) from [aricka](name)
+- I want to remove another [25.32](amount) from [ralph axelsen](name)
+- I'd like to decrease by [160.50](amount) [Florianne Paget](name)'s portfolio
+- I'd like to remove [55](amount) from [Alois Reiter](name)
+- get another [25](amount) on [andrzej kraviec](name)
+- remove another [£178.39](amount) on [Paget](name)
 
 ## intent:withdraw_from
 - withdraw from [andrzej kraviec](name)
@@ -394,31 +404,31 @@
 - remove more from [Paget](name)
 
 ## intent:withdraw_amount_from_him_her
-- withdraw [57.00](CARDINAL) from him
-- withdraw [486](CARDINAL) from her
-- withdraw [3](CARDINAL)
-- get [100](CARDINAL) from him
-- get [63.34](CARDINAL) from her
-- get [412.00](CARDINAL)
-- I want to withdraw [80](CARDINAL) from him
-- I'd like to withdraw [283.58](CARDINAL) from her
-- remove [47.30](CARDINAL) from him
-- decrease by [85](CARDINAL) her portfolio
-- remove [130](CARDINAL)
-- remove [5](CARDINAL) from his portfolio
-- subtract [13.50](CARDINAL) from her portfolio
-- subtract [100](CARDINAL)
-- decrease [17](CARDINAL)
-- get [2.39](CARDINAL) from her
-- withdraw another [59](CARDINAL) from him
-- I'd like to get [120](CARDINAL)
-- I'd like to withdraw [98.00](CARDINAL)
-- I want to withdraw [200](CARDINAL) from her
-- I want to remove another [25.32](CARDINAL) from him
-- I'd like to decrease by [160.50](CARDINAL) her portfolio
-- I'd like to remove [55](CARDINAL)
-- get another [25](CARDINAL)
-- remove another [178.39](CARDINAL)
+- withdraw [57.00](amount) from him
+- withdraw [486](amount) from her
+- withdraw [3](amount)
+- get [£100](amount) from him
+- get [63.34](amount) from her
+- get [£412.00](amount)
+- I want to withdraw [£80](amount) from him
+- I'd like to withdraw [283.58](amount) from her
+- remove [47.30](amount) from him
+- decrease by [85](amount) her portfolio
+- remove [£130](amount)
+- remove [5](amount) from his portfolio
+- subtract [£13.50](amount) from her portfolio
+- subtract [100](amount)
+- decrease [17](amount)
+- get [2.39](amount) from her
+- withdraw another [59](amount) from him
+- I'd like to get [£120](amount)
+- I'd like to withdraw [98.00](amount)
+- I want to withdraw [£200](amount) from her
+- I want to remove another [25.32](amount) from him
+- I'd like to decrease by [160.50](amount) her portfolio
+- I'd like to remove [£55](amount)
+- get another [£25](amount)
+- remove another [178.39](amount)
 
 ## intent:withdraw_from_him_her
 - Withdraw from him
@@ -558,21 +568,28 @@
 - I'd like to follow everyone
 
 ## intent:amount
-- [50](CARDINAL)
-- £[4.00](CARDINAL)
-- [100.03](CARDINAL)
-- £[10.00](CARDINAL)
-- [200](CARDINAL)
-- £[41.32](CARDINAL)
-- [2](CARDINAL)
-- £[73.94](CARDINAL)
-- [741.32](CARDINAL)
-- [34](CARDINAL)
-- £[916](CARDINAL)
-- [81.79](CARDINAL)
-- £[150.23](CARDINAL)
-- [409](CARDINAL)
-- £[24.94](CARDINAL)
+- [50](amount)
+- [£4.00](amount)
+- [100.03](amount)
+- [10.00](amount)
+- [200](amount)
+- [£41.32](amount)
+- [2](amount)
+- [£73.94](amount)
+- [741.32](amount)
+- [34](amount)
+- [£916](amount)
+- [81.79](amount)
+- [£150.23](amount)
+- [409](amount)
+- [£24.94](amount)
+- [£100](amount)
+- [£200](amount)
+- [£300](amount)
+- [£500](amount)
+- [250](amount)
+- [£180](amount)
+- [730](amount)
 
 ## lookup:name
 - Andrzej
@@ -630,5 +647,5 @@
 - shore
 - william shore
 
-## regex:CARDINAL
-- ^(\d{1,5}|\d{0,5}\.\d{1,2})$
+## regex:amount
+- ^£?(\d{1,5}|\d{0,5}\.\d{1,2})$
