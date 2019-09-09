@@ -317,7 +317,14 @@
 * withdraw_amount
   - action_reset_slots
   - action_fetch_portfolio
-  - slot{"portfolio_query":"followed","name":"Benjamin Parker","amount_query":"valid","amount":"20"}
+  - slot{"portfolio_query":"followed","name":"Benjamin Parker","amount_query":"valid","amount":"20.0"}
+  - action_withdraw_amount
+
+## withdraw_amount_successful
+* withdraw_amount
+  - action_reset_slots
+  - action_fetch_portfolio
+  - slot{"portfolio_query":"followed","name":"Alois Reiter","amount_query":"valid","amount":"100.0"}
   - action_withdraw_amount
 
 ## withdraw_amount_successful
