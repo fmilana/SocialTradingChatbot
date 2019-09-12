@@ -228,6 +228,8 @@ $(document).ready(function() {
                         success: function (response) {
                           console.log(response);
 
+                          ignoredBotMessage = false;
+
                           if (response['has_increased']) {
                             month++;
                             $('#month-number').html(month);

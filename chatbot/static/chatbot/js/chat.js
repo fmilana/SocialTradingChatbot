@@ -1,7 +1,8 @@
 // var socket = require('socket.io-client')('http://localhost:5500');
 
 var botMessageAppended = false;
-var lastBotMessage = '';
+var givePeriodicAdvice = true;
+var ignoredBotMessage = false;
 
 $(document).ready(function() {
 
@@ -11,7 +12,7 @@ $(document).ready(function() {
 		if (adviceCountdown > 0) {
 			adviceCountdown -= 1;
 		} else {
-			sendMessage("Give me some advice", true, false, false);
+			sendMessage("Give me some advice", true, ignoredBotMessage, false);
 			adviceCountdown = 45;
 		}
 	}, 1000);
@@ -50,8 +51,6 @@ $(document).ready(function() {
 			$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
 
 			$('#result_div_notification').scrollTop($('#result_div')[0].scrollHeight);
-
-			lastBotMessage = message;
 		}
 
 		adviceCountdown = 45;
@@ -62,20 +61,14 @@ $(document).ready(function() {
     data = data[0];
 		console.log(data);
 
-		// appendBotMessage(data, periodicAdvice);
-
 		$.ajax({
       type: "POST",
       url: server_url + '/storebotmessage/',
       data: {'text': data['text'], 'month': month},
       success: function () {
 
-				// dont repeat periodic advice
-				if (periodicAdvice && data['text']==lastBotMessage) {
-					$('#typing-gif').remove();
-				} else {
 					appendBotMessage(data, periodicAdvice);
-				}
+
       },
       error: function(response) {
         console.log(response);
@@ -157,88 +150,100 @@ $(document).ready(function() {
     }, 500);
   }
 
-	var sendMessage = function(message, periodicAdvice, fromNotification, fromButton) {
+	var sendMessage = function(message, periodicAdvice, secondPeriodicAdvice, fromNotification, fromButton) {
 		botMessageAppended = false;
 
-		console.log(message);
-		if (message) {
-			setTimeout(function(){
-	      //socket.emit('user_uttered', {'message': chatInput, 'sender': 'rasa'});
-				var post_url = server_url + '/chatbotproxy/';
-				var post_data = {'message': message, 'sender': username, 'periodic_advice': periodicAdvice, 'month': month, 'from_participant': true, 'from_notification': fromNotification, 'from_button': fromButton};
-				fetch(post_url, {
-					method: 'POST',
-					body: JSON.stringify(post_data),
-					credentials: 'include',
-					headers: {'Content-Type': 'application/json'}
-				}).then(res => res.json()).then(response => {
-					console.log('POST response:', response);
-					// window.location.replace(server_url + "/tasks/?order=" + next_task_order);
-					//window.location = server_url + "/tasks/?order=" + next_task_order;
-					process_response(response, periodicAdvice);
-				}).catch(error => {
-					console.log('POST error:', error);
-				});
-			}, 1000);
-
-			if (!periodicAdvice) {
-				$("#result_div").append("<p id='user-message'> " + message + "</p><br>");
-				$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
-				$("#chat-input").val('');
-
-				if ($("#result_div_notification").is(':visible')) {
-					$("#result_div_notification").append("<p id='user-message-notification'> " + message + "</p><br>");
-					$('#result_div_notification').scrollTop($('#result_div_notification')[0].scrollHeight);
-					$("#chat-input-notification").val('');
-				}
-			}
-			setTimeout(function(){
-				if (!botMessageAppended) {
-					$('#result_div').append('<img id="typing-gif" src="' + staticUrl + 'chatbot/images/typing.svg">')
-					console.log('appending gif........');
-					$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
-
-					$('#result_div_notification').append('<img id="typing-gif" src="' + staticUrl + 'chatbot/images/typing.svg">')
-					$('#result_div_notification').scrollTop($('#result_div_notification')[0].scrollHeight);
-				}
-			}, 500);
-
-      $('.suggestion-row').remove();
-			$('.suggestion-row-notification').remove();
-			$('#typing-gif').remove();
-
-      $('#result_div').css("height", "calc(100vh - 220px)");
-			$('#result_div_notification').css("height", "220px");
+		if (periodicAdvice) {
+			ignoredBotMessage = true;
+			console.log('ignoredBotMessage set to TRUE');
+		} else {
+			ignoredBotMessage = false;
+			console.log('ignoredBotMessage set to FALSE');
 		}
 
-		adviceCountdown = 45;
+		if (!secondPeriodicAdvice) {
+			console.log(message);
+			if (message) {
+				setTimeout(function(){
+		      //socket.emit('user_uttered', {'message': chatInput, 'sender': 'rasa'});
+					var post_url = server_url + '/chatbotproxy/';
+					var post_data = {'message': message, 'sender': username, 'periodic_advice': periodicAdvice, 'month': month, 'from_participant': true, 'from_notification': fromNotification, 'from_button': fromButton};
+					fetch(post_url, {
+						method: 'POST',
+						body: JSON.stringify(post_data),
+						credentials: 'include',
+						headers: {'Content-Type': 'application/json'}
+					}).then(res => res.json()).then(response => {
+						console.log('POST response:', response);
+						// window.location.replace(server_url + "/tasks/?order=" + next_task_order);
+						//window.location = server_url + "/tasks/?order=" + next_task_order;
+						process_response(response, periodicAdvice);
+					}).catch(error => {
+						console.log('POST error:', error);
+					});
+				}, 1000);
+
+				if (!periodicAdvice) {
+					$("#result_div").append("<p id='user-message'> " + message + "</p><br>");
+					$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
+					$("#chat-input").val('');
+
+					if ($("#result_div_notification").is(':visible')) {
+						$("#result_div_notification").append("<p id='user-message-notification'> " + message + "</p><br>");
+						$('#result_div_notification').scrollTop($('#result_div_notification')[0].scrollHeight);
+						$("#chat-input-notification").val('');
+					}
+				}
+				setTimeout(function(){
+					if (!botMessageAppended) {
+						$('#result_div').append('<img id="typing-gif" src="' + staticUrl + 'chatbot/images/typing.svg">')
+						console.log('appending gif........');
+						$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
+
+						$('#result_div_notification').append('<img id="typing-gif" src="' + staticUrl + 'chatbot/images/typing.svg">')
+						$('#result_div_notification').scrollTop($('#result_div_notification')[0].scrollHeight);
+					}
+				}, 500);
+
+	      $('.suggestion-row').remove();
+				$('.suggestion-row-notification').remove();
+				$('#typing-gif').remove();
+
+	      $('#result_div').css("height", "calc(100vh - 220px)");
+				$('#result_div_notification').css("height", "220px");
+			} else {
+				$('#typing-gif').remove();
+			}
+
+			adviceCountdown = 45;
+		}
 	};
 
   $(document).on("click", ".sugg-options", function(event) {
-    sendMessage($(event.target).text(), false, false, true);
+    sendMessage($(event.target).text(), false, false, false, true);
   });
 
 	$(document).on("click", ".sugg-options-notification", function(event) {
-    sendMessage($(event.target).text(), false, true, true);
+    sendMessage($(event.target).text(), false, false, true, true);
   });
 
   $("#send-button").click(function() {
-    sendMessage($("#chat-input").val(), false, false, false);
+    sendMessage($("#chat-input").val(), false, false, false, false);
   });
 
 	$("#send-button-notification").click(function() {
-    sendMessage($("#chat-input-notification").val(), false, true, false);
+    sendMessage($("#chat-input-notification").val(), false, false, true, false);
   });
 
 	$('#chat-input').keyup(function (e) {
     if (e.keyCode === 13) {
-			sendMessage($("#chat-input").val(), false, false, false);
+			sendMessage($("#chat-input").val(), false, false, false, false);
     }
 	});
 
 	$('#chat-input-notification').keyup(function (e) {
     if (e.keyCode === 13) {
-			sendMessage($("#chat-input-notification").val(), false, true, false);
+			sendMessage($("#chat-input-notification").val(), false, false, true, false);
     }
 	});
 
