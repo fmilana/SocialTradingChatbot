@@ -162,7 +162,7 @@ templates:
         payload: "Great!"
       - title: "Sad"
         payload: "Sad"
-  - text: ""
+  - text: "Hi! How are you today?"
     buttons:
       - title: "Great!"
         payload: "Great!"

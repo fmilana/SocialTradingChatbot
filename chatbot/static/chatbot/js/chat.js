@@ -51,6 +51,7 @@ $(document).ready(function() {
 			$('#result_div').scrollTop($('#result_div')[0].scrollHeight);
 
 			$('#result_div_notification').scrollTop($('#result_div')[0].scrollHeight);
+
 		}
 
 		adviceCountdown = 45;
@@ -59,47 +60,51 @@ $(document).ready(function() {
   	// event when bot utters message
 	function process_response(data, periodicAdvice) {
     data = data[0];
-		console.log(data);
 
-		$.ajax({
-      type: "POST",
-      url: server_url + '/storebotmessage/',
-      data: {'text': data['text'], 'month': month},
-      success: function () {
+		var responseDelay = data['text'].length * 35
+		if (responseDelay < 1200) {
+			responseDelay = 1200;
+		}
 
+		setTimeout(function() {
+			$.ajax({
+	      type: "POST",
+	      url: server_url + '/storebotmessage/',
+	      data: {'text': data['text'], 'month': month},
+	      success: function () {
 					appendBotMessage(data, periodicAdvice);
+	      },
+	      error: function(response) {
+	        console.log(response);
+	      }
+	    });
 
-      },
-      error: function(response) {
-        console.log(response);
-      }
-    });
-
-		$("#portfolios").load(location.href+" #portfolios>*","", function() {
-			if ($('#followed-portfolio-wrapper').length) {
-				$('#empty-followed-tag').hide();
-			} else {
-				$('#empty-followed-tag').show();
-			}
-
-			if ($('#not-followed-portfolio-wrapper').length) {
-				$('#empty-not-followed-tag').hide();
-			} else {
-				$('#empty-not-followed-tag').show();
-			}
-		});
-
-		$.ajax({
-				type: "GET",
-				url: server_url + '/updatebalances/',
-				success: function (response) {
-						console.log(response);
-
-						$('#available-balance-amount').html(response.available_balance_amount);
-						$('#invested-balance-amount').html(response.invested_balance_amount);
-
+			$("#portfolios").load(location.href+" #portfolios>*","", function() {
+				if ($('#followed-portfolio-wrapper').length) {
+					$('#empty-followed-tag').hide();
+				} else {
+					$('#empty-followed-tag').show();
 				}
-		});
+
+				if ($('#not-followed-portfolio-wrapper').length) {
+					$('#empty-not-followed-tag').hide();
+				} else {
+					$('#empty-not-followed-tag').show();
+				}
+			});
+
+			$.ajax({
+					type: "GET",
+					url: server_url + '/updatebalances/',
+					success: function (response) {
+							console.log(response);
+
+							$('#available-balance-amount').html(response.available_balance_amount);
+							$('#invested-balance-amount').html(response.invested_balance_amount);
+
+					}
+			});
+		}, responseDelay);
 
 		adviceCountdown = 45;
 	}
@@ -155,33 +160,30 @@ $(document).ready(function() {
 
 		if (periodicAdvice) {
 			ignoredBotMessage = true;
-			console.log('ignoredBotMessage set to TRUE');
 		} else {
 			ignoredBotMessage = false;
-			console.log('ignoredBotMessage set to FALSE');
 		}
 
 		if (!secondPeriodicAdvice) {
 			console.log(message);
 			if (message) {
-				setTimeout(function(){
-		      //socket.emit('user_uttered', {'message': chatInput, 'sender': 'rasa'});
-					var post_url = server_url + '/chatbotproxy/';
-					var post_data = {'message': message, 'sender': username, 'periodic_advice': periodicAdvice, 'month': month, 'from_participant': true, 'from_notification': fromNotification, 'from_button': fromButton};
-					fetch(post_url, {
-						method: 'POST',
-						body: JSON.stringify(post_data),
-						credentials: 'include',
-						headers: {'Content-Type': 'application/json'}
-					}).then(res => res.json()).then(response => {
-						console.log('POST response:', response);
-						// window.location.replace(server_url + "/tasks/?order=" + next_task_order);
-						//window.location = server_url + "/tasks/?order=" + next_task_order;
-						process_response(response, periodicAdvice);
-					}).catch(error => {
-						console.log('POST error:', error);
-					});
-				}, 1000);
+				// setTimeout(function(){
+				var post_url = server_url + '/chatbotproxy/';
+				var post_data = {'message': message, 'sender': username, 'periodic_advice': periodicAdvice, 'month': month, 'from_participant': true, 'from_notification': fromNotification, 'from_button': fromButton};
+				fetch(post_url, {
+					method: 'POST',
+					body: JSON.stringify(post_data),
+					credentials: 'include',
+					headers: {'Content-Type': 'application/json'}
+				}).then(res => res.json()).then(response => {
+					console.log('POST response:', response);
+					// window.location.replace(server_url + "/tasks/?order=" + next_task_order);
+					//window.location = server_url + "/tasks/?order=" + next_task_order;
+					process_response(response, periodicAdvice);
+				}).catch(error => {
+					console.log('POST error:', error);
+				});
+				// }, 1000);
 
 				if (!periodicAdvice) {
 					$("#result_div").append("<p id='user-message'> " + message + "</p><br>");

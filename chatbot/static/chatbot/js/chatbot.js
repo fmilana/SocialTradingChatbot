@@ -72,30 +72,30 @@ $(document).ready(function() {
 
   		setTimeout(function(){
   			$('#result_div').append('<img id="typing-gif" src="' + staticUrl + 'chatbot/images/typing.svg">');
-  		}, 500);
+  		}, 1200);
 
   		setTimeout(function() {
   			$('#result_div #typing-gif').remove();
   			$('#result_div').append("<p id='bot-message'>Hi there!</p><br>");
-  		}, 1500);
+  		}, 2200);
 
   		setTimeout(function() {
   			$('#result_div').append('<img id="typing-gif" src="' + staticUrl + 'chatbot/images/typing.svg">');
-  		}, 2000);
+  		}, 2700);
 
   		setTimeout(function() {
   			$('#result_div #typing-gif').remove();
   			$('#result_div').append("<p id='bot-message'>You can tell me to follow or unfollow portfolios, add or withdraw amounts and ask me things like: \"Should I invest 50 in ralph?\", \"Who should I unfollow?\", \"Invest another 100 on Aricka\" or \"withdraw from alois\".</p><br>");
-  		}, 4000);
+  		}, 8700);
 
       setTimeout(function() {
   			$('#result_div').append('<img id="typing-gif" src="' + staticUrl + 'chatbot/images/typing.svg">');
-  		}, 4500);
+  		}, 9200);
 
       setTimeout(function() {
   			$('#result_div #typing-gif').remove();
   			$('#result_div').append("<p id='bot-message'>Remember, you can switch to Image Tagging by clicking the \"Task\" button in the top right corner.</p><br>");
-  		}, 6500);
+  		}, 12200);
 
   		if (conditionActive) {
   			setTimeout(function () {
