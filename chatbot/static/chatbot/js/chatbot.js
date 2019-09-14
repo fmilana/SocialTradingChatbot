@@ -86,16 +86,16 @@ $(document).ready(function() {
   		setTimeout(function() {
   			$('#result_div #typing-gif').remove();
   			$('#result_div').append("<p id='bot-message'>You can tell me to follow or unfollow portfolios, add or withdraw amounts and ask me things like: \"Should I invest 50 in ralph?\", \"Who should I unfollow?\", \"Invest another 100 on Aricka\" or \"withdraw from alois\".</p><br>");
-  		}, 8700);
+  		}, 7700);
 
       setTimeout(function() {
   			$('#result_div').append('<img id="typing-gif" src="' + staticUrl + 'chatbot/images/typing.svg">');
-  		}, 9200);
+  		}, 8200);
 
       setTimeout(function() {
   			$('#result_div #typing-gif').remove();
   			$('#result_div').append("<p id='bot-message'>Remember, you can switch to Image Tagging by clicking the \"Task\" button in the top right corner.</p><br>");
-  		}, 12200);
+  		}, 11200);
 
   		if (conditionActive) {
   			setTimeout(function () {

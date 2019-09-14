@@ -61,7 +61,7 @@ $(document).ready(function() {
 	function process_response(data, periodicAdvice) {
     data = data[0];
 
-		var responseDelay = data['text'].length * 35
+		var responseDelay = data['text'].length * 45
 		if (responseDelay < 1200) {
 			responseDelay = 1200;
 		}
