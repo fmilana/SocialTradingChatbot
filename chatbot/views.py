@@ -360,11 +360,12 @@ def questionnaire_view(request):
     if request.method == 'GET':
         questionnaire = '''[
     {'label': '<hr><h5>Please answer the following questions <u>based on your overall experience</u> completing the study</h5><hr>'},
-    {'question': '1. From 1 to 5, how much did you trust the <strong>Assistant</strong> by the end of the study?', choices: ['1', '2', '3', '4', '5']},
-    {'question': '2. From 1 to 5, how much did you trust the <strong>Newsfeed</strong> by the end of the study?', choices: ['1', '2', '3', '4', '5']},
-    {'question': '3. From 1 to 5, how often did the <strong>Assistant</strong> understand what you said?', choices: ['1', '2', '3', '4', '5']},
-    {'question': '4. What would have made you trust the <strong>Assistant</strong> more?'},
-    {'question': '5. Please leave your comments about your experience interacting with the <strong>Assistant</strong>.'},
+    {'question': '1. From 1 to 5 (where 1 is the least and 5 is the most), how much did you trust the <strong>Assistant</strong> by the end of the study?', choices: ['1', '2', '3', '4', '5']},
+    {'question': '2. From 1 to 5 (where 1 is the least and 5 is the most), how much did you trust the <strong>Newsfeed</strong> by the end of the study?', choices: ['1', '2', '3', '4', '5']},
+    {'question': '3. From 1 to 5 (where 1 is the least and 5 is the most), how often did the <strong>Assistant</strong> understand what you said?', choices: ['1', '2', '3', '4', '5']},
+    {'question': '4. From 1 to 5 (where 1 is the least and 5 is the most), how "human" did the <strong>Assistant</strong> feel?', choices: ['1', '2', '3', '4', '5']},
+    {'question': '5. What would have made you trust the <strong>Assistant</strong> more?'},
+    {'question': '6. Please leave your comments about your experience interacting with the <strong>Assistant</strong>.'},
     {'question': '<hr>Please leave your comments about the overall experience about this study, or your suggestions for improvement.'}
         ]
         '''
