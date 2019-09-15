@@ -69,6 +69,7 @@ for index, row in df.iterrows():
     #current['task'] = task_label
     current['user__participant__condition_active'] = row['user__participant__condition_active']
     current['participant'] = row['user']
+    current['created_at'] = row['created_at']
 
     print(current.head())
     all_dataframes.append(current)
