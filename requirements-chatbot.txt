@@ -49,7 +49,7 @@ fabric==2.2.2
 fakeredis==1.0.3
 fbmessenger==6.0.0
 Flask==1.0.3
-Flask-Cors==3.0.8
+Flask-Cors==3.0.9
 Flask-JWT-Simple==0.0.3
 future==0.17.1
 futures==3.1.1
