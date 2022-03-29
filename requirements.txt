@@ -74,7 +74,7 @@ numpy==1.16.4
 odfpy==1.4.0
 openpyxl==2.6.2
 packaging==19.0
-paramiko==2.6.0
+paramiko==2.10.1
 patchwork==1.0.1
 pika==1.0.1
 Pillow==6.1.0
