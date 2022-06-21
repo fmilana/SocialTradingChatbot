@@ -70,7 +70,7 @@ mock==3.0.5
 multidict==4.5.2
 murmurhash==1.0.2
 networkx==2.3
-numpy==1.16.4
+numpy==1.22.0
 odfpy==1.4.0
 openpyxl==2.6.2
 packaging==19.0
