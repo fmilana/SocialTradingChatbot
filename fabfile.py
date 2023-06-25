@@ -95,8 +95,11 @@ def restart_gunicorn(c):
 def restart_rasa(c):
     #c.sudo('systemctl daemon-reload')
     #c.sudo('systemctl restart gunicorn-' + env['project_remote'])
+    with c.cd('/srv/django-projects/' + env['project_remote'] + '/rasachat'):
+        virtualenv(c, 'rasa train')
     c.sudo('systemctl restart rasa-actions-%(project_remote)s.service' % env)
     c.sudo('systemctl restart rasa-%(project_remote)s.service' % env)
+
 
 @task
 def pull_data(c):
